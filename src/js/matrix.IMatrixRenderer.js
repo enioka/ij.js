@@ -5,7 +5,7 @@ enioka.matrix = (
         /**
          * @class
          * @memberof enioka.matrix
-         * @classdesc will handle HTML rendering with two modules, HTMLRenderer and
+         * @classdesc will handle rendering with two modules, HTMLRenderer and
          * HTMLEventHandler. It generates an HTML table with an HTMLTemplate to design
          * classes, attributes, and style for each important parts of the table.
          * @param {object} properties
@@ -16,14 +16,13 @@ enioka.matrix = (
              * @function
              */
             initialize : function() {
-                this.HTMLRenderer = new eniokamatrix.HTMLRenderer();
-                this.HTMLEventHandler = new eniokamatrix.HTMLEventHandler();
-                this.HTMLTemplate = new eniokamatrix.HTMLTemplate();
+                this.Renderer = new eniokamatrix.HTMLRenderer();
+                this.Template = new eniokamatrix.HTMLTemplate();
             },
             /**
              * @function
              * @description Create the html table
-             * @param classes you want to append to your table
+             * @param {Array} classes - you want to append to your table
              * @return html table that has been created
              */
             renderTable : function(classes){
@@ -34,49 +33,57 @@ enioka.matrix = (
 
             /**
              * @function
+             * @description Render row and get back its fathers. By default no father is given
+             * @return {Array} Contains hierarchical structure for the row headers, with
+             * following attributes : <br/> - id<br/> - label<br/> - order<br/> - rendering <br/>
              */
-            renderRow : function(label, level, columnCount){
+            renderRow : function(object){
                 var row;
                 for (var i = 0; i < level; i++){
-                    row
+
                 }
                 return this.HTMLRenderer.createElementWithText("td",label);
             },
 
             /**
              * @function
-             * @description Inserts paths in intersection, type of cell has to be specified by
-             * CellData Object
-             * @param {enioka.matrix.Core.DataHeader} cell DataCell object
-             * @return html table that has been created
-             */
-            renderCells : function(cells){
-            },
-
-            /**
-             * @function
-             * @description Create HTML columns from an array
-             * @param columns as an array containing DataHeader objects
-             * @return table created
-             */
-            renderRows : function(rows){
-            },
-
-            /**
-             * @function
-             * @description Create HTML columns from an array
-             * @param columns as an array containing DataHeader objects
-             * @return table created
+             * @description Render columns with pre-rendered column array by @renderColummn
+             * @param {Array} columns - Contains columns as DataHeaders
+             * @return {HTMLElement} Contains the rendering of columns
              */
             renderColumns : function(columns){
             },
 
             /**
              * @function
-             * @description Create HTML column level from an array
-             * @return table created
+             * @description Render columns with pre-rendered rows array by @renderColummn
+             * @param {Array} rows - Contains rows as DataHeaders
+             * @return {HTMLElement} Contains the rendering for rows & data
              */
-            renderColumnLevel : function(columns){
+            renderRows : function(rows){
+            },
+
+            /**
+             * @function
+             * @description Render cells
+             * @param {Object} cell - Cells we want to render
+             */
+            renderCells : function(cells){
+                for (var cellRow in cells){
+
+                }
+            },
+
+            /**
+             * @function
+             * @description Render row and get back its fathers. By default no father is given
+             * @return {Array} Contains hierarchical structure for the column headers, with following attributes :
+             *  - id
+             *  - label
+             *  - order
+             *  - rendering
+             */
+            renderColumn : function(object){
             },
 
             /**
@@ -85,14 +92,6 @@ enioka.matrix = (
              * @return table created
              */
             renderColumnContainer : function(){
-            },
-
-            /**
-             * @function
-             * @description Get fathers to help build array returned
-             * @return {array} contains all fathers, hierarchically like [great grandfather, grandfather, father]
-             */
-            getFather : function(object){
             }
         };
         //Instanciate the IMatrixRenderer Class into an object

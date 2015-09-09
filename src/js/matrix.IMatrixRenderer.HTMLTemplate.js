@@ -10,12 +10,7 @@ enioka.matrix = (
          * <br/>
          */
         var HTMLTemplate = {
-            initialize : function(properties) {
-                this.template = {};
-                if (properties)
-                for (var prop in propreties){
-                    this[prop] = properties[prop];
-                }
+            initialize : function() {
             },
 
             /**
@@ -48,6 +43,10 @@ enioka.matrix = (
             }
         };
         //Instanciate the HTMLTemplate Class into an object
-HTMLTemplate = Class.create(HTMLTemplate);
-}(enioka.matrix || {})
+        HTMLTemplate = Class.create(HTMLTemplate);
+
+        eniokamatrix.HTMLTemplate = HTMLTemplate;
+
+        return eniokamatrix;
+    }(enioka.matrix || {})
 );

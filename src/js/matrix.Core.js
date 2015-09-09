@@ -32,7 +32,8 @@ enioka.matrix = (
             initialize : function(properties){
                 if (!properties){
                     this.setController(new eniokamatrix.IController());
-                    this.setCache(new eniokamatrix.Cache());
+                    this.setRenderer(new eniokamatrix.IMatrixRenderer());
+                    this.setDataProvider(new eniokamatrix.IDataProvider());
                     return;
                 } else {
                     for (var prop in properties){
@@ -75,7 +76,10 @@ enioka.matrix = (
              * @return this object itself to allow chaining methods.
              */
             setWorkspace : function(workspace){
-                this.workspace = workspace;
+                if (workspace)
+                    this.workspace = workspace;
+                else
+                    workspace = document.body;
                 return this;
             },
 
@@ -118,19 +122,6 @@ enioka.matrix = (
 
             /**
              * @function
-             * @param cache implemented to getData
-             * @return controller implemented.
-             */
-            setCache : function(cache){
-                if (cache)
-                    this.cache = cache;
-                else
-                    this.controller = new eniokamatrix.Cache();
-                return this.cache;
-            },
-
-            /**
-             * @function
              * @param renderer data provider object that should contain generics methods
              * to render objects.
              * @return renderer implemented.
@@ -147,7 +138,7 @@ enioka.matrix = (
              * @function
              * @description Check for dependencies :
              * DataProvider, Controller or Renderer
-             * @return true or false if dependencies are wheter or not set
+             * @return {boolean} true or false if dependencies are wheter or not set
              */
             _checkDependencies : function() {
                 console.log("Something is missing : ");
@@ -156,7 +147,6 @@ enioka.matrix = (
                 console.log("Checking DataProvider : ", this.renderer);
                 console.log("Checking Workspace : ", this.workspace);
                 console.log("Checking DataHandler : ", this.dataHandler);
-                console.log("Checking Cache : ", this.Cache);
                 if (!this.renderer ||
                     !this.dataProvider ||
                     !this.dataHandler ||
@@ -201,9 +191,13 @@ enioka.matrix = (
              */
             displayColumns : function(){
                 var columns = this.getColumns();
-                for (var column in columns){
-                    this._displayColumn(column);
-                }
+                if (columns){
+                    for (var column in columns){
+                        this._displayColumn(column);
+                    }
+                    return 1;
+                } else
+                    return 0;
             },
 
             /**
@@ -211,9 +205,14 @@ enioka.matrix = (
              * @description Display rows
              */
             displayRows : function(){
-                this.getWorkspace().appendChild(
-                    this.renderer.renderRows(this.getRows())
-                );
+                var rows = this.getRows();
+                if (rows) {
+                    for (var row in rows){
+                        this.renderer.renderRows(this.getRows());
+                    }
+                    return 1;
+                } else
+                    return 0;
             },
 
             /**
@@ -221,7 +220,13 @@ enioka.matrix = (
              * @description Fill cells with a value
              */
             displayCells : function(){
-                this.renderer.renderCells(this.getData());
+                var cells = this.getCells();
+                if (cells) {
+                    this.renderer.renderCells(this.getData());
+                    return 1;
+                }
+                else
+                    return 0;
             },
 
             /**
@@ -229,15 +234,14 @@ enioka.matrix = (
              * @description Display gather all other display and print it
              */
             display : function(){
-                this.displayRows();
                 this.displayColumns();
+                this.displayRows();
                 this.displayCells();
             },
 
             /**
              * @function
              * @description Update matrix & headers. This does a full update, and recollect data
-             * through the data provider callbacks
              */
             update : function(){
             },
@@ -256,11 +260,134 @@ enioka.matrix = (
              * @return true if exported, false if no
              */
             exportMatrix : function(){
+            },
+
+
+            //////////////
+            /// EVENTS ///
+            //////////////
+
+            /**
+             * @function
+             * @description fire event on resize of the matrix
+             */
+            onResize : function(){
+            },
+
+            /**
+             * @function
+             * @description fire event before click on matrix cell
+             * @return {boolean} true for onCellClick event, false if no
+             */
+            beforeCellClick : function(){
+            },
+
+            /**
+             * @function
+             * @description
+             * @return
+             */
+            onCellClick : function(){
+            },
+
+            /**
+             * @function
+             * @description
+             * @return
+             */
+            onCellRightClick : function(){
+            },
+
+            /**
+             * @function
+             * @description
+             * @return
+             */
+            onCellDoubleClick : function(){
+            },
+
+            /**
+             * @function
+             * @description
+             * @return
+             */
+            onHeaderClick : function(){
+            },
+
+            /**
+             * @function
+             * @description
+             * @return
+             */
+            onHeaderRightClick : function(){
+            },
+
+            /**
+             * @function
+             * @description
+             * @return
+             */
+            onHeaderDoubleClick : function(){
+            },
+
+            ///////////////
+            /// FILTERS ///
+            ///////////////
+
+            /**
+             * @function
+             * @description filter graphically on rows
+             * @param {string} filter query
+             */
+            graphicalRowFilter : function(filter){
+            },
+
+            /**
+             * @function
+             * @description filter through the data provider
+             * @param {string} filter query
+             */
+            dataRowFilter : function(filter){
+            },
+
+            /**
+             * @function
+             * @description filter graphically on columns
+             * @param {string} filter query
+             */
+            graphicalColumnFilter : function(filter){
+            },
+
+            /**
+             * @function
+             * @description filter thourgh the data provider
+             * @param {string} filter query
+             */
+            dataColumnFilter : function(filter){
+            },
+
+            /**
+             * @function
+             * @description filter graphically on data cells
+             * @param {string} filter query
+             */
+            graphicalCellFilter : function(filter){
+            },
+
+            /**
+             * @function
+             * @description filter through the data provider
+             * @param {string} filter query
+             */
+            dataCellFilter : function(filter){
             }
         };
         Core = Class.create(Core);
 
         eniokamatrix.Core = Core;
+
+        // And the capability to extend these predefined classes
+        eniokamatrix.extend = Class.extend;
 
         return eniokamatrix;
     }(enioka.matrix || {})

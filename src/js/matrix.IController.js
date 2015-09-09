@@ -6,25 +6,12 @@ enioka.matrix = (
         /**
          * @class
          * @memberof enioka.matrix
-         * @classdesc Handle any interactions with external by a list of predefined API
-         * like init, create, update, etc.
+         * @classdesc Handle any interactions with external component by a list of predefined API
+         * like create, update, etc.
          * <br/>
          */
         var IController = {
             initialize : function(properties) {
-            },
-
-            /**
-             * @function
-             * @description init the matrix and set the Core and the DataProvider
-             * @param column contain column object
-             * @return html table header containing object name
-             */
-            init : function(){
-                this.core = new eniokamatrix.Core({
-                    "controller" : this
-                });
-                return this.core;
             },
 
             /**
@@ -62,20 +49,34 @@ enioka.matrix = (
 
             /**
              * @function
-             * @param dataProvider
-             * @return this object to allow chaining methods
+             * @description handle on click event on DOM elements
+             * @param object
              */
-            setCoreDataProvider : function(dataProvider){
-                return this.core.setDataProvider(dataProvider);
+            beforeHeaderClick : function(object){
             },
+
+            //////////////
+            /// EVENTS ///
+            //////////////
 
             /**
              * @function
-             * @param renderer
-             * @return this object to allow chaining methods
+             * @description handle hover on DOM elements
+             * @param object {object}
              */
-            setCoreMatrixRenderer : function(renderer){
-                return this.core.setRenderer(renderer);
+            headerClick : function(object){
+            },
+
+            afterHeaderClick : function(object){
+            },
+
+            beforeCellClick : function(object){
+            },
+
+            cellClick : function(object){
+            },
+
+            afterCellClick : function(object){
             }
         };
         IController = Class.create(IController);

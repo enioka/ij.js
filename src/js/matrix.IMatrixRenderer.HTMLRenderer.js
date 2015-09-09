@@ -58,5 +58,7 @@ enioka.matrix = (
 
         //Load subclasses for MatrixRenderer
         eniokamatrix.HTMLRenderer = HTMLRenderer;
+
+        return eniokamatrix;
     }(enioka.matrix || {})
 );
