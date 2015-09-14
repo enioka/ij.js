@@ -1,10 +1,10 @@
 var enioka = (enioka || {});
 
-enioka.matrix = (
-    function (eniokamatrix) {
+enioka.ij = (
+    function (eniokaij) {
         /**
          * @class
-         * @memberof enioka.matrix
+         * @memberof enioka.ij
          * @classdesc DataHeader will be used to store headers for rows and columns after
          * being retrieved by the DataProvider module and instanciated by the Core.
          */
@@ -34,8 +34,8 @@ enioka.matrix = (
         DataHeader = Class.create(DataHeader);
 
         //set the DataHeader available to the user
-        eniokamatrix.DataHeader = DataHeader;
+        eniokaij.DataHeader = DataHeader;
 
-        return eniokamatrix;
-    }(enioka.matrix || {})
+        return eniokaij;
+    }(enioka.ij || {})
 );

@@ -1,10 +1,10 @@
 var enioka = (enioka || {});
 
-enioka.matrix = (
-    function (eniokamatrix) {
+enioka.ij = (
+    function (eniokaij) {
         /**
          * @class
-         * @memberof enioka.matrix
+         * @memberof enioka.ij
          * @classdesc state object containing everything related to graphical
          * interpretation
          */
@@ -16,8 +16,8 @@ enioka.matrix = (
         State = Class.create(State);
 
         //set the State available to the user
-        eniokamatrix.State = State;
+        eniokaij.State = State;
 
-        return eniokamatrix;
-    }(enioka.matrix || {})
+        return eniokaij;
+    }(enioka.ij || {})
 );

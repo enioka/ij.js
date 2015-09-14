@@ -1,10 +1,10 @@
 var enioka = (enioka || {});
 
-enioka.matrix = (
-    function (eniokamatrix) {
+enioka.ij = (
+    function (eniokaij) {
         /**
          * @class
-         * @memberof enioka.matrix.IDataProvider
+         * @memberof enioka.ij.IDataProvider
          * @classdesc Will handle aggregation for rows, columns & cells. This is data part
          */
         var Aggregator = {
@@ -21,9 +21,9 @@ enioka.matrix = (
         //Instanciate the IMatrixRenderer Class into an object
         Aggregator = Class.create(Aggregator);
 
-        eniokamatrix.Aggregator = Aggregator;
+        eniokaij.Aggregator = Aggregator;
 
 
-        return eniokamatrix;
-    }(enioka.matrix || {})
+        return eniokaij;
+    }(enioka.ij || {})
 );

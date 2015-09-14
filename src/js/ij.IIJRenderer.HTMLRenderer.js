@@ -1,10 +1,10 @@
 var enioka = (enioka || {});
 
-enioka.matrix = (
-    function (eniokamatrix) {
+enioka.ij = (
+    function (eniokaij) {
             /**
              * @class
-             * @memberof enioka.matrix.IMatrixRenderer
+             * @memberof enioka.ij.IIJRenderer
              * @classdesc Will generate html with predefined functions
              */
         var HTMLRenderer = {
@@ -57,8 +57,8 @@ enioka.matrix = (
         HTMLRenderer = Class.create(HTMLRenderer);
 
         //Load subclasses for MatrixRenderer
-        eniokamatrix.HTMLRenderer = HTMLRenderer;
+        eniokaij.HTMLRenderer = HTMLRenderer;
 
-        return eniokamatrix;
-    }(enioka.matrix || {})
+        return eniokaij;
+    }(enioka.ij || {})
 );

@@ -1,10 +1,10 @@
 var enioka = (enioka || {});
 
-enioka.matrix = (
-    function (eniokamatrix) {
+enioka.ij = (
+    function (eniokaij) {
         /**
          * @class
-         * @memberof enioka.matrix.IMatrixRenderer
+         * @memberof enioka.ij.IMatrixRenderer
          * @classdesc HTMLTemplate module is part of HTMLRenderer to allow customisation
          * to the user, add classes to cells, table, headers, etc.
          * <br/>
@@ -45,8 +45,8 @@ enioka.matrix = (
         //Instanciate the HTMLTemplate Class into an object
         HTMLTemplate = Class.create(HTMLTemplate);
 
-        eniokamatrix.HTMLTemplate = HTMLTemplate;
+        eniokaij.HTMLTemplate = HTMLTemplate;
 
-        return eniokamatrix;
-    }(enioka.matrix || {})
+        return eniokaij;
+    }(enioka.ij || {})
 );

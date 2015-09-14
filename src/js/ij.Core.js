@@ -5,15 +5,15 @@ var enioka = (enioka || {});
  */
 
 /**
- * @namespace matrix
+ * @namespace ij
  * @memberof enioka
  */
 
-enioka.matrix = (
-    function (eniokamatrix) {
+enioka.ij = (
+    function (eniokaij) {
         /**
          * @class
-         * @memberof enioka.matrix
+         * @memberof enioka.ij
          * @classdesc Core module for the matrix library. This is the central node for all
          * components. This is from this component that the matrix is displayed. It will
          * ensure good working with each dependency. It holds, dataprovider, html renderer,
@@ -31,9 +31,9 @@ enioka.matrix = (
         var Core = {
             initialize : function(properties){
                 if (!properties){
-                    this.setController(new eniokamatrix.IController());
-                    this.setRenderer(new eniokamatrix.IMatrixRenderer());
-                    this.setDataProvider(new eniokamatrix.IDataProvider());
+                    this.setController(new eniokaij.IIJController());
+                    this.setRenderer(new eniokaij.IIJRenderer());
+                    this.setDataProvider(new eniokaij.IIJDataProvider());
                     return;
                 } else {
                     for (var prop in properties){
@@ -43,27 +43,27 @@ enioka.matrix = (
             },
 
             /**
-             * @memberof enioka.matrix.Core
+             * @memberof enioka.ij.Core
              * @member {interface} dataProvider
              */
             dataProvider : null,
             /**
-             * @memberof enioka.matrix.Core
+             * @memberof enioka.ij.Core
              * @member {interface} controller
              */
             controller : null,
             /**
-             * @memberof enioka.matrix.Core
+             * @memberof enioka.ij.Core
              * @member {object} controller
              */
             renderer : null,
             /**
-             * @memberof enioka.matrix.Core
+             * @memberof enioka.ij.Core
              * @member {object} cache
              */
             cache : null,
             /**
-             * @memberof enioka.matrix.Core
+             * @memberof enioka.ij.Core
              * @member {HTMLElement} workspace meant to be an [HTMLElement]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement}
              */
             workspace : null,
@@ -102,7 +102,7 @@ enioka.matrix = (
                 if (dataProvider)
                     this.dataProvider = dataProvider;
                 else
-                    this.dataProvider = new eniokamatrix.IDataProvider(this);
+                    this.dataProvider = new eniokaij.IIJDataProvider(this);
                 return this.dataProvider;
             },
 
@@ -116,7 +116,7 @@ enioka.matrix = (
                 if (controller)
                     this.controller = controller;
                 else
-                    this.controller = new eniokamatrix.IController(this);
+                    this.controller = new eniokaij.IIJController(this);
                 return this.controller;
             },
 
@@ -130,7 +130,7 @@ enioka.matrix = (
                 if (renderer)
                     this.renderer = renderer;
                 else
-                    this.renderer = new eniokamatrix.IMatrixRenderer(this);
+                    this.renderer = new eniokaij.IIJRenderer(this);
                 return this;
             },
 
@@ -156,33 +156,6 @@ enioka.matrix = (
                 } else {
                     return true;
                 }
-            },
-
-            /**
-             * @function
-             * @description get the columns through DataProvider interface and instanciate them
-             * as DataHeader objects
-             */
-            getColumns : function(){
-                return this.dataProvider.getColumns();
-            },
-
-            /**
-             * @function
-             * @description get the rows through DataProvider interface and instanciate them a
-             * DataHeader objects
-             */
-            getRows : function(){
-                return this.dataProvider.getRows();
-            },
-
-            /**
-             * @function
-             * @description get the cells through DataProvider interface and instanciate them as
-             * DataCell objects
-             */
-            getData : function(){
-                return this.dataProvider.getData();
             },
 
             /**
@@ -224,8 +197,7 @@ enioka.matrix = (
                 if (cells) {
                     this.renderer.renderCells(this.getData());
                     return 1;
-                }
-                else
+                } else
                     return 0;
             },
 
@@ -384,11 +356,11 @@ enioka.matrix = (
         };
         Core = Class.create(Core);
 
-        eniokamatrix.Core = Core;
+        eniokaij.Core = Core;
 
         // And the capability to extend these predefined classes
-        eniokamatrix.extend = Class.extend;
+        eniokaij.extend = Class.extend;
 
-        return eniokamatrix;
-    }(enioka.matrix || {})
+        return eniokaij;
+    }(enioka.ij || {})
 );

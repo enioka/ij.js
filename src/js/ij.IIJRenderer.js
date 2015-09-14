@@ -1,23 +1,23 @@
 var enioka = (enioka || {});
 
-enioka.matrix = (
-    function (eniokamatrix) {
+enioka.ij = (
+    function (eniokaij) {
         /**
          * @class
-         * @memberof enioka.matrix
+         * @memberof enioka.ij
          * @classdesc will handle rendering with two modules, HTMLRenderer and
          * HTMLEventHandler. It generates an HTML table with an HTMLTemplate to design
          * classes, attributes, and style for each important parts of the table.
          * @param {object} properties
          */
-        var IMatrixRenderer = {
+        var IIJRenderer = {
 
             /**
              * @function
              */
             initialize : function() {
-                this.Renderer = new eniokamatrix.HTMLRenderer();
-                this.Template = new eniokamatrix.HTMLTemplate();
+                this.Renderer = new eniokaij.HTMLRenderer();
+                this.Template = new eniokaij.HTMLTemplate();
             },
             /**
              * @function
@@ -69,9 +69,6 @@ enioka.matrix = (
              * @param {Object} cell - Cells we want to render
              */
             renderCells : function(cells){
-                for (var cellRow in cells){
-
-                }
             },
 
             /**
@@ -95,11 +92,11 @@ enioka.matrix = (
             }
         };
         //Instanciate the IMatrixRenderer Class into an object
-        IMatrixRenderer = Class.create(IMatrixRenderer);
+        IIJRenderer = Class.create(IIJRenderer);
 
-        eniokamatrix.IMatrixRenderer = IMatrixRenderer;
+        eniokaij.IIJRenderer = IIJRenderer;
 
 
-        return eniokamatrix;
-    }(enioka.matrix || {})
+        return eniokaij;
+    }(enioka.ij || {})
 );

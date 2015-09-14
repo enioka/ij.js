@@ -1,16 +1,16 @@
 var enioka = (enioka || {});
 
-enioka.matrix = (
-    function(eniokamatrix){
+enioka.ij = (
+    function(eniokaij){
 
         /**
          * @class
-         * @memberof enioka.matrix
+         * @memberof enioka.ij
          * @classdesc Handle any interactions with external component by a list of predefined API
          * like create, update, etc.
          * <br/>
          */
-        var IController = {
+        var IIJController = {
             initialize : function(properties) {
             },
 
@@ -79,16 +79,16 @@ enioka.matrix = (
             afterCellClick : function(object){
             }
         };
-        IController = Class.create(IController);
+        IIJController = Class.create(IIJController);
 
 
-        eniokamatrix.IController = IController;
+        eniokaij.IIJController = IIJController;
 
 
         // And the capability to extend these predefined classes
-        eniokamatrix.extend = Class.extend;
+        eniokaij.extend = Class.extend;
 
         // That's all folks
-        return eniokamatrix;
-    }(enioka.matrix || {})
+        return eniokaij;
+    }(enioka.ij || {})
 );
