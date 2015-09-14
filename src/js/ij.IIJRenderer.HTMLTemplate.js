@@ -4,7 +4,7 @@ enioka.ij = (
     function (eniokaij) {
         /**
          * @class
-         * @memberof enioka.ij.IMatrixRenderer
+         * @memberof enioka.ij.IIJRenderer
          * @classdesc HTMLTemplate module is part of HTMLRenderer to allow customisation
          * to the user, add classes to cells, table, headers, etc.
          * <br/>

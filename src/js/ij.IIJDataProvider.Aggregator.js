@@ -4,7 +4,7 @@ enioka.ij = (
     function (eniokaij) {
         /**
          * @class
-         * @memberof enioka.ij.IDataProvider
+         * @memberof enioka.ij.IIJDataProvider
          * @classdesc Will handle aggregation for rows, columns & cells. This is data part
          */
         var Aggregator = {

@@ -4,7 +4,7 @@ enioka.ij = (
     function (eniokaij) {
         /**
          * @class
-         * @memberof enioka.ij
+         * @memberof enioka.ij.Core
          * @classdesc DataHeader will be used to store headers for rows and columns after
          * being retrieved by the DataProvider module and instanciated by the Core.
          */

@@ -5,7 +5,7 @@ enioka.ij = (
 
         /**
          * @class
-         * @memberof enioka.ij
+         * @memberof enioka.ij.Core
          * @classdesc DataHeader will be used to store cells at intersections.
          */
         var DataCell = {
