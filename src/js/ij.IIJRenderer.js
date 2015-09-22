@@ -19,49 +19,32 @@ enioka.ij = (
                 this.Renderer = new eniokaij.HTMLRenderer();
                 this.Template = new eniokaij.HTMLTemplate();
             },
-            /**
-             * @function
-             * @description Create the html table
-             * @param {Array} classes - you want to append to your table
-             * @return html table that has been created
-             */
-            renderTable : function(classes){
-                if (!classes) var classes = [];
-                classes.push("matrix");
-                return this.HTMLRenderer.createElement("table", classes);
-            },
 
             /**
              * @function
              * @description Render row and get back its fathers. By default no father is given
              * @return {Array} Contains hierarchical structure for the row headers, with
-             * following attributes : <br/> - id<br/> - label<br/> - order<br/> - rendering <br/>
+             * following attributes : <br/> - id<br/> - label<br/> - order<br/> - rendering <br/> and what you may need
              */
-            renderRow : function(object){
-                var row;
-                for (var i = 0; i < level; i++){
-
-                }
-                return this.HTMLRenderer.createElementWithText("td",label);
+            renderRow : function(rowObject){
             },
 
             /**
              * @function
-             * @description Render columns with pre-rendered column array by @renderColummn
-             * @param {Array} columns - Contains columns as DataHeaders
-             * @return {HTMLElement} Contains the rendering of columns
+             * @description Render row container where a row will be append to
+             * @return {HTMLElement}
              */
-            renderColumns : function(columns){
-            },
+            renderRowContainer : function(){
+            }
 
             /**
              * @function
-             * @description Render columns with pre-rendered rows array by @renderColummn
-             * @param {Array} rows - Contains rows as DataHeaders
-             * @return {HTMLElement} Contains the rendering for rows & data
+             * @description Render rows Container where all the rows will be appened to
+             * @return {HTMLElement}
              */
-            renderRows : function(rows){
+            renderRowsContainer : function(){
             },
+
 
             /**
              * @function
@@ -80,15 +63,49 @@ enioka.ij = (
              *  - order
              *  - rendering
              */
-            renderColumn : function(object){
+            renderColumn : function(columnObject){
             },
 
             /**
              * @function
-             * @description Create HTML columns container from an array
-             * @return table created
+             * @description Render sub total header for each group
+             * @return {HTMLElement}
              */
-            renderColumnContainer : function(){
+            renderSubTotalHeader : function(label){
+            },
+
+            /**
+             * @function
+             * @description Render Left upper corner, essential for a well displayed HTML Table
+             * @return {HTMLElement}
+             */
+            renderLeftUpperCorner : function(){
+            },
+
+            /**
+             * @function
+             * @description Render a level for columns may be represented by a HTML table tr
+             * or simply a line
+             * @return {HTMLElement}
+             */
+            renderColumnsLevelContainer : function(){
+            },
+
+            /**
+             * @function
+             * @description Render a columns container in which all the columns will be appened to
+             * @return {HTMLElement}
+             */
+            renderColumnsContainer : function(){
+            },
+
+            /**
+             * @function
+             * @description render container for all rendered objects. Core will put together
+             * all rendered object in a sigle one ; this one.
+             * @return {HTMLElement}
+             */
+            renderContainer : function(){
             }
         };
         //Instanciate the IMatrixRenderer Class into an object
