@@ -12,12 +12,17 @@ enioka.ij = (
          */
         var IIJRenderer = {
 
+            initialize : function(){
+                this.renderer = new enioka.ij.HTMLRenderer();
+                this.template = new enioka.ij.HTMLTemplate();
+            },
+
             /**
              * @function
+             * @description Render rows Container where all the rows will be appened to
+             * @return {HTMLElement}
              */
-            initialize : function() {
-                this.Renderer = new eniokaij.HTMLRenderer();
-                this.Template = new eniokaij.HTMLTemplate();
+            renderRowsContainer : function(){
             },
 
             /**
@@ -29,29 +34,21 @@ enioka.ij = (
             renderRow : function(rowObject){
             },
 
+            applyRowSpan : function(renderedObject, property){
+            },
+
+            applyColSpan : function(renderedObject, property){
+            },
+
             /**
              * @function
              * @description Render row container where a row will be append to
              * @return {HTMLElement}
              */
             renderRowContainer : function(){
-            }
-
-            /**
-             * @function
-             * @description Render rows Container where all the rows will be appened to
-             * @return {HTMLElement}
-             */
-            renderRowsContainer : function(){
             },
 
-
-            /**
-             * @function
-             * @description Render cells
-             * @param {Object} cell - Cells we want to render
-             */
-            renderCells : function(cells){
+            renderSubTotalHeader : function(label){
             },
 
             /**
@@ -63,15 +60,7 @@ enioka.ij = (
              *  - order
              *  - rendering
              */
-            renderColumn : function(columnObject){
-            },
-
-            /**
-             * @function
-             * @description Render sub total header for each group
-             * @return {HTMLElement}
-             */
-            renderSubTotalHeader : function(label){
+            renderColumn : function(columnObject) {
             },
 
             /**
@@ -84,8 +73,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description Render a level for columns may be represented by a HTML table tr
-             * or simply a line
+             * @description Render Left upper corner, essential for a well displayed HTML Table
              * @return {HTMLElement}
              */
             renderColumnsLevelContainer : function(){
@@ -101,11 +89,27 @@ enioka.ij = (
 
             /**
              * @function
+             * @description Render cell
+             */
+            renderCell : function(row, column, cellData){
+            },
+
+            /**
+             * @function
              * @description render container for all rendered objects. Core will put together
              * all rendered object in a sigle one ; this one.
              * @return {HTMLElement}
              */
             renderContainer : function(){
+            },
+
+            setCSSProperty : function(property, element, propertyValue){
+            },
+
+            emptyCSSProperty : function(property, element){
+            },
+
+            addClasses : function(element, elementType, classes){
             }
         };
         //Instanciate the IMatrixRenderer Class into an object
