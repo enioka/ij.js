@@ -11,6 +11,7 @@ enioka.ij = (
          */
         var HTMLTemplate = {
             initialize : function() {
+                this.template = {};
             },
 
             /**
@@ -19,7 +20,10 @@ enioka.ij = (
              * @param elementType either HTML statement or one of the predefined statements
              * @param classes as an array
              */
-            addClasses : function(elementType, classes){
+            addClassPrefix : function(elementType, classPrefix){
+                if (!this.template[elementType])
+                    this.template[elementType] = {};
+                this.template[elementType].classPrefix = classPrefix;
             },
 
             /**
@@ -29,17 +33,17 @@ enioka.ij = (
              * @param elementType either HTML statement or one of the predefined statements
              * @param pattern is an id pattern (has to be defined)
              */
-            addIdPattern : function(elementType, pattern){
+            addIdPrefix : function(elementType, idPrefix){
+                if (!this.template[elementType])
+                    this.template[elementType] = {};
+                this.template[elementType].idPrefix = idPrefix;
             },
 
-            /**
-             * @function
-             * @description add an attribute for a html element or to another predefined
-             * statement
-             * @param elementType either HTML statement or one of the predefined statements
-             * @param attribute attributes as a JSON with name : value
-             */
-            addAttribute : function(elementType, attributes){
+            getAttribute : function(elementType, propertyName){
+                if (this.template[elementType])
+                    return this.template[elementType][propertyName];
+                else
+                    return null;
             }
         };
         //Instanciate the HTMLTemplate Class into an object

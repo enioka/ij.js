@@ -20,10 +20,14 @@ enioka.ij = (
              */
             addClasses : function(element, classes){
                 if (classes)
-                    for (var c in classes){
-                        element.className += " " + classes[c];
+                    for (var i = 0; i < classes.length;i++){
+                        element.classList.add(classes[i]);
                     }
                 return element;
+            },
+
+            addAttribute : function(element, attributeName, attributeValue){
+                element.setAttribute(attributeName, attributeValue);
             },
 
             /**
@@ -50,7 +54,8 @@ enioka.ij = (
              */
             createElement : function(element, classes){
                 var htmlElement = document.createElement(element);
-                this.addClasses(element, classes);
+                if (classes)
+                    this.addClasses(htmlElement, classes);
                 return htmlElement;
             }
         };
