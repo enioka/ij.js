@@ -176,8 +176,9 @@ enioka.ij = (
              */
             getRenderedColumns : function(columns){
                 var colmunsArray = new Array();
-                for (var i = 0; i < columns.length; i++)
-                    colmunsArray.push(this.renderer.renderColumn(columns[i]));
+                if (columns)
+                    for (var i = 0; i < columns.length; i++)
+                        colmunsArray.push(this.renderer.renderColumn(columns[i]));
                 return colmunsArray;
             },
 
@@ -221,7 +222,6 @@ enioka.ij = (
             	        parentRoot = map[currentID];
                     }
                 }
-                info_debug("start tree", (new Date() - start));
                 return root;
             },
 
@@ -276,6 +276,7 @@ enioka.ij = (
                 for (var id in renderedObjectTree){
                     if (renderedObjectTree[id].children) {
                         var childrenDepth = this.getTreeDepth(renderedObjectTree[id].children);
+                        renderedObjectTree[id].group = true;
                         if (childrenDepth > depth)
                             depth = childrenDepth;
                     }
@@ -304,8 +305,6 @@ enioka.ij = (
             _preRenderColumns : function(){
                 console.profile("_preRenderColumns");
                 var columns = this.dataprovider.getColumns();
-                if (!columns)
-                    return;
                 if (!this.container)
                     this.container = this.renderer.renderContainer();
                 var renderedColumns = this.getRenderedColumns(
@@ -321,19 +320,21 @@ enioka.ij = (
                         this.getGroupSpan(renderedColumns[id]).renderedTreeNode;
                 }
                 var columnsDepth = this.getTreeDepth(renderedColumns);
-                renderedColumns =
-                    this.applyTreeDepth(renderedColumns,
-                                        columnsDepth);
-                renderedColumns =
-                    this.applyOnRenderedObjects(renderedColumns,
-                                                (this.renderer.applyColSpan)
-                                                .bind(this.renderer),
-                                                "span");
-                renderedColumns =
-                    this.applyOnRenderedObjects(renderedColumns,
-                                                (this.renderer.applyRowSpan)
-                                                .bind(this.renderer),
-                                                "depth");
+                this.applyTreeDepth(renderedColumns,
+                                    columnsDepth);
+                this.applyOnRenderedObjects(renderedColumns,
+                                            (this.renderer.applyColSpan)
+                                            .bind(this.renderer),
+                                            "span");
+                this.applyOnRenderedObjects(renderedColumns,
+                                            (this.renderer.applyRowSpan)
+                                            .bind(this.renderer),
+                                            "depth");
+
+                this.applyClasses(renderedColumns,
+                                  (this.renderer.addClasses)
+                                  .bind(this.renderer),
+                                  "columnHeader");
                 console.profileEnd();
                 return {
                     "depth" : columnsDepth,
@@ -358,8 +359,9 @@ enioka.ij = (
                 leftUpperCorner =
                     this.renderer.applyRowSpan(leftUpperCorner,
                                                "rowspan");
-                //Add it before
-                columnsLevels[1].unshift(leftUpperCorner.rendering);
+                //Add it before every other columns
+                if (columns.rendering.length > 0)
+                    columnsLevels[1].unshift(leftUpperCorner.rendering);
                 for (var lvl in columnsLevels){
                     var level = this.renderer.renderColumnsLevelContainer();
                     for (var col in columnsLevels[lvl]){
@@ -433,16 +435,20 @@ enioka.ij = (
                     renderedRows[id] = this.getGroupSpan(renderedRows[id], 1).renderedTreeNode;
                 }
                 rowsDepth = this.getTreeDepth(renderedRows);
-                renderedRows = this.applyTreeDepth(renderedRows,
+                this.applyTreeDepth(renderedRows,
                                                    rowsDepth);
-                renderedRows = this.applyOnRenderedObjects(renderedRows,
+                this.applyOnRenderedObjects(renderedRows,
                                                            (this.renderer.applyRowSpan)
                                                            .bind(this.renderer),
                                                            "span");
-                renderedRows = this.applyOnRenderedObjects(renderedRows,
+                this.applyOnRenderedObjects(renderedRows,
                                                            (this.renderer.applyColSpan)
                                                            .bind(this.renderer),
                                                            "depth");
+                this.applyClasses(renderedRows,
+                                                 (this.renderer.addClasses)
+                                                 .bind(this.renderer),
+                                                 "rowHeader");
                 var rowsContainer = this.renderer.renderRowsContainer();
                 return {
                     "depth" : rowsDepth,
@@ -451,10 +457,10 @@ enioka.ij = (
                 };
             },
 
-            displayData : function(rows, columnsObjects){
+            displayData : function(rows, columns){
                 var rowsContainer = this.renderer.renderRowsContainer();
-                var matrix = this.dataprovider.getData(rows.objects, columnsObjects);
-                var rows = this.buildRows(rows.rendering, matrix, columnsObjects).rows;
+                var matrix = this.dataprovider.getData(rows.objects, columns.objects);
+                var rows = this.buildRows(rows.rendering, matrix, columns.objects).rows;
                 for (var row in rows){
                     this._appendChild(rowsContainer, rows[row]);
                 }
@@ -478,13 +484,44 @@ enioka.ij = (
                 return renderedObjects;
             },
 
+            applyClasses : function(renderedObjects, callback, elementType, currentId){
+                if (!currentId)
+                    var currentId = 0;
+                for (var id in renderedObjects){
+                    var classes = new Array();
+                    if (renderedObjects[id].children)
+                        this.applyClasses(renderedObjects[id].children,
+                                          callback,
+                                          elementType,
+                                          currentId);
+                    if(elementType == "rowHeader" && renderedObjects[id].children) {
+                        var nextId = currentId + this._getObjectsFromTree(renderedObjects[id].children).length;
+                        for (var i = currentId; i < nextId; i++){
+                            classes.push(i);
+                        }
+                        currentId = nextId;
+                    }
+                    else {
+                        var nextId = currentId + renderedObjects[id].span;
+                        for (var i = currentId; i < nextId; i++){
+                            classes.push(i);
+                        }
+                        currentId = nextId;
+                    }
+                    renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
+                                                             elementType,
+                                                             classes);
+                }
+                return renderedObjects;
+            },
+
             /**
              * @function
              * @description build rows array, each cell contains a row header
              * @param {object} rowsTreeNode - A node from Rows tree
              * @return
              */
-            buildRows : function(rowsTreeNode, matrix, columns, count){
+            buildRows : function(rowsTreeNode, matrix, columnsObjects, count){
                 if (!count)
                     var count = 0;
                 var rows = new Array();
@@ -493,8 +530,9 @@ enioka.ij = (
                         var row = this.renderer.renderRowContainer();
                         this._appendChild(row, rowsTreeNode[id].rendering);
                         if (rowsTreeNode[id].object){
-                            var rowData = this._renderRowData(matrix[count],
-                                                              columns);
+                            var rowData = this._renderRowData(matrix,
+                                                              count,
+                                                              columnsObjects);
                             this._appendChildren(row, rowData);
                             count++;
                         }
@@ -502,7 +540,7 @@ enioka.ij = (
                         if (rowsTreeNode[id].children){
                             var builtRows = this.buildRows(rowsTreeNode[id].children,
                                                            matrix,
-                                                           columns,
+                                                           columnsObjects,
                                                            count);
                             rows = rows.concat(builtRows.rows);
                             count = builtRows.rowNumber;
@@ -511,7 +549,7 @@ enioka.ij = (
                 else
                     for (var i = 0; i < matrix.length; i++){
                         var row = this.renderer.renderRowContainer();
-                        var rowData = this._renderRowData(matrix[i]);
+                        var rowData = this._renderRowData(matrix, i);
                         this._appendChildren(row, rowData);
                         rows.push(row);
                         count++;
@@ -525,26 +563,32 @@ enioka.ij = (
              * @description
              * @param {Array} matrixLine - Contains all data we need to render
              */
-            _renderRowData : function(matrixLine, columns){
+            _renderRowData : function(matrix, line, columnsObjects){
                 var cells = new Array();
-                if (columns)
-                    for (var i = 0; i < columns.objects.length; i++){
-                        if (matrixLine && matrixLine[i]){
+                if (columnsObjects)
+                    for (var i = 0; i < columnsObjects.length; i++){
+                        if (matrix[line] && matrix[line][i]){
                             cells.push(
-                                this.renderer.renderCell(matrixLine[i])
+                                this.renderer.renderCell(line,
+                                                         i,
+                                                         matrix[line][i])
                             );
                         } else {
-                            cells.push(this.renderer.renderCell());
+                            cells.push(this.renderer.renderCell(line,
+                                                                i));
                         }
                     }
                 else
-                    for (var i = 0; i < matrixLine.length; i++){
-                        if (matrixLine && matrixLine[i]){
+                    for (var i = 0; i < matrix[line].length; i++){
+                        if (matrix[line] && matrix[line][i]){
                             cells.push(
-                                this.renderer.renderCell(matrixLine[i])
+                                this.renderer.renderCell(line,
+                                                         i,
+                                                         matrix[line][i])
                             );
                         } else {
-                            cells.push(this.renderer.renderCell());
+                            cells.push(this.renderer.renderCell(line,
+                                                                i));
                         }
                     }
                 return cells;
@@ -576,23 +620,6 @@ enioka.ij = (
                     this._appendChild(element, children[i]);
                 }
                 return element;
-            },
-
-            /**
-             * @function
-             * @description
-             * @param
-             * @return
-             */
-            cloneRenderedHeader : function(renderedHeader) {
-                var copy = {};
-                if (null == renderedHeader ||
-                    "object" != typeof renderedHeader) return renderedHeader;
-                for (var attr in renderedHeader) {
-                    if (renderedHeader.hasOwnProperty(attr) && attr != "children")
-                        copy[attr] = renderedHeader[attr];
-                }
-                return copy;
             },
 
             /**
@@ -646,6 +673,35 @@ enioka.ij = (
                     this.displayColumns(columns, rows.depth);
                 this.displayData(rows, columns);
                 this.workspace.appendChild(this.container);
+                // Add events if workspace is HTML
+                if (this.workspace instanceof HTMLElement){
+                    var td = document.getElementsByTagName("td");
+                    for (var i = 0; i < td.length; i++){
+                        td[i].addEventListener("mouseover",
+                                               (function(event){
+                                                   this.onCellHover(event);
+                                               }).bind(this));
+                        td[i].addEventListener("click",
+                                               (function(event){
+                                                   this.onCellClick(event);
+                                               }).bind(this));
+                        td[i].addEventListener("mouseout",
+                                               (function(event){
+                                                   this.onCellOut(event);
+                                               }).bind(this));
+                    }
+                    var th = document.getElementsByTagName("th");
+                    for (var i = 0; i < th.length; i++){
+                        th[i].addEventListener("mouseover",
+                                               (function(event){this.onHeaderHover(event);}).bind(this));
+                        th[i].addEventListener("mouseout",
+                                               (function(event){this.onHeaderOut(event);}).bind(this));
+                    }
+                }
+            },
+
+            _addEventsListenter : function(name, elements, events){
+
             },
 
             /**
@@ -693,10 +749,31 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
-             * @return
+             * @description fire event before click on matrix cell
+             * @return {boolean} true for onCellClick event
              */
-            onCellClick : function(){
+            onCellClick : function(event){
+                if (this.controller.onCellClick)
+                    this.controller.onCellClick(event);
+            },
+
+            /**
+             * @function
+             * @description fire event on matrix cell hover
+             */
+            onCellHover : function(event){
+                if (this.controller.onCellHover)
+                    this.controller.onCellHover(event);
+            },
+
+            /**
+             * @function
+             * @description fire event before click on matrix cell
+             * @return {boolean} true for onCellClick event
+             */
+            onCellOut : function(event){
+                if (this.controller.onCellOut)
+                    this.controller.onCellOut(event);
             },
 
             /**
@@ -721,6 +798,26 @@ enioka.ij = (
              * @return
              */
             onHeaderClick : function(){
+            },
+
+            /**
+             * @function
+             * @description
+             * @return
+             */
+            onHeaderHover : function(event){
+                if (this.controller.onHeaderHover)
+                    this.controller.onHeaderHover();
+            },
+
+            /**
+             * @function
+             * @description
+             * @return
+             */
+            onHeaderOut : function(event){
+                if (this.controller.onHeaderOut)
+                    this.controller.onHeaderOut();
             },
 
             /**
