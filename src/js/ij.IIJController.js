@@ -14,69 +14,19 @@ enioka.ij = (
             initialize : function(properties) {
             },
 
-            /**
-             * @function
-             * @description Create the matrix
-             * @return this object to allow chaining methods
-             */
-            create : function(){
+            onCellHover : function(event){
             },
 
-            /**
-             * @function
-             * @description Update the matrix
-             * @return this object to allow chaining methods
-             */
-            update : function(){
+            onCellClick : function(event){
             },
 
-            /**
-             * @function
-             * @description refresh the graphical components only
-             * @return this object to allow chaining methods
-             */
-            refresh : function(){
+            onCellOut : function(event){
             },
 
-            /**
-             * @function
-             * @description export the matrix
-             * @param type select and specify the type for the export CSV or JS Array
-             * @return this object to allow chaining methods
-             */
-            export : function(type){
+            onHeaderHover : function(event){
             },
 
-            /**
-             * @function
-             * @description handle on click event on DOM elements
-             * @param object
-             */
-            beforeHeaderClick : function(object){
-            },
-
-            //////////////
-            /// EVENTS ///
-            //////////////
-
-            /**
-             * @function
-             * @description handle hover on DOM elements
-             * @param object {object}
-             */
-            headerClick : function(object){
-            },
-
-            afterHeaderClick : function(object){
-            },
-
-            beforeCellClick : function(object){
-            },
-
-            cellClick : function(object){
-            },
-
-            afterCellClick : function(object){
+            onHeaderOut : function(event){
             }
         };
         IIJController = Class.create(IIJController);
