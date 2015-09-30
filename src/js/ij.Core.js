@@ -68,6 +68,8 @@ enioka.ij = (
              */
             workspace : null,
 
+            cellsMap : [],
+
 
             /**
              * @function
@@ -568,11 +570,15 @@ enioka.ij = (
                 if (columnsObjects)
                     for (var i = 0; i < columnsObjects.length; i++){
                         if (matrix[line] && matrix[line][i]){
+                            var id = this._generateGuid();
                             cells.push(
                                 this.renderer.renderCell(line,
                                                          i,
-                                                         matrix[line][i])
+                                                         matrix[line][i],
+                                                         id)
                             );
+                            if (!this.cellsMap[id])
+                                this.cellsMap[id] = matrix[line][i];
                         } else {
                             cells.push(this.renderer.renderCell(line,
                                                                 i));
@@ -594,6 +600,15 @@ enioka.ij = (
                 return cells;
             },
 
+            _generateGuid : function(){
+                function s4() {
+                    return Math.floor((1 + Math.random()) * 0x10000)
+                        .toString(16)
+                        .substring(1);
+                }
+                return s4() + s4();
+            },
+
             /**
              * @function
              * @description Append an element to another (For now only HTML & string)
@@ -603,7 +618,7 @@ enioka.ij = (
              */
             _appendChild : function(element, child){
                 if (element instanceof HTMLElement)
-                    return element.appendChild(child);
+                    this.renderer.appendChild(element, child);
                 else
                     return element += child;
             },
@@ -753,8 +768,11 @@ enioka.ij = (
              * @return {boolean} true for onCellClick event
              */
             onCellClick : function(event){
-                if (this.controller.onCellClick)
-                    this.controller.onCellClick(event);
+                if (this.controller.onCellClick){
+                    var id = event.target.id;
+                    this.controller.onCellClick(event,
+                                                this.cellsMap[id]);
+                }
             },
 
             /**
