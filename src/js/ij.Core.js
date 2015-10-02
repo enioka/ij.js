@@ -191,17 +191,25 @@ enioka.ij = (
             buildRenderedTree : function(renderedObjects){
                 var start = new Date();
                 //create root array & map table
-                var root = new Array(),
-                    map = new Array();
+                var _scope = {};
+                var map = new Array(),
+                    idMap = new Array();
+                _scope.root = new Array();
 	        for (var i = 0; i < renderedObjects.length; i++){
                     //set the parrent root at the initial array (level 0)
                     var childMap = new Array(),
-                        parentRoot = root,
+                        parentRoot = _scope.root,
                         currentID = new String();
     	            for (var j = 0; j < renderedObjects[i].length; j++){
                         currentID += renderedObjects[i][j].id;
+                        if (!idMap[renderedObjects[i][j].id])
+                            idMap[renderedObjects[i][j].id] = currentID;
+                        else
+                            currentID = idMap[renderedObjects[i][j].id];
                         //if object is not mapped
         	        if (!map[currentID]){
+                            if (!parentRoot instanceof Array)
+                                parentRoot = new Array();
                             //add object to the currentRoot
                             parentRoot.push(renderedObjects[i][j]);
                             //if current renderedObject has children, then create them
@@ -217,14 +225,72 @@ enioka.ij = (
                                         "object" : renderedObjects[i][j].label + "_summary",
                                         "id" : renderedObjects[i][j].label + "_summary"
                                     });
+                                if (renderedObjects[i][j].object){
+                                    renderedObjects[i][j].children.push(
+                                        this._cloneHeader(renderedObjects[i][j])
+                                    );
+                                    delete renderedObjects[i][j].object;
+                                }
                             }
-            	            map[currentID] = renderedObjects[i][j].children;
+            	            map[currentID] = renderedObjects[i][j];
+                        } else {
+                            if (j > 0){
+                                var found = false;
+                                for(var k = 0; k < parentRoot.length; k++) {
+                                    if (parentRoot[k].id == renderedObjects[i][j].id) {
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                                if (found != true){
+                                    var id = renderedObjects[i][j].id;
+                                    var tmpRoot = map[currentID];
+                                    this._deleteNode(id, _scope.root);
+                                    parentRoot.push(tmpRoot);
+                                    delete map[currentID];
+                                    map[currentID] = tmpRoot;
+                                }
+                            }
+                            if (renderedObjects[i].length - 1 > j){
+                                if (!map[currentID].children) {
+                                    map[currentID].children = new Array();
+                                    if (map[currentID].object){
+                                        map[currentID].children.push(
+                                            this._cloneHeader(renderedObjects[i][j])
+                                        );
+                                        map[currentID].children[0].object = map[currentID].object;
+                                        delete map[currentID].object;
+                                    }
+                                }
+                            }
                         }
-                        //if object is mapped then set the root at its location
-            	        parentRoot = map[currentID];
+            	        parentRoot = map[currentID].children;
                     }
                 }
-                return root;
+                this.idMap = idMap;
+                return _scope.root;
+            },
+
+            _deleteNode : function(nodeId, node){
+                for (var id in node){
+                    if (node[id].id == nodeId)
+                        delete node[id];
+                    else if (node[id].children)
+                        this._deleteNode(nodeId, node[id].children);
+                }
+            },
+
+            _cloneHeader : function(header, children, label){
+                var duplicatedHeader = {};
+                for (var attr in header){
+                    if (attr == "label" && !label)
+                        duplicatedHeader[attr] = "";
+                    else if (attr == "children" && !children)
+                        continue;
+                    else
+                        duplicatedHeader[attr] = header[attr];
+                };
+                return duplicatedHeader;
             },
 
             /**
@@ -424,6 +490,7 @@ enioka.ij = (
              * @description Display rows
              */
             _preRenderRows : function(){
+                console.profile("rows");
                 if (!this.container)
                     this.container = this.renderer.renderContainer();
                 var renderedRows =
@@ -452,6 +519,7 @@ enioka.ij = (
                                                  .bind(this.renderer),
                                                  "rowHeader");
                 var rowsContainer = this.renderer.renderRowsContainer();
+                console.profileEnd();
                 return {
                     "depth" : rowsDepth,
                     "rendering" : renderedRows,
@@ -617,10 +685,7 @@ enioka.ij = (
              * @return {object} element - Child has been appended to the parent element
              */
             _appendChild : function(element, child){
-                if (element instanceof HTMLElement)
-                    this.renderer.appendChild(element, child);
-                else
-                    return element += child;
+                return this.renderer.appendChild(element, child);
             },
 
             /**
@@ -680,14 +745,19 @@ enioka.ij = (
              * @description Display gather all other display and print it
              */
             display : function(){
+                var start = new Date();
                 var columns = this._preRenderColumns();
+                info_debug("column pre-render : " + (new Date() - start));
                 info_debug("columns", columns);
                 var rows = this._preRenderRows();
-                info_debug("rows", rows);
+                info_debug("rows pre-render : " + (new Date() - start));
+                info_debug("rows pre-render : ", rows);
                 if (columns)
                     this.displayColumns(columns, rows.depth);
                 this.displayData(rows, columns);
-                this.workspace.appendChild(this.container);
+                info_debug("display : " + (new Date() - start));
+                this._appendChild(this.workspace, this.container);
+                info_debug("displayed : " + (new Date() - start));
                 // Add events if workspace is HTML
                 if (this.workspace instanceof HTMLElement){
                     var td = document.getElementsByTagName("td");
@@ -709,6 +779,8 @@ enioka.ij = (
                     for (var i = 0; i < th.length; i++){
                         th[i].addEventListener("mouseover",
                                                (function(event){this.onHeaderHover(event);}).bind(this));
+                        th[i].addEventListener("click",
+                                               (function(event){this.onHeaderClick(event);}).bind(this));
                         th[i].addEventListener("mouseout",
                                                (function(event){this.onHeaderOut(event);}).bind(this));
                     }
@@ -815,7 +887,8 @@ enioka.ij = (
              * @description
              * @return
              */
-            onHeaderClick : function(){
+            onHeaderClick : function(event){
+                console.log(this.idMap);
             },
 
             /**
