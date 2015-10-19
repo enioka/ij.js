@@ -300,13 +300,15 @@ enioka.ij = (
                         duplicatedHeader[attr] = header[attr] + "_child";
                     }
                     else if (attr == "rendering"){
+                        console.log(header[attr]);
                         duplicatedHeader[attr] = this.renderer.setId(
                             header[attr],
                             this.renderer.getIdPrefix(type) + duplicatedHeader.id);
                     }
                     else
                         duplicatedHeader[attr] = header[attr];
-                };
+                }
+                duplicatedHeader.type = type;
                 return duplicatedHeader;
             },
 
@@ -883,7 +885,6 @@ enioka.ij = (
                 if (!this.columnsObjects){
                     this.columnsObjects = this._getObjectsFromTree(this.columns.rendering);
                 }
-                console.log(object);
                 for (var i = 0; i < this.columnsObjects.length; i++){
                     if (JSON.stringify(this.columnsObjects[i]) ==
                         JSON.stringify(object))
