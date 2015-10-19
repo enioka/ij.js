@@ -612,9 +612,9 @@ enioka.ij = (
                             rowsTreeNode[id].open == false)) {
                             rowsTreeNode[id].rendering = this.renderer.applyRowSpan(rowsTreeNode[id].rendering,
                                 2);
-                            rowsTreeNode[id].rendering = this.renderer.addEventsToRendering(rowsTreeNode[id].rendering,
-                                this._getHeaderEventsCallbacks(rowsTreeNode[id]));
                         }
+                        rowsTreeNode[id].rendering = this.renderer.addEventsToRendering(rowsTreeNode[id].rendering,
+                            this._getHeaderEventsCallbacks(rowsTreeNode[id]));
                         this._appendChild(row, rowsTreeNode[id].rendering);
                         if (rowsTreeNode[id].object){
                             var rowData = this._renderRowData(columns,
@@ -1210,7 +1210,7 @@ enioka.ij = (
 
                 info_debug("appendColumns : " + (new Date() - start));
                 this.displayData(this.rows, this.getObjectsGrouped(this.columns.rendering));
-                console.log("get columns by group")
+                console.log("get columns by group");
 
                 info_debug("appendData & pre-display : " + (new Date() - start));
                 this._appendChild(this.workspace, this.container);
