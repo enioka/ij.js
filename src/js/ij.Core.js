@@ -839,6 +839,10 @@ enioka.ij = (
             /// GETTERS ///
             ///////////////
 
+            getHeaderType : function(headerNode) {
+                return headerNode.type;
+            },
+
             getRowObject : function(number){
                 if (!this.rowsObjects){
                     this.rowsObjects = this._getObjectsFromTree(this.rows.rendering);
@@ -951,6 +955,30 @@ enioka.ij = (
                 return node;
             },
 
+            matchNodesFromProperty : function(property, value, type){
+                var node = new Array();
+                if (type == "rowHeader")
+                    var from = this.rows.rendering;
+                else if (type == "columnHeader")
+                    var from = this.columns.rendering;
+                else
+                    return;
+                for (var id in from){
+                    if (from[id][property].indexOf(value) > -1) {
+                        node.push(from[id]);
+                    }
+                    else if (from[id].children && (from[id].open == true || from[id].open == "true")){
+                        var returned = this.getNodeFromProperty(property,
+                            value,
+                            from[id].children);
+                        if (returned)
+                            node = node.concat(returned);
+                    }
+                    else continue;
+                }
+                return node;
+            },
+
             getColumnsObjectsGrouped : function(node){
                 if (typeof node == undefined)
                     var node = this.columns.rendering;
@@ -974,7 +1002,9 @@ enioka.ij = (
                                 this._getObjectsFromTree(renderedObjectsTree[id].children)
                             );
                         } else if (renderedObjectsTree[id].children) {
-                            objects = objects.concat(this.getObjectsGrouped(renderedObjectsTree[id].children));
+                            var childrenObjects = this.getObjectsGrouped(renderedObjectsTree[id].children);
+                            if (childrenObjects)
+                                objects = objects.concat(childrenObjects);
                         } else if (renderedObjectsTree[id].object){
                             objects.push([renderedObjectsTree[id].object]);
                         }
@@ -1175,19 +1205,24 @@ enioka.ij = (
                 return this;
             },
 
-            ///////////////////
-            /// AGGREGATION ///
-            ///////////////////
+            //////////////////////////////////////
+            /// HEADER PROPERTIES MODIFICATION ///
+            //////////////////////////////////////
 
             toggleHeader : function(headerNode){
-                console.log(headerNode.open);
                 if (headerNode.open == false || headerNode.open == "false") {
                     headerNode.open = true;
                 } else {
                     headerNode.open = false;
                 }
-                console.log(headerNode.open);
-                this.refresh(headerNode.type);
+            },
+
+            toggleHeaderVisibility : function(headerNode) {
+                if (headerNode.hidden == false || headerNode.hidden == "false") {
+                    headerNode.hidden = true;
+                } else {
+                    headerNode.hidden = false;
+                }
             },
 
             ///////////////
