@@ -2,13 +2,14 @@ var enioka = (enioka || {});
 
 enioka.ij = (
     function (eniokaij) {
-            /**
-             * @class
-             * @memberof enioka.ij.IIJRenderer
-             * @classdesc Will generate html with predefined functions
-             */
+        /**
+         * @class
+         * @memberof enioka.ij.IIJRenderer
+         * @classdesc Will generate html with predefined functions
+         */
         var HTMLRenderer = {
             initialize : function() {
+
             },
 
             /**
@@ -26,10 +27,20 @@ enioka.ij = (
                 return element;
             },
 
-            addAttribute : function(element, attributeName, attributeValue){
+            addAttribute : function(element, attributeName, attributeValue) {
                 element.setAttribute(attributeName, attributeValue);
+                return element;
             },
 
+            /**
+             * @param element
+             * @param attributeName
+             * @param attributeValue
+             */
+            addCSS : function(element, attributeName, attributeValue) {
+                element.style[attributeName] = attributeValue;
+                return element;
+            },
             /**
              * @function
              * @description Create HTML element with text inside
@@ -57,6 +68,10 @@ enioka.ij = (
                 if (classes)
                     this.addClasses(htmlElement, classes);
                 return htmlElement;
+            },
+
+            appendChild : function(element, child){
+                return element.appendChild(child);
             }
         };
         HTMLRenderer = Class.create(HTMLRenderer);

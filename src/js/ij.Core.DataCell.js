@@ -14,22 +14,22 @@ enioka.ij = (
 
             /**
              * @member
-             * @memberof enioka.ij.DataCell
+             * @memberof enioka.ij.Core.DataCell
              */
             row : null,
             /**
              * @member
-             * @memberof enioka.ij.DataCell
+             * @memberof enioka.ij.Core.DataCell
              */
             column : null,
             /**
              * @member
-             * @memberof enioka.ij.DataCell
+             * @memberof enioka.ij.Core.DataCell
              */
             object : null,
             /**
              * @member
-             * @memberof enioka.ij.DataCell
+             * @memberof enioka.ij.Core.DataCell
              */
             state : null,
 

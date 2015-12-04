@@ -13,9 +13,17 @@ enioka.ij = (
              * @function
              */
             initialize : function() {
-                this.HTMLRenderer = new eniokamatrix.HTMLRenderer();
-                this.HTMLEventHandler = new eniokamatrix.HTMLEventHandler();
-                this.HTMLTemplate = new eniokamatrix.HTMLTemplate();
+            },
+
+            /**
+             * @function
+             * @description
+             * @param {Array} rowsObjects
+             * @param {Array} columnsObjects
+             * @param {String} filter
+             * @returns {Array} data
+             */
+            aggregateData : function(rowsObjects, columnsObjects, filter) {
             }
         };
         //Instanciate the IMatrixRenderer Class into an object

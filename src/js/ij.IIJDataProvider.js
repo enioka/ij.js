@@ -21,18 +21,6 @@ enioka.ij = (
              * @return sparse matrix containing paths.
              */
             getData : function(){
-                var rows = Math.floor(Math.random() * 100);
-                var columns = Math.floor(Math.random() * 100);
-                var matrix = [];
-                for (var i = 0; i < rows; i++){
-                    matrix.push(new Array());
-                    for (var j = 0; j < columns; j++){
-                        var pathNumber = Math.floor(Math.random() * 21) - 10;
-                        if (pathNumber > 0)
-                            matrix[i][j] = pathNumber;
-                    }
-                }
-                return matrix;
             },
 
             /**
