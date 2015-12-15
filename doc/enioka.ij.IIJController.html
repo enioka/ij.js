@@ -146,14 +146,14 @@ like create, update, etc.
 
     
 
-    <h4 class="name" id=".beforeHeaderClick"><span class="type-signature">(static) </span>beforeHeaderClick<span class="signature">(object)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".onCellClick"><span class="type-signature">(static) </span>onCellClick<span class="signature">(event, cellData)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    handle on click event on DOM elements
+    on cellClick
 </div>
 
 
@@ -189,7 +189,7 @@ like create, update, etc.
 
         <tr>
             
-                <td class="name"><code>object</code></td>
+                <td class="name"><code>event</code></td>
             
 
             <td class="type">
@@ -200,7 +200,25 @@ like create, update, etc.
 
             
 
-            <td class="description last"></td>
+            <td class="description last">HTMLEvent</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cellData</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">cellData as provided by the DataProvider</td>
         </tr>
 
     
@@ -241,7 +259,7 @@ like create, update, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line55">line 55</a>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line32">line 32</a>
     </li></ul></dd>
     
 
@@ -272,106 +290,14 @@ like create, update, etc.
 
     
 
-    <h4 class="name" id=".create"><span class="type-signature">(static) </span>create<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".onCellHover"><span class="type-signature">(static) </span>onCellHover<span class="signature">(event, cellData)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Create the matrix
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    this object to allow chaining methods
-</div>
-
-
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".export"><span class="type-signature">(static) </span>export<span class="signature">(type)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    export the matrix
+    on cellHover
 </div>
 
 
@@ -407,7 +333,7 @@ like create, update, etc.
 
         <tr>
             
-                <td class="name"><code>type</code></td>
+                <td class="name"><code>event</code></td>
             
 
             <td class="type">
@@ -418,7 +344,25 @@ like create, update, etc.
 
             
 
-            <td class="description last">select and specify the type for the export CSV or JS Array</td>
+            <td class="description last">HTMLEvent</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cellData</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">cellData as provided by the DataProvider</td>
         </tr>
 
     
@@ -459,7 +403,7 @@ like create, update, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line47">line 47</a>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -482,16 +426,6 @@ like create, update, etc.
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    this object to allow chaining methods
-</div>
-
-
-
-    
 
 
 
@@ -500,14 +434,14 @@ like create, update, etc.
 
     
 
-    <h4 class="name" id=".headerClick"><span class="type-signature">(static) </span>headerClick<span class="signature">(object)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".onCellOut"><span class="type-signature">(static) </span>onCellOut<span class="signature">(event, cellData)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    handle hover on DOM elements
+    on cellOut
 </div>
 
 
@@ -543,13 +477,153 @@ like create, update, etc.
 
         <tr>
             
-                <td class="name"><code>object</code></td>
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">HTMLEvent</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cellData</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">cellData as provided by the DataProvider</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".onGraphicalRowFilter"><span class="type-signature">(static) </span>onGraphicalRowFilter<span class="signature">(filter)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filter</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">String</span>
 
 
             
@@ -600,7 +674,7 @@ like create, update, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line67">line 67</a>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -631,15 +705,12 @@ like create, update, etc.
 
     
 
-    <h4 class="name" id=".refresh"><span class="type-signature">(static) </span>refresh<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".onHeaderClick"><span class="type-signature">(static) </span>onHeaderClick<span class="signature">(event, headerNode)</span><span class="type-signature"></span></h4>
 
     
 
 
 
-<div class="description">
-    refresh the graphical components only
-</div>
 
 
 
@@ -647,6 +718,72 @@ like create, update, etc.
 
 
 
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerNode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">provided by the core (properties can be accessed by calling core functions)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -682,7 +819,7 @@ like create, update, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line38">line 38</a>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line68">line 68</a>
     </li></ul></dd>
     
 
@@ -705,16 +842,6 @@ like create, update, etc.
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    this object to allow chaining methods
-</div>
-
-
-
-    
 
 
 
@@ -723,15 +850,12 @@ like create, update, etc.
 
     
 
-    <h4 class="name" id=".update"><span class="type-signature">(static) </span>update<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".onHeaderHover"><span class="type-signature">(static) </span>onHeaderHover<span class="signature">(event, headerNode)</span><span class="type-signature"></span></h4>
 
     
 
 
 
-<div class="description">
-    Update the matrix
-</div>
 
 
 
@@ -739,6 +863,72 @@ like create, update, etc.
 
 
 
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">HTMLEvent</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerNode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">provided by the core (properties can be accessed by calling core functions)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -774,7 +964,7 @@ like create, update, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line30">line 30</a>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line50">line 50</a>
     </li></ul></dd>
     
 
@@ -797,16 +987,151 @@ like create, update, etc.
 
 
 
-<h5>Returns:</h5>
+
+
 
         
-<div class="param-desc">
-    this object to allow chaining methods
-</div>
-
-
+            
 
     
+
+    <h4 class="name" id=".onHeaderOut"><span class="type-signature">(static) </span>onHeaderOut<span class="signature">(event, headerNode)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">HTMLEvent</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerNode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">provided by the core (properties can be accessed by calling core functions)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -832,7 +1157,7 @@ like create, update, etc.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Mon Sep 14 2015 15:16:09 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Dec 15 2015 16:51:25 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

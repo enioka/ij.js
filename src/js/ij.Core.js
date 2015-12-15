@@ -183,6 +183,8 @@ enioka.ij = (
             /**
              * @function
              * @description
+             * @param {Array}
+             * @return {Array}
              */
             getRenderedColumns: function (columns) {
                 var colmunsArray = new Array();
@@ -195,7 +197,12 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
+             * @description Build a hierarchical tree from renderedObjects flat arrays
+             * Map for each objects and create a corresponding tree view considering each
+             * attributes
+             * @param {Array} renderedObjects - renderedObjects recovered from Renderer
+             * @param {String} type - define type of tree (rowsHeader, columnsHeader)
+             * @return {object} contains rendered tree
              */
             buildRenderedTree: function (renderedObjects, type) {
                 var start = new Date();
@@ -334,7 +341,7 @@ enioka.ij = (
             /**
              * @function
              * @description alphabetical sort
-             * @return array sorter aphabetically on label object property
+             * @return {Array} sorter aphabetically on label object property
              */
             alphabeticalSort: function (array) {
                 return array.sort(
@@ -350,9 +357,9 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
-             * @param
-             * @return
+             * @description return depth
+             * @param {object} renderedObjectTree
+             * @return {int} depth
              */
             getTreeDepth: function (renderedObjectTree) {
                 var depth = 0;
@@ -465,7 +472,8 @@ enioka.ij = (
             /**
              * @function
              * @description
-             * @param
+             * @param {int} level
+             * @param {Array} renderedColumns
              * @return
              */
             buildColumns: function (renderedColumns, level) {
@@ -1006,17 +1014,6 @@ enioka.ij = (
                     else continue;
                 }
                 return node;
-            },
-
-            getColumnsObjectsGrouped: function (node) {
-                if (typeof node == undefined)
-                    var node = this.columns.rendering;
-                var columnObjects = new Array();
-                for (var id in node) {
-                    if (node[id].object) {
-                        columnsObjects.push(node[id].object);
-                    }
-                }
             },
 
             getObjectsGrouped: function (renderedObjectsTree) {

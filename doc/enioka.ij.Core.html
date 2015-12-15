@@ -259,75 +259,7 @@ This will also contain cache for data in a relativly near future</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line60">line 60</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".controller"><span class="type-signature">(static) </span>controller<span class="type-signature"> :object</span></h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line55">line 55</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -395,7 +327,75 @@ This will also contain cache for data in a relativly near future</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line50">line 50</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".controller"><span class="type-signature">(static) </span>controller<span class="type-signature"> :object</span></h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line56">line 56</a>
     </li></ul></dd>
     
 
@@ -463,7 +463,7 @@ This will also contain cache for data in a relativly near future</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line45">line 45</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -481,14 +481,10 @@ This will also contain cache for data in a relativly near future</div>
 
         
             
-<h4 class="name" id=".workspace"><span class="type-signature">(static) </span>workspace<span class="type-signature"> :HTMLElement</span></h4>
+<h4 class="name" id=".workspace"><span class="type-signature">(static) </span>workspace<span class="type-signature"> :object</span></h4>
 
 
 
-
-<div class="description">
-    meant to be an <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">HTMLElement</a>
-</div>
 
 
 
@@ -496,7 +492,7 @@ This will also contain cache for data in a relativly near future</div>
     <ul>
         <li>
             
-<span class="param-type">HTMLElement</span>
+<span class="param-type">object</span>
 
 
         </li>
@@ -535,7 +531,7 @@ This will also contain cache for data in a relativly near future</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line65">line 65</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line66">line 66</a>
     </li></ul></dd>
     
 
@@ -556,6 +552,358 @@ This will also contain cache for data in a relativly near future</div>
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="._appendChild"><span class="type-signature">(static) </span>_appendChild<span class="signature">(element, child)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Append an element to another (For now only HTML & string)
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Variable type element which child will be appended to</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>child</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Variable type child wich will be appended to</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line744">line 744</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    element - Child has been appended to the parent element
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="._appendChildren"><span class="type-signature">(static) </span>_appendChildren<span class="signature">(element, children)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Append an element to another (For now only HTML & string)
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Variable type element which child will be appended to</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>children</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array of variable type child wich will be appended to</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line755">line 755</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    element - Child has been appended to the parent element
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
 
         
             
@@ -614,7 +962,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line143">line 143</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line156">line 156</a>
     </li></ul></dd>
     
 
@@ -657,6 +1005,623 @@ DataProvider, Controller or Renderer
 
     </dd>
 </dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="._preRenderColumns"><span class="type-signature">(static) </span>_preRenderColumns<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Build columns rendering necessary components
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line395">line 395</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="._preRenderRows"><span class="type-signature">(static) </span>_preRenderRows<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Display rows
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line509">line 509</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="._renderAggregateRowData"><span class="type-signature">(static) </span>_renderAggregateRowData<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line695">line 695</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="._renderRowData"><span class="type-signature">(static) </span>_renderRowData<span class="signature">(matrixLine)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>matrixLine</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Contains all data we need to render</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line720">line 720</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".alphabeticalSort"><span class="type-signature">(static) </span>alphabeticalSort<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    alphabetical sort
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line346">line 346</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    sorter aphabetically on label object property
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".applyOnRenderedObjects"><span class="type-signature">(static) </span>applyOnRenderedObjects<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    apply a specific callback on all renderedObjects (including children)
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line594">line 594</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
 
     
 
@@ -718,7 +1683,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line254">line 254</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1073">line 1073</a>
     </li></ul></dd>
     
 
@@ -761,6 +1726,477 @@ DataProvider, Controller or Renderer
 
     </dd>
 </dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".buildColumns"><span class="type-signature">(static) </span>buildColumns<span class="signature">(level, renderedColumns)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>level</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>renderedColumns</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line479">line 479</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".buildRenderedTree"><span class="type-signature">(static) </span>buildRenderedTree<span class="signature">(renderedObjects, type)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Build a hierarchical tree from renderedObjects flat arrays
+Map for each objects and create a corresponding tree view considering each
+attributes
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>renderedObjects</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">renderedObjects recovered from Renderer</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">define type of tree (rowsHeader, columnsHeader)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line207">line 207</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    contains rendered tree
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".buildRows"><span class="type-signature">(static) </span>buildRows<span class="signature">(rowsTreeNode)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    build rows array, each cell contains a row header
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rowsTreeNode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A node from Rows tree</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line642">line 642</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
 
     
 
@@ -871,7 +2307,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line354">line 354</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1223">line 1223</a>
     </li></ul></dd>
     
 
@@ -1002,7 +2438,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line338">line 338</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1207">line 1207</a>
     </li></ul></dd>
     
 
@@ -1133,7 +2569,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line322">line 322</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1191">line 1191</a>
     </li></ul></dd>
     
 
@@ -1215,253 +2651,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line208">line 208</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".displayCells"><span class="type-signature">(static) </span>displayCells<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Fill cells with a value
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line195">line 195</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".displayColumns"><span class="type-signature">(static) </span>displayColumns<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Display columns
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line165">line 165</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".displayRows"><span class="type-signature">(static) </span>displayRows<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Display rows
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line180">line 180</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line796">line 796</a>
     </li></ul></dd>
     
 
@@ -1543,7 +2733,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line234">line 234</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line866">line 866</a>
     </li></ul></dd>
     
 
@@ -1635,7 +2825,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line226">line 226</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line858">line 858</a>
     </li></ul></dd>
     
 
@@ -1666,6 +2856,554 @@ DataProvider, Controller or Renderer
 </div>
 
 
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".getGroupSpan"><span class="type-signature">(static) </span>getGroupSpan<span class="signature">(renderedTreeNode, span)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retrieve group span for headers
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>renderedTreeNode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">rendered tree node generated by the core</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>span</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">initialy 1</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line769">line 769</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    renderedTreeNode and span for recursivity
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".getRenderedColumns"><span class="type-signature">(static) </span>getRenderedColumns<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line189">line 189</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".getRenderedRows"><span class="type-signature">(static) </span>getRenderedRows<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line174">line 174</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".getTreeDepth"><span class="type-signature">(static) </span>getTreeDepth<span class="signature">(renderedObjectTree)</span><span class="type-signature"> &rarr; {int}</span></h4>
+
+    
+
+
+
+<div class="description">
+    return depth
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>renderedObjectTree</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line364">line 364</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    depth
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">int</span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -1727,7 +3465,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line91">line 91</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line104">line 104</a>
     </li></ul></dd>
     
 
@@ -1868,7 +3606,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line346">line 346</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1215">line 1215</a>
     </li></ul></dd>
     
 
@@ -1999,7 +3737,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line330">line 330</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1199">line 1199</a>
     </li></ul></dd>
     
 
@@ -2130,7 +3868,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line314">line 314</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1183">line 1183</a>
     </li></ul></dd>
     
 
@@ -2161,11 +3899,138 @@ DataProvider, Controller or Renderer
 
     
 
-    <h4 class="name" id=".onCellClick"><span class="type-signature">(static) </span>onCellClick<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".init"><span class="type-signature">(static) </span>init<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line79">line 79</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".onCellClick"><span class="type-signature">(static) </span>onCellClick<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    fire event before click on matrix cell
+</div>
 
 
 
@@ -2208,7 +4073,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line262">line 262</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1081">line 1081</a>
     </li></ul></dd>
     
 
@@ -2234,7 +4099,23 @@ DataProvider, Controller or Renderer
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    true for onCellClick event
+</div>
 
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -2292,7 +4173,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line278">line 278</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1125">line 1125</a>
     </li></ul></dd>
     
 
@@ -2319,6 +4200,192 @@ DataProvider, Controller or Renderer
 
         
 
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".onCellHover"><span class="type-signature">(static) </span>onCellHover<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    fire event on matrix cell hover
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1097">line 1097</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".onCellOut"><span class="type-signature">(static) </span>onCellOut<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    fire event before click on matrix cell
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1107">line 1107</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    true for onCellClick event
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -2376,7 +4443,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line270">line 270</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1117">line 1117</a>
     </li></ul></dd>
     
 
@@ -2460,7 +4527,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line286">line 286</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1133">line 1133</a>
     </li></ul></dd>
     
 
@@ -2544,7 +4611,175 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line302">line 302</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1171">line 1171</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".onHeaderHover"><span class="type-signature">(static) </span>onHeaderHover<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1143">line 1143</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".onHeaderOut"><span class="type-signature">(static) </span>onHeaderOut<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1153">line 1153</a>
     </li></ul></dd>
     
 
@@ -2628,7 +4863,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line294">line 294</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1163">line 1163</a>
     </li></ul></dd>
     
 
@@ -2716,7 +4951,7 @@ DataProvider, Controller or Renderer
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line246">line 246</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line1065">line 1065</a>
     </li></ul></dd>
     
 
@@ -2739,6 +4974,98 @@ DataProvider, Controller or Renderer
 
 
 
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".orderRenderedTree"><span class="type-signature">(static) </span>orderRenderedTree<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    sort tree by order property
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line323">line 323</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    tree sorted by order property
+</div>
+
+
+
+    
 
 
 
@@ -2839,7 +5166,7 @@ to call Core API.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line115">line 115</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line128">line 128</a>
     </li></ul></dd>
     
 
@@ -2972,7 +5299,7 @@ to gather data necessary to display elements.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line101">line 101</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line114">line 114</a>
     </li></ul></dd>
     
 
@@ -3105,7 +5432,7 @@ to render objects.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line129">line 129</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line142">line 142</a>
     </li></ul></dd>
     
 
@@ -3241,7 +5568,7 @@ to render objects.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line78">line 78</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line90">line 90</a>
     </li></ul></dd>
     
 
@@ -3333,7 +5660,7 @@ to render objects.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line218">line 218</a>
+        <a href="ij.Core.js.html">ij.Core.js</a>, <a href="ij.Core.js.html#line850">line 850</a>
     </li></ul></dd>
     
 
@@ -3381,7 +5708,7 @@ to render objects.</td>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Mon Sep 14 2015 15:16:09 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Dec 15 2015 16:51:25 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
