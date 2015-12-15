@@ -11,22 +11,68 @@ enioka.ij = (
          * <br/>
          */
         var IIJController = {
-            initialize : function(properties) {
+            initialize : function(core){
             },
 
-            onCellHover : function(event){
+            /**
+             * @function
+             * @description on cellHover
+             * @param event HTMLEvent
+             * @param cellData cellData as provided by the DataProvider
+             */
+            onCellHover : function(event, cellData){
             },
 
-            onCellClick : function(event){
+            /**
+             * @function
+             * @description on cellClick
+             * @param event HTMLEvent
+             * @param cellData cellData as provided by the DataProvider
+             */
+            onCellClick : function(event, cellData){
             },
 
-            onCellOut : function(event){
+            /**
+             * @function
+             * @description on cellOut
+             * @param event HTMLEvent
+             * @param cellData cellData as provided by the DataProvider
+             */
+            onCellOut : function(event, cellData){
             },
 
-            onHeaderHover : function(event){
+            /**
+             * @function
+             * @description
+             * @param event HTMLEvent
+             * @param headerNode {Object} provided by the core (properties can be accessed by calling core functions)
+             */
+            onHeaderHover : function(event, headerNode){
             },
 
-            onHeaderOut : function(event){
+            /**
+             * @function
+             * @description
+             * @param event HTMLEvent
+             * @param headerNode {Object} provided by the core (properties can be accessed by calling core functions)
+             */
+            onHeaderOut : function(event, headerNode){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param event
+             * @param headerNode {Object} provided by the core (properties can be accessed by calling core functions)
+             */
+            onHeaderClick : function(event, headerNode){
+            },
+            /**
+             * @function
+             * @description
+             * @param filter {String}
+             */
+            onGraphicalRowFilter : function(filter) {
             }
         };
         IIJController = Class.create(IIJController);

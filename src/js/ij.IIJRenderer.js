@@ -110,6 +110,244 @@ enioka.ij = (
             },
 
             addClasses : function(element, elementType, classes){
+            },
+
+
+            /**
+             * @function
+             * @description
+             * @param rendering
+             * @returns {*}
+             */
+            getRenderingId : function(rendering){
+                return rendering.id;
+            },
+
+            /**
+             * @function
+             * @description
+             * @param rendering
+             * @returns {DOMTokenList}
+             */
+            getRenderingClasses : function(rendering){
+                return rendering.classList;
+            },
+
+            /**
+             * @function
+             * @description
+             * @returns {Element|*}
+             */
+            renderRowsContainer : function(){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param rowObject
+             * @param rowNumber
+             * @returns {Array}
+             */
+            renderRow : function(rowObject, rowNumber){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param renderedObject
+             * @param property
+             * @returns {*}
+             */
+            applyRowSpan : function(renderedObject, property){
+            },
+
+            /**
+             * @function
+             * @descrpition
+             * @param renderedObject
+             * @param property
+             * @returns {*}
+             */
+            applyColSpan : function(renderedObject, property){
+            },
+
+            /**
+             * @function
+             * @description
+             * @returns {Element|*}
+             */
+            renderRowContainer : function(){
+            },
+
+            /**
+             * @function
+             * @descrption
+             * @param label
+             * @returns {*}
+             */
+            renderSubTotalHeader : function(label){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param columnObject
+             * @param columnNumber
+             * @returns {Array}
+             */
+            renderColumn : function(columnObject, columnNumber) {
+            },
+
+            /**
+             * @function
+             * @description
+             * @returns {Element|*}
+             */
+            renderLeftUpperCorner : function(){
+            },
+
+            /**
+             * @function
+             * @description
+             * @returns {Element|*}
+             */
+            renderColumnsLevelContainer : function(){
+            },
+
+            /**
+             * @function
+             * @description
+             * @returns {Element|*}
+             */
+            renderColumnsContainer : function(){
+            },
+
+            /**
+             * @function
+             * @descrpition
+             * @param renderedObject
+             * @returns {*|{id, object, label, order, rendering, open, visible}}
+             */
+            renderSummary : function(renderedObject){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param rowsNumbers
+             * @param columnsNumbers
+             * @param cellData
+             * @param eventsCallBacks
+             * @returns {*}
+             */
+            renderCell : function(rowsNumbers, columnsNumbers, cellData, eventsCallBacks){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param cellData
+             * @returns {*}
+             * @private
+             */
+            _getSummaryHoverCell : function(cellData){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param element
+             * @param child
+             * @returns {*|Node|XML}
+             */
+            appendChild : function(element, child) {
+            },
+
+            /**
+             * @function
+             * @description
+             * @returns {Element|*}
+             */
+            renderContainer : function(){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param property
+             * @param element
+             * @param propertyValue
+             * @returns {*|void}
+             */
+            setCSSProperty : function(property, element, propertyValue){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param property
+             * @param element
+             * @returns {*|void}
+             */
+            emptyCSSProperty : function(property, element){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param element
+             * @param elementType
+             * @param classes
+             * @returns {*}
+             */
+            addClasses : function(element, elementType, classes){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param element
+             * @param id
+             * @returns {*}
+             */
+            setId : function(element, id){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param type
+             * @returns {*|string}
+             */
+            getClassPrefix : function(type){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param type
+             * @returns {*|string}
+             */
+            getIdPrefix : function(type){
+            },
+
+            /**
+             * @function
+             * @description add eventsListeners for the rendering
+             * @param rendering {object}
+             * @param events {object} containing events available for the rendering following this partern :
+             *  - eventName : event
+             * @returns {Node|*}
+             */
+            addEventsToRendering : function(rendering, events){
+            },
+
+            /**
+             * @function
+             * @description clear output (DOM element or buffer)
+             * @param output {Object}
+             */
+            clearOutput : function(output) {
             }
         };
         //Instanciate the IMatrixRenderer Class into an object

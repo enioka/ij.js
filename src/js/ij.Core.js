@@ -47,7 +47,7 @@ enioka.ij = (
              * @memberof enioka.ij.Core
              * @member {interface} dataProvider
              */
-            dataProvider: null,
+            dataprovider: null,
             /**
              * @memberof enioka.ij.Core
              * @member {interface} controller
@@ -88,10 +88,11 @@ enioka.ij = (
              * @return this object itself to allow chaining methods.
              */
             setWorkspace: function (workspace) {
-                if (workspace)
+                console.log(workspace);
+                if (typeof workspace !== "undefined")
                     this.workspace = workspace;
                 else
-                    workspace = document.body;
+                    this.workspace = document.body;
                 return this;
             },
 
@@ -110,12 +111,12 @@ enioka.ij = (
              * to gather data necessary to display elements.
              * @return dataProvider implementer.
              */
-            setDataProvider: function (dataProvider) {
-                if (dataProvider)
-                    this.dataProvider = dataProvider;
+            setDataProvider: function (dataprovider) {
+                if (typeof dataprovider !== "undefined")
+                    this.dataprovider = dataprovider;
                 else
-                    this.dataProvider = new eniokaij.IIJDataProvider(this);
-                return this.dataProvider;
+                    this.dataprovider = new eniokaij.IIJDataProvider(this);
+                return this.dataprovider;
             },
 
             /**
@@ -296,7 +297,6 @@ enioka.ij = (
                         duplicatedHeader[attr] = header[attr] + "_child";
                     }
                     else if (attr == "rendering") {
-                        console.log(header[attr]);
                         duplicatedHeader[attr] = this.renderer.setId(
                             header[attr],
                             this.renderer.getIdPrefix(type) + duplicatedHeader.id);
@@ -386,7 +386,6 @@ enioka.ij = (
              * @description Build columns rendering necessary components
              */
             _preRenderColumns: function (columns) {
-                console.log(columns);
                 console.profile("_preRenderColumns");
                 if (columns) {
                     var renderedColumns = this.getRenderedColumns(
@@ -724,7 +723,6 @@ enioka.ij = (
                             rowsNumbers,
                             columnsNumbers[i])));
                 }
-                console.log(cells);
                 return cells;
             },
 
