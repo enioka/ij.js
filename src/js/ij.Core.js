@@ -176,7 +176,7 @@ enioka.ij = (
                 if (rows)
                     for (var i = 0; i < rows.length; i++)
                         rowsArray.push(this.renderer.renderRow(rows[i],
-                            i));
+                                                               i));
                 return rowsArray;
             },
 
@@ -191,7 +191,7 @@ enioka.ij = (
                 if (columns)
                     for (var i = 0; i < columns.length; i++)
                         colmunsArray.push(this.renderer.renderColumn(columns[i],
-                            i));
+                                                                     i));
                 return colmunsArray;
             },
 
@@ -233,14 +233,19 @@ enioka.ij = (
                             if (renderedObjects[i].length - 1 > j) {
                                 renderedObjects[i][j].children = new Array();
                                 //check if there is property to hide summaries
-                                if (!this.hideSummaries)
+                                if (!this.hideSummaries) {
+                                    renderedObjects[i][j].hasSummary = true;
+                                    var summary =
+                                        this.renderer.renderSummary(renderedObjects[i][j],
+                                                                    type);
                                     renderedObjects[i][j].children.push(
-                                        this.renderer.renderSummary(renderedObjects[i][j])
+                                        summary
                                     );
+                                }
                                 if (renderedObjects[i][j].object) {
                                     renderedObjects[i][j].children.push(
                                         this._cloneHeader(renderedObjects[i][j],
-                                            type)
+                                                          type)
                                     );
                                     delete renderedObjects[i][j].object;
                                 }
@@ -270,7 +275,7 @@ enioka.ij = (
                                     if (map[currentID].object) {
                                         map[currentID].children.push(
                                             this._cloneHeader(renderedObjects[i][j],
-                                                type)
+                                                              type)
                                         );
                                         map[currentID].children[0].object = map[currentID].object;
                                         delete map[currentID].object;
@@ -281,6 +286,7 @@ enioka.ij = (
                         parentRoot = map[currentID].children;
                     }
                 }
+                console.log(_scope.root);
                 return _scope.root;
             },
 
@@ -330,7 +336,7 @@ enioka.ij = (
                     ordered[renderedTree[id].order].push(renderedTree[id]);
                     if (renderedTree[id].children)
                         renderedTree[id].children =
-                            this.orderRenderedTree(renderedTree[id].children);
+                        this.orderRenderedTree(renderedTree[id].children);
                 }
                 for (var i in ordered) {
                     root = root.concat(this.alphabeticalSort(ordered[i]));
@@ -390,6 +396,22 @@ enioka.ij = (
 
             /**
              * @function
+             * @description
+             */
+            populateSummaries : function(treeNode){
+                console.log(treeNode);
+                for (var id in treeNode) {
+                    if (treeNode[id].hasSummary){
+                        var objects = this._getObjectsFromTree(treeNode[id].children);
+                        treeNode[id].children[treeNode[id].children.length - 1].object = objects;
+                    }
+                    if (treeNode[id].children)
+                        this.populateSummaries(treeNode[id].children);
+                }
+            },
+
+            /**
+             * @function
              * @description Build columns rendering necessary components
              */
             _preRenderColumns: function (columns) {
@@ -414,21 +436,23 @@ enioka.ij = (
                     renderedColumns[id] =
                         this.getGroupSpan(renderedColumns[id]).renderedTreeNode;
                 }
+                if (!this.hideSummaries)
+                    this.populateSummaries(renderedColumns);
                 var columnsDepth = this.getTreeDepth(renderedColumns);
                 this.applyTreeDepth(renderedColumns,
-                    columnsDepth);
+                                    columnsDepth);
                 this.applyOnRenderedObjects(renderedColumns,
-                    (this.renderer.applyColSpan)
-                        .bind(this.renderer),
-                    "span");
+                                            (this.renderer.applyColSpan)
+                                            .bind(this.renderer),
+                                            "span");
                 this.applyOnRenderedObjects(renderedColumns,
-                    (this.renderer.applyRowSpan)
-                        .bind(this.renderer),
-                    "depth");
+                                            (this.renderer.applyRowSpan)
+                                            .bind(this.renderer),
+                                            "depth");
 
                 this.applyClasses(renderedColumns,
-                    (this.renderer.addClasses)
-                        .bind(this.renderer));
+                                  (this.renderer.addClasses)
+                                  .bind(this.renderer));
                 console.profileEnd();
                 return {
                     "depth": columnsDepth,
@@ -448,10 +472,10 @@ enioka.ij = (
                 };
                 leftUpperCorner.rendering =
                     this.renderer.applyColSpan(leftUpperCorner.rendering,
-                        leftUpperCorner["colspan"]);
+                                               leftUpperCorner["colspan"]);
                 leftUpperCorner.rendering =
                     this.renderer.applyRowSpan(leftUpperCorner.rendering,
-                        leftUpperCorner["rowspan"]);
+                                               leftUpperCorner["rowspan"]);
                 //Add it before every other columns
                 if (columns.rendering.length > 0)
                     columnsLevels[1].unshift(leftUpperCorner.rendering);
@@ -459,8 +483,8 @@ enioka.ij = (
                     var level = this.renderer.renderColumnsLevelContainer();
                     for (var col in columnsLevels[lvl]) {
                         this._appendChild(level,
-                            columnsLevels[lvl][col]
-                        );
+                                          columnsLevels[lvl][col]
+                                         );
                     }
                     this._appendChild(
                         columnsContainer,
@@ -481,11 +505,15 @@ enioka.ij = (
                 var columnsLevel = new Array();
                 columnsLevel[level] = new Array();
                 for (var id in renderedColumns) {
-                    renderedColumns[id].rendering = this.renderer.addEventsToRendering(renderedColumns[id].rendering,
-                        this._getHeaderEventsCallbacks(renderedColumns[id]));
+                    renderedColumns[id] =
+                        this.renderer.reRenderColumn(renderedColumns[id],
+                                                     this._getHeaderEventsCallbacks(
+                                                         renderedColumns[id]
+                                                     )
+                                                    );
                     columnsLevel[level].push(renderedColumns[id].rendering);
                     if (renderedColumns[id].children && (renderedColumns[id].open != false &&
-                        renderedColumns[id].open != "false")) {
+                                                         renderedColumns[id].open != "false")) {
                         var childrenArray =
                             this.buildColumns(renderedColumns[id].children, level + 1);
                         for (var lvl in childrenArray) {
@@ -526,20 +554,22 @@ enioka.ij = (
                 for (var id in renderedRows) {
                     renderedRows[id] = this.getGroupSpan(renderedRows[id], 1).renderedTreeNode;
                 }
+                if (!this.hideSummaries)
+                    this.populateSummaries(renderedRows);
                 var rowsDepth = this.getTreeDepth(renderedRows);
                 this.applyTreeDepth(renderedRows,
-                    rowsDepth);
+                                    rowsDepth);
                 this.applyOnRenderedObjects(renderedRows,
-                    (this.renderer.applyRowSpan)
-                        .bind(this.renderer),
-                    "span");
+                                            (this.renderer.applyRowSpan)
+                                            .bind(this.renderer),
+                                            "span");
                 this.applyOnRenderedObjects(renderedRows,
-                    (this.renderer.applyColSpan)
-                        .bind(this.renderer),
-                    "depth");
+                                            (this.renderer.applyColSpan)
+                                            .bind(this.renderer),
+                                            "depth");
                 this.applyClasses(renderedRows,
-                    (this.renderer.addClasses)
-                        .bind(this.renderer));
+                                  (this.renderer.addClasses)
+                                  .bind(this.renderer));
                 console.profileEnd();
                 return {
                     "depth": rowsDepth,
@@ -551,6 +581,7 @@ enioka.ij = (
                 if (!this.container)
                     this.container = this.renderer.renderContainer();
                 var rowsContainer = this.renderer.renderRowsContainer();
+                //Find a better way to do that
                 if (rows && columns)
                     rows = this.buildRows(rows.rendering, columns).rows;
                 else if (rows)
@@ -574,9 +605,9 @@ enioka.ij = (
                     rowContainer = this.renderer.renderRowContainer();
                     for (var j = 0; j < matrix[i].length; j++) {
                         cells.push(this.renderer.renderCell([i],
-                            [j],
-                            matrix[i][j],
-                            this._getCellEventsCallbacks([i], [j])));
+                                                            [j],
+                                                            matrix[i][j],
+                                                            this._getCellEventsCallbacks([i], [j])));
                     }
                     this._appendChildren(rowContainer, cells);
                     rows.push(rowContainer);
@@ -594,10 +625,10 @@ enioka.ij = (
             applyOnRenderedObjects: function (renderedObjects, callback, params) {
                 for (var id in renderedObjects) {
                     renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
-                        renderedObjects[id][params]);
+                                                             renderedObjects[id][params]);
                     if (renderedObjects[id].children)
                         renderedObjects[id].children =
-                            this.applyOnRenderedObjects(renderedObjects[id].children, callback, params);
+                        this.applyOnRenderedObjects(renderedObjects[id].children, callback, params);
                 }
                 return renderedObjects;
             },
@@ -609,16 +640,16 @@ enioka.ij = (
                     var classes = new Array();
                     if (renderedObjects[id].children) {
                         this.applyClasses(renderedObjects[id].children,
-                            callback,
-                            currentId);
+                                          callback,
+                                          currentId);
                         var nextId = currentId + this._getObjectsFromTree(renderedObjects[id].children).length;
                         for (var i = currentId; i < nextId; i++) {
                             classes.push(i);
                         }
                         currentId = nextId;
                         renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
-                            renderedObjects[id].type,
-                            classes);
+                                                                 renderedObjects[id].type,
+                                                                 classes);
                     } else if (renderedObjects[id].object) {
                         var nextId = currentId + 1;
                         for (var i = currentId; i < nextId; i++) {
@@ -626,8 +657,8 @@ enioka.ij = (
                         }
                         currentId = nextId;
                         renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
-                            renderedObjects[id].type,
-                            classes);
+                                                                 renderedObjects[id].type,
+                                                                 classes);
                     }
                 }
                 return renderedObjects;
@@ -647,26 +678,32 @@ enioka.ij = (
                     for (var id in rowsTreeNode) {
                         var row = this.renderer.renderRowContainer();
                         if (rowsTreeNode[id].children && (rowsTreeNode[id].open == "false" ||
-                            rowsTreeNode[id].open == false)) {
+                                                          rowsTreeNode[id].open == false)) {
                             rowsTreeNode[id].rendering = this.renderer.applyRowSpan(rowsTreeNode[id].rendering,
-                                2);
+                                                                                    2);
                         }
                         rowsTreeNode[id].rendering = this.renderer.addEventsToRendering(rowsTreeNode[id].rendering,
-                            this._getHeaderEventsCallbacks(rowsTreeNode[id]));
+                                                                                        this._getHeaderEventsCallbacks(rowsTreeNode[id]));
                         this._appendChild(row, rowsTreeNode[id].rendering);
-                        if (rowsTreeNode[id].object) {
-                            var rowData = this._renderRowData(columns,
-                                rowNumber);
+                        if (rowsTreeNode[id].summary){
+                            var rowData = this._renderRowSummary(columns,
+                                                                 rowsTreeNode[id],
+                                                                 rowNumber);
                             this._appendChildren(row, rowData);
                             rowNumber++;
                             rows.push(row);
-                        }
-                        else if (rowsTreeNode[id].children && (rowsTreeNode[id].open != "false" &&
-                            rowsTreeNode[id].open != false)) {
+                        } else if (rowsTreeNode[id].object) {
+                            var rowData = this._renderRowData(columns,
+                                                              rowNumber);
+                            this._appendChildren(row, rowData);
+                            rowNumber++;
+                            rows.push(row);
+                        } else if (rowsTreeNode[id].children && (rowsTreeNode[id].open != "false" &&
+                                                                 rowsTreeNode[id].open != false)) {
                             rows.push(row);
                             var builtRows = this.buildRows(rowsTreeNode[id].children,
-                                columns,
-                                rowNumber);
+                                                           columns,
+                                                           rowNumber);
                             rows = rows.concat(builtRows.rows);
                             rowNumber = builtRows.rowNumber;
                         } else {
@@ -678,7 +715,7 @@ enioka.ij = (
                                 rowNumber++;
                             }
                             var rowsData = this._renderAggregateRowData(columns,
-                                rowsNumbers);
+                                                                        rowsNumbers);
                             rows = rows.concat(rowsData);
                         }
                     }
@@ -699,13 +736,13 @@ enioka.ij = (
                     columnsNumbers = this.getColumnsNumbersFromObjects(columns);
                 for (var i = 0; i < columnsNumbers.length; i++) {
                     var cellData = this.dataprovider.getData(this.getRowsObjects(rowsNumbers),
-                        columns[i]);
+                                                             columns[i]);
                     cells.push(this.renderer.renderCell(rowsNumbers,
-                        columnsNumbers[i],
-                        cellData,
-                        this._getCellEventsCallbacks(
-                            rowsNumbers,
-                            columnsNumbers[i])));
+                                                        columnsNumbers[i],
+                                                        cellData,
+                                                        this._getCellEventsCallbacks(
+                                                            rowsNumbers,
+                                                            columnsNumbers[i])));
                 }
                 this._appendChildren(row, cells);
                 rows.push(row);
@@ -723,13 +760,42 @@ enioka.ij = (
                     rowsNumbers = [rowNumber];
                 for (var i = 0; i < columnsNumbers.length; i++) {
                     var cellData = this.dataprovider.getData(this.getRowsObjects(rowsNumbers),
-                        columns[i]);
+                                                             columns[i]);
                     cells.push(this.renderer.renderCell(rowsNumbers,
-                        columnsNumbers[i],
-                        cellData,
-                        this._getCellEventsCallbacks(
-                            rowsNumbers,
-                            columnsNumbers[i])));
+                                                        columnsNumbers[i],
+                                                        cellData,
+                                                        this._getCellEventsCallbacks(
+                                                            rowsNumbers,
+                                                            columnsNumbers[i])));
+                }
+                return cells;
+            },
+
+            /**
+             * @function
+             * @description
+             * @param
+             * @returns
+             */
+            _renderRowSummary : function(columns, rowsTreeNode, rowNumber){
+                var columnsNumbers = this.getColumnsNumbersFromObjects(columns),
+                    cells = new Array(),
+                    rowsNumbers = new Array();
+                //Since summary contains all rows before, rows numbers has to be modified to match each rows contained by parent group
+                rowsNumbers.push(rowNumber);
+                for (var i = i; i < (rowsTreeNode.object.length + 1); i++){
+                    rowsNumbers.push(rowNumber - i);
+                }
+                for (var i = 0; i < columnsNumbers.length; i++) {
+                    var cellData = this.dataprovider.getData(rowsTreeNode.object,
+                                                             columns[i],
+                                                             {summary : true});
+                    cells.push(this.renderer.renderCell(rowsNumbers,
+                                                        columnsNumbers[i],
+                                                        cellData,
+                                                        this._getCellEventsCallbacks(
+                                                            rowsNumbers,
+                                                            columnsNumbers[i])));
                 }
                 return cells;
             },
@@ -776,7 +842,7 @@ enioka.ij = (
                         span += this.getGroupSpan(renderedTreeNode.children[id], initialSpan).span;
                     }
                 } else if (renderedTreeNode.children
-                    && renderedTreeNode.type == "rowHeader") {
+                           && renderedTreeNode.type == "rowHeader") {
                     //We have to add a span because data line will be added in another "TR"
                     span = 2;
                 } else {
@@ -853,7 +919,6 @@ enioka.ij = (
             /**
              * @function
              * @description export matrix to a CSV
-             * @return true if exported, false if no
              */
             exportToCSV: function () {
             },
@@ -861,7 +926,6 @@ enioka.ij = (
             /**
              * @function
              * @description export matrix to a javascript table
-             * @return true if exported, false if no
              */
             exportMatrix: function () {
             },
@@ -977,8 +1041,8 @@ enioka.ij = (
                     }
                     else if (from[id].children) {
                         node = this.getNodeFromProperty(property,
-                            value,
-                            from[id].children);
+                                                        value,
+                                                        from[id].children);
                     }
                     if (node != null)
                         break;
@@ -1006,8 +1070,8 @@ enioka.ij = (
                     }
                     else if (from[id].children && (from[id].open == true || from[id].open == "true")) {
                         var returned = this.getNodeFromProperty(property,
-                            value,
-                            from[id].children);
+                                                                value,
+                                                                from[id].children);
                         if (returned)
                             node = node.concat(returned);
                     }
@@ -1045,6 +1109,7 @@ enioka.ij = (
             _getObjectsFromTree: function (renderedObjectsTree) {
                 var objects = new Array();
                 for (var id in renderedObjectsTree) {
+                    console.log(renderedObjectsTree, id);
                     if (renderedObjectsTree[id].object)
                         objects.push(renderedObjectsTree[id].object);
                     if (renderedObjectsTree[id].children)
@@ -1082,11 +1147,11 @@ enioka.ij = (
                 console.log(rowsNumbers, columnsNumbers);
                 if (this.controller.onCellClick) {
                     this.controller.onCellClick(event,
-                        this.dataprovider.getData(
-                            this.getRowsObjects(rowsNumbers),
-                            this.getColumnsObjects(columnsNumbers)
-                        )
-                    );
+                                                this.dataprovider.getData(
+                                                    this.getRowsObjects(rowsNumbers),
+                                                    this.getColumnsObjects(columnsNumbers)
+                                                )
+                                               );
                 }
             },
 
