@@ -5,7 +5,7 @@ var Component = {
     getRows : function(){
         var objects = new Array(),
             number = Math.random() * (50 - 10) + 10,
-            possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            possible = "abcdefghijklmnopqrstuvwxyz0123456789";
         for (var i = 0; i < number; i++) {
             var text = "";
             for( var j=0; j < (Math.random() * (10 - 3) + 3); j++ )
@@ -19,7 +19,7 @@ var Component = {
     getColumns : function(){
         var objects = new Array(),
             number = Math.random() * (50 - 10) + 10,
-            possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            possible = "abcdefghijklmnopqrstuvwxyz0123456789";
         for (var i = 0; i < number; i++) {
             var text = "";
             for( var j=0; j < (Math.random() * (10 - 3) + 3); j++ )
@@ -53,7 +53,8 @@ var DataProvider = {
         return this.component.getColumns();
     },
 
-    getData : function(rowsObjects, columnsObjects, filter){
+    getData : function(rowsObjects, columnsObjects, filter, spec){
+        console.log(rowsObjects, columnsObjects);
         var relations = [],
             occurences = 0;
         for (var i = 0; i < rowsObjects.length; i++){
@@ -61,8 +62,6 @@ var DataProvider = {
                 occurences += this._getOccurences(rowsObjects[i], columnsObjects[j]);
             }
         }
-        console.log(rowsObjects, columnsObjects);
-        console.log(":", occurences);
         relations.push(occurences);
         return relations;
     },
@@ -136,8 +135,8 @@ var Renderer = {
         rowArray.push(
             this._createRenderedJSON(
                 rowObject.substring(0,1),
-                undefined,
                 null,
+                rowObject.substring(0,1),
                 (order || 0),
                 this.renderer.addAttribute(
                     this.renderer.createElementWithText("th",
@@ -164,7 +163,6 @@ var Renderer = {
                 (hidden || true)
             )
         );
-        console.log(rowArray[0].id);
         return rowArray;
     },
 
@@ -230,7 +228,23 @@ var Renderer = {
             hidden;
         columnArray.push(
             this._createRenderedJSON(
-                columnNumber,
+                columnObject.substring(0,1),
+                undefined,
+                columnObject.substring(0,1),
+                (order || 0),
+                this.renderer.addAttribute(
+                    this.renderer.createElementWithText("th",
+                                                        columnObject.substring(0,1)),
+                    "id",
+                    this.template.getAttribute("columnHeader","idPrefix") + columnObject.substring(0,1)
+                ),
+                (open || true),
+                (hidden || true)
+            )
+        );
+        columnArray.push(
+            this._createRenderedJSON(
+                columnObject,
                 columnObject,
                 columnObject,
                 (order || 0),
@@ -244,6 +258,57 @@ var Renderer = {
             )
         );
         return columnArray;
+    },
+
+    /**
+     * @function
+     * @description
+     * @param renderedColumn
+     * @param events
+     * @returns {Object}
+     */
+    reRenderColumn : function(renderedColumn, events){
+        if (!renderedColumn.children) {
+            var vtext = this.renderer.createElement("div",
+                                                    ["vtext"]);
+            var vtextInner = this.renderer.createElementWithText("div",
+                                                                   renderedColumn.label,
+                                                                   ["vtext__inner"]);
+            renderedColumn.rendering.textContent = "";
+            this.appendChild(vtext,
+                             vtextInner);
+            this.appendChild(renderedColumn.rendering,
+                             vtext);
+        }
+        renderedColumn.rendering = this.addEventsToRendering(renderedColumn.rendering,
+                                                             events);
+        return renderedColumn;
+    },
+
+    /**
+     * @function
+     * @description
+     * @param
+     * @param
+     * @returns
+     */
+    renderSummary : function(renderedObject, type){
+        var renderedSummary = this._createRenderedJSON(
+            renderedObject.id + "__summary__",
+            null,
+            renderedObject.label + "__summary__",
+            30,
+            this.renderer.addAttribute(
+                this.renderer.createElementWithText("th", renderedObject.label + "__summary__"),
+                "id",
+                this.template.getAttribute(type,"idPrefix") + renderedObject.id
+            ),
+            (renderedObject.open || true),
+            (renderedObject.hidden || false)
+        );
+        renderedSummary.summary = true;
+        renderedSummary.type = type;
+        return renderedSummary;
     },
 
     /**
@@ -275,16 +340,6 @@ var Renderer = {
 
     /**
      * @function
-     * @descrpition
-     * @param renderedObject
-     * @returns {*|{id, object, label, order, rendering, open, visible}}
-     */
-    renderSummary : function(renderedObject){
-        return this._createRenderedJSON();
-    },
-
-    /**
-     * @function
      * @description
      * @param rowsNumbers
      * @param columnsNumbers
@@ -293,15 +348,11 @@ var Renderer = {
      * @returns {*}
      */
     renderCell : function(rowsNumbers, columnsNumbers, cellData, eventsCallBacks){
+        console.log(rowsNumbers);
+        var reset = false;
         if (cellData && cellData.length > 0) {
             var cell =  this.renderer.createElementWithText("td", cellData[0]);
-            this.renderer.addAttribute(cell, "data-toggle", "popover");
-            this.renderer.addAttribute(cell, "data-original-title", "Summary (first relation)");
-            this.renderer.addAttribute(cell, "data-content",
-                this._getSummaryHoverCell(cellData)
-            );
-            this.renderer.addAttribute(cell, "data-html", "true");
-            this.renderer.addAttribute(cell, "data-container", "body");
+            cell.style.textAlign = "center";
         }
         else {
             var cell = this.renderer.createElement("td");
@@ -310,14 +361,15 @@ var Renderer = {
             eventsCallBacks);
         for (var row in rowsNumbers){
             this.renderer.addClasses(cell,
-                [this.template.getAttribute("rowHeader", "classPrefix") +
-                rowsNumbers[row]]);
+                                     [this.template.getAttribute("rowHeader", "classPrefix") +
+                                      rowsNumbers[row]]);
         }
         for (var column in columnsNumbers){
-            return this.renderer.addClasses(cell,
-                [this.template.getAttribute("columnHeader", "classPrefix") +
-                columnsNumbers[column]]);
+            this.renderer.addClasses(cell,
+                                     [this.template.getAttribute("columnHeader", "classPrefix") +
+                                      columnsNumbers[column]]);
         }
+        return cell;
     },
 
     /**
@@ -396,12 +448,12 @@ var Renderer = {
      * @param classes
      * @returns {*}
      */
-    addClasses : function(element, elementType, classes){
+    addClasses : function(element, elementType, classes, properties){
         var classPrefix = this.template.getAttribute(elementType, "classPrefix");
         for (var i = 0; i < classes.length; i++){
             classes[i] = classPrefix + classes[i];
         }
-        return this.renderer.addClasses(element, classes);
+        return this.renderer.addClasses(element, classes, properties);
     },
 
     /**
@@ -498,7 +550,6 @@ var Controller = {
         info_debug("onCellHover");
         var classes = event.target.className.split(" ");
         var elements = new Array();
-        console.log($(event.target));
         for (i = 0; i < classes.length; i++){
             elements = document.getElementsByClassName(
                 classes[i]
@@ -520,6 +571,7 @@ var Controller = {
     },
 
     onCellClick : function(event, cellData){
+        console.log(cellData);
         alert("there is " + cellData[0] + " characters shared");
     },
 
@@ -532,7 +584,6 @@ var Controller = {
         info_debug("onCellHover");
         var classes = event.target.className.split(" ");
         var elements = new Array();
-        console.log($(event.target));
         for (i = 0; i < classes.length; i++){
             elements = document.getElementsByClassName(
                 classes[i]
@@ -626,7 +677,6 @@ component.dataprovider = new DataProvider(component, ij);
 ij.setController(component.controller);
 ij.setDataProvider(component.dataprovider);
 ij.setRenderer(component.renderer);
-ij.hideSummaries = true;
 
 component.renderer.template.addClassPrefix("columnHeader",
     "c");
