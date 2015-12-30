@@ -399,7 +399,6 @@ enioka.ij = (
              * @description
              */
             populateSummaries : function(treeNode){
-                console.log(treeNode);
                 for (var id in treeNode) {
                     if (treeNode[id].hasSummary){
                         treeNode[id].children[treeNode[id].children.length - 1].object = new Array();
@@ -415,7 +414,7 @@ enioka.ij = (
              * @function
              * @description Build columns rendering necessary components
              */
-            _preRenderColumns: function (columns) {
+            _preRenderColumns: function (columns, properties) {
                 console.profile("_preRenderColumns");
                 if (columns) {
                     var renderedColumns = this.getRenderedColumns(
@@ -430,7 +429,7 @@ enioka.ij = (
                 } else if (this.columns && this.columns.rendering) {
                     var renderedColumns = this.columns.rendering;
                 } else {
-                    //means no columns objects, have to return
+                    //means no columns objects
                     return;
                 }
                 for (var id in renderedColumns) {
@@ -453,7 +452,9 @@ enioka.ij = (
 
                 this.applyClasses(renderedColumns,
                                   (this.renderer.addClasses)
-                                  .bind(this.renderer));
+                                  .bind(this.renderer),
+                                  null,
+                                  properties);
                 console.profileEnd();
                 return {
                     "depth": columnsDepth,
@@ -535,7 +536,7 @@ enioka.ij = (
              * @function
              * @description Display rows
              */
-            _preRenderRows: function (rows) {
+            _preRenderRows: function (rows, properties) {
                 console.profile("rows");
                 if (rows) {
                     var renderedRows =
@@ -570,7 +571,9 @@ enioka.ij = (
                                             "depth");
                 this.applyClasses(renderedRows,
                                   (this.renderer.addClasses)
-                                  .bind(this.renderer));
+                                  .bind(this.renderer),
+                                  null,
+                                  properties);
                 console.profileEnd();
                 return {
                     "depth": rowsDepth,
@@ -638,9 +641,11 @@ enioka.ij = (
              * @function
              * @description
              * @param
+             * @param
+             * @param
              * @return
              */
-            applyClasses: function (renderedObjects, callback, currentId) {
+            applyClasses: function (renderedObjects, callback, currentId, properties) {
                 if (!currentId)
                     var currentId = 0;
                 for (var id in renderedObjects) {
@@ -648,18 +653,25 @@ enioka.ij = (
                     if (renderedObjects[id].children) {
                         this.applyClasses(renderedObjects[id].children,
                                           callback,
-                                          currentId);
-                        if (renderedObjects[id].type == "rowHeader")
-                            var nextId = currentId + renderedObjects[id].span - 1;
+                                          currentId,
+                                          properties);
+                        if (renderedObjects[id].type == "rowHeader") {
+                            if (renderedObjects[id].open == ("true" || true))
+                                var nextId = currentId + renderedObjects[id].span - 1;
+                            else (renderedObjects[id].group == true &&
+                                  renderedObjects[id].open == ("false" || false))
+                                var nextId = currentId + this._getObjectsFromTree(renderedObjects[id].children).length;
+                        }
                         else
-                            var nextId = currentId + this._getObjectsFromTree(renderedObjects[id].children).length;
+                            var nextId = currentId + renderedObjects[id].span;
                         for (var i = currentId; i < nextId; i++) {
                             classes.push(i);
                         }
                         currentId = nextId;
                         renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
                                                                  renderedObjects[id].type,
-                                                                 classes);
+                                                                 classes,
+                                                                 properties);
                     } else if (renderedObjects[id].object) {
                         var nextId = currentId + 1;
                         for (var i = currentId; i < nextId; i++) {
@@ -668,7 +680,8 @@ enioka.ij = (
                         currentId = nextId;
                         renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
                                                                  renderedObjects[id].type,
-                                                                 classes);
+                                                                 classes,
+                                                                 properties);
                     }
                 }
                 return renderedObjects;
@@ -696,6 +709,7 @@ enioka.ij = (
                                                                                         this._getHeaderEventsCallbacks(rowsTreeNode[id]));
                         this._appendChild(row, rowsTreeNode[id].rendering);
                         if (rowsTreeNode[id].summary){
+                            console.log("summary", rowNumber);
                             var rowData = this._renderRowSummary(columns,
                                                                  rowsTreeNode[id],
                                                                  rowNumber);
@@ -703,6 +717,7 @@ enioka.ij = (
                             rowNumber++;
                             rows.push(row);
                         } else if (rowsTreeNode[id].object) {
+                            console.log("object", rowNumber);
                             var rowData = this._renderRowData(columns,
                                                               rowNumber);
                             this._appendChildren(row, rowData);
@@ -711,6 +726,7 @@ enioka.ij = (
                         } else if (rowsTreeNode[id].children && (rowsTreeNode[id].open != "false" &&
                                                                  rowsTreeNode[id].open != false)) {
                             rows.push(row);
+                            console.log("group", rowNumber);
                             var builtRows = this.buildRows(rowsTreeNode[id].children,
                                                            columns,
                                                            rowNumber);
@@ -718,6 +734,7 @@ enioka.ij = (
                             rowNumber = builtRows.rowNumber;
                         } else {
                             rows.push(row);
+                            console.log("header", rowNumber);
                             var rowsNumbers = new Array(),
                                 rowsObjectsLength = this._getObjectsFromTree(rowsTreeNode[id].children).length;
                             for (var i = 0; i < rowsObjectsLength; i++) {
@@ -768,6 +785,7 @@ enioka.ij = (
                 var columnsNumbers = this.getColumnsNumbersFromObjects(columns),
                     cells = new Array(),
                     rowsNumbers = [rowNumber];
+                console.log(this.getRowsObjects(rowsNumbers));
                 for (var i = 0; i < columnsNumbers.length; i++) {
                     var cellData = this.dataprovider.getData(this.getRowsObjects(rowsNumbers),
                                                              columns[i]);
@@ -788,17 +806,15 @@ enioka.ij = (
              * @returns
              */
             _renderRowSummary : function(columns, rowsTreeNode, rowNumber){
+                console.log(columns);
                 var columnsNumbers = this.getColumnsNumbersFromObjects(columns),
                     cells = new Array(),
                     rowsNumbers = new Array();
-                //Since summary contains all rows before, rows numbers has to be modified to match each rows contained by parent group
                 rowsNumbers.push(rowNumber);
-                for (var i = i; i < (rowsTreeNode.object.length + 1); i++){
-                    rowsNumbers.push(rowNumber - i);
-                }
                 for (var i = 0; i < columnsNumbers.length; i++) {
                     var cellData = this.dataprovider.getData(rowsTreeNode.object,
                                                              columns[i],
+                                                             null,
                                                              {summary : true});
                     cells.push(this.renderer.renderCell(rowsNumbers,
                                                         columnsNumbers[i],
@@ -950,7 +966,7 @@ enioka.ij = (
 
             getRowObject: function (number) {
                 if (!this.rowsObjects) {
-                    this.rowsObjects = this._getObjectsFromTree(this.rows.rendering);
+                    this.rowsObjects = this._getObjectsFromTree(this.rows.rendering, true);
                 }
                 return this.rowsObjects[number];
             },
@@ -965,7 +981,7 @@ enioka.ij = (
 
             getColumnObject: function (number) {
                 if (!this.columnsObjects) {
-                    this.columnsObjects = this._getObjectsFromTree(this.columns.rendering);
+                    this.columnsObjects = this._getObjectsFromTree(this.columns.rendering, true);
                 }
                 return this.columnsObjects[number];
             },
@@ -980,7 +996,7 @@ enioka.ij = (
 
             getRowNumber: function (object) {
                 if (!this.rowsObjects) {
-                    this.rowsObjects = this._getObjectsFromTree(this.rows.rendering);
+                    this.rowsObjects = this._getObjectsFromTree(this.rows.rendering, true);
                 }
                 for (var i = 0; i < this.rowsObjects.length; i++) {
                     if (JSON.stringify(this.rowsObjects[i]) ==
@@ -992,7 +1008,7 @@ enioka.ij = (
 
             getColumnNumber: function (object) {
                 if (!this.columnsObjects) {
-                    this.columnsObjects = this._getObjectsFromTree(this.columns.rendering);
+                    this.columnsObjects = this._getObjectsFromTree(this.columns.rendering, true);
                 }
                 for (var i = 0; i < this.columnsObjects.length; i++) {
                     if (JSON.stringify(this.columnsObjects[i]) ==
@@ -1004,41 +1020,40 @@ enioka.ij = (
 
             getColumnsNumbersFromObjects: function (columnsObjects) {
                 var numbers = new Array(),
-                    lastNumber = 0;
+                    lastNumber = 0,
+                    map;
                 for (var i = 0; i < columnsObjects.length; i++) {
                     numbers[i] = new Array();
-                    for (var j = lastNumber; j < (columnsObjects[i].length + lastNumber); j++) {
-                        numbers[i].push(j);
-                    }
-                    lastNumber = numbers[i][numbers[i].length - 1] + 1;
+                    numbers[i].push(i);
                 }
+                console.log(numbers);
                 return numbers;
             },
 
             getAllRowsObjects: function () {
                 if (!this.rowsObjects) {
-                    this.rowsObjects = this._getObjectsFromTree(this.rows.rendering);
+                    this.rowsObjects = this._getObjectsFromTree(this.rows.rendering, true);
                 }
                 return this.rowsObjects;
             },
 
             getAllColumnsObjects: function () {
                 if (!this.columnsObjects) {
-                    this.columnsObjects = this._getObjectsFromTree(this.columns.rendering);
+                    this.columnsObjects = this._getObjectsFromTree(this.columns.rendering, true);
                 }
                 return this.columnsObjects;
             },
 
             getRowsNumber: function () {
                 if (!this.rowsObjects) {
-                    this.rowsObjects = this._getObjectsFromTree(this.rows.rendering);
+                    this.rowsObjects = this._getObjectsFromTree(this.rows.rendering, true);
                 }
                 return this.rowsObjects;
             },
 
             getColumnsNumber: function () {
                 if (!this.columnsObjects) {
-                    this.columnsObjects = this._getObjectsFromTree(this.columns.rendering);
+                    this.columnsObjects = this._getObjectsFromTree(this.columns.rendering, true);
                 }
                 return this.columnsObjects.length;
             },
@@ -1114,6 +1129,7 @@ enioka.ij = (
                 }
                 if (objects.length == 0)
                     return;
+                console.log(objects);
                 return objects;
             },
 
@@ -1347,10 +1363,10 @@ enioka.ij = (
                 this.renderer.clearOutput(this.workspace);
                 this.container = this.renderer.renderContainer();
                 if (type == "columnHeader") {
-                    var columns = this._preRenderColumns();
+                    var columns = this._preRenderColumns(null, {reset : true});
                     this.columns = columns;
                 } else if (type == "rowHeader") {
-                    var rows = this._preRenderRows();
+                    var rows = this._preRenderRows(null, {reset : true});
                     this.rows = rows;
                 }
                 if (this.columns)
