@@ -401,7 +401,7 @@ enioka.ij = (
                 for (var id in treeNode) {
                     if (treeNode[id].hasSummary){
                         treeNode[id].children[treeNode[id].children.length - 1].object = new Array();
-                        var objects = this._getObjectsFromTree(treeNode[id].children, true);
+                        var objects = this._getObjectsFromTree(treeNode[id].children, false);
                         treeNode[id].children[treeNode[id].children.length - 1].object = objects;
                     }
                     if (treeNode[id].children)
