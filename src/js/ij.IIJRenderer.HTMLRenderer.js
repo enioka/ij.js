@@ -19,7 +19,9 @@ enioka.ij = (
              * @param classes as an array
              * @return element with new classes
              */
-            addClasses : function(element, classes){
+            addClasses : function(element, classes, reset){
+                if (reset)
+                    element.className = "";
                 if (classes)
                     for (var i = 0; i < classes.length;i++){
                         element.classList.add(classes[i]);
