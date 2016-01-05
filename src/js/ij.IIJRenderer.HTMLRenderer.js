@@ -4,6 +4,7 @@ enioka.ij = (
     function (eniokaij) {
         /**
          * @class
+         * @description Handle functions to add/create Classe/Attribute/node 
          * @memberof enioka.ij.IIJRenderer
          * @classdesc Will generate html with predefined functions
          */
@@ -14,10 +15,10 @@ enioka.ij = (
 
             /**
              * @function
-             * @description Add classes to the element given in parameter
-             * @param element html element to add the class to
-             * @param classes as an array
-             * @return element with new classes
+             * @description Add classe(s) to the element given in parameter
+             * @param {Element} element HTML statement
+             * @param {Array} classes an array containing HTMl classe(s) to be added
+             * @return {Element} element with new classe(s)
              */
             addClasses : function(element, classes){
                 if (classes)
@@ -27,15 +28,26 @@ enioka.ij = (
                 return element;
             },
 
+            /**
+             * @function
+             * @description Add an attribute with a value at an element
+             * @param {Element} element HTML statement
+             * @param {string} attributeName the name of the attribute to be added
+             * @param {string} attributeValue the value given to the attribute
+             * @return {Element} element with new attribute
+             */
             addAttribute : function(element, attributeName, attributeValue) {
                 element.setAttribute(attributeName, attributeValue);
                 return element;
             },
 
             /**
-             * @param element
-             * @param attributeName
-             * @param attributeValue
+             * @function
+             * @description Add a CSS property to an element given in parameter
+             * @param {Element} element HTML statement
+             * @param {string} attributeName the name of the attribute to be added
+             * @param {stinrg} dattributeValue the value given to the attribute
+             * @return {Element} element with new CSS property
              */
             addCSS : function(element, attributeName, attributeValue) {
                 element.style[attributeName] = attributeValue;
@@ -44,10 +56,10 @@ enioka.ij = (
             /**
              * @function
              * @description Create HTML element with text inside
-             * @param element name of the HTML statement
-             * @param text to add in the HTML statement
-             * @param classes as an array
-             * @return element
+             * @param {Element} element HTML statement
+             * @param {string} text to be added in the HTML statement
+             * @param {Array} classes as an array of HTML classe(s)
+             * @return {Element} htmlElement with HTMl classe(s) and text inside
              */
             createElementWithText : function(element, text, classes){
                 var htmlElement = this.createElement(element, classes),
@@ -59,9 +71,9 @@ enioka.ij = (
             /**
              * @function
              * @description Create HTML element
-             * @param element name of the HTML statement
-             * @param classes as an array
-             * @return element
+             * @param {Element} element HTML statement
+             * @param {Array} classes as an array of HTMl classes
+             * @return {Element} htmlElement with HTMl classe(s)
              */
             createElement : function(element, classes){
                 var htmlElement = document.createElement(element);
@@ -70,6 +82,13 @@ enioka.ij = (
                 return htmlElement;
             },
 
+            /** 
+             * @function
+             * @description Add a node at a pre-existent node
+             * @param {Element} element HTML statement
+             * @param {Element|string} child as a node add to element
+             * @retrun {Element} element with the text of child
+             */
             appendChild : function(element, child){
                 return element.appendChild(child);
             }

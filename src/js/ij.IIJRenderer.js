@@ -5,9 +5,11 @@ enioka.ij = (
         /**
          * @class
          * @memberof enioka.ij
-         * @classdesc will handle rendering with two modules, HTMLRenderer and
-         * HTMLEventHandler. It generates an HTML table with an HTMLTemplate to design
-         * classes, attributes, and style for each important parts of the table.
+         * @classdesc Will handle rendering with two modules : 
+         *                    -HTMLRenderer who gives a HTML value at the element of the head of columns and rows.
+         *                    -HTMLEventHandler who gives a HTML class and id at the head of columns and rows.
+         *            The renderer has all the specifics functions for create the Headers of the columns and rows 
+         *            and access/modify HTMLclass/CSSProperty.
          * @param {object} properties
          */
         var IIJRenderer = {
@@ -19,49 +21,50 @@ enioka.ij = (
 
             /**
              * @function
-             * @description Render rows Container where all the rows will be appened to
-             * @return {HTMLElement}
+             * @description create a HTMl element of type tbody
+             * @return {HTMLElement} an element with a HTML type
              */
             renderRowsContainer : function(){
             },
 
             /**
-             * @function
-             * @description Render row and get back its fathers. By default no father is given
-             * @return {Array} Contains hierarchical structure for the row headers, with
-             * following attributes : <br/> - id<br/> - label<br/> - order<br/> - rendering <br/> and what you may need
+             *@function
+             *@description add an attribute name rowspan at renderedObject with the value property
+             *@param {Element} renderObject element HTML statement
+             *@param {string} property value of the attribute rowspan
+             *@return {Element} renderObject with a attribute rowspan
              */
-            renderRow : function(rowObject){
-            },
-
             applyRowSpan : function(renderedObject, property){
             },
 
+            /**
+             *@function
+             *@description add an attribute name colspan at renderedObject with the value property
+             *@param {Element} renderObject element HTML statement
+             *@param {string} property value of the attribute colspan
+             *@return {Element} renderObject with a attribute colspan
+             */
             applyColSpan : function(renderedObject, property){
             },
 
             /**
              * @function
-             * @description Render row container where a row will be append to
-             * @return {HTMLElement}
+             * @description return a variable where is create a new html class : tr
+             * @return {HTMLElement} row containing tr
              */
             renderRowContainer : function(){
             },
 
+            /**
+             * @function
+             * @description create a html class : th, with text
+             * @param {string} label the text add at the html class
+             * @return {HTMLElement}
+             */
             renderSubTotalHeader : function(label){
             },
 
-            /**
-             * @function
-             * @description Render row and get back its fathers. By default no father is given
-             * @return {Array} Contains hierarchical structure for the column headers, with following attributes :
-             *  - id
-             *  - label
-             *  - order
-             *  - rendering
-             */
-            renderColumn : function(columnObject) {
-            },
+            
 
             /**
              * @function
@@ -81,17 +84,10 @@ enioka.ij = (
 
             /**
              * @function
-             * @description Render a columns container in which all the columns will be appened to
+             * @description create an html element of type tr
              * @return {HTMLElement}
              */
             renderColumnsContainer : function(){
-            },
-
-            /**
-             * @function
-             * @description Render cell
-             */
-            renderCell : function(row, column, cellData){
             },
 
             /**
@@ -103,12 +99,35 @@ enioka.ij = (
             renderContainer : function(){
             },
 
+            /**
+             * @function
+             * @description set a CSS property at an element
+             * @param {string} property the CSS property
+             * @param {Element} element the element which we add the property
+             * @param {string} propertyValue the value of the added property
+             * @retrun {Element} element the element with a new CSS property
+             */
             setCSSProperty : function(property, element, propertyValue){
             },
 
+            /**
+             * @function
+             * @description empty the value of a property of an element, canceled the property
+             * @param {string} property the CSS property
+             * @param {Element} element the element which we canceled a property
+             * @return {Element} element the element with a canceled property
+             */
             emptyCSSProperty : function(property, element){
             },
 
+            /**
+             * @function
+             * @description recover the classPrefix of a template and give this class prefix
+             * with the number of the location at the renderer
+             * @param {Element} element an element categorie generated by the Renderer
+             * @param {string} elementType 
+             * @return {HTMLElement}
+             */
             addClasses : function(element, elementType, classes){
             },
 
