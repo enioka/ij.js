@@ -84,8 +84,8 @@ enioka.ij = (
             /**
              * @function
              * @description Set the workspace where the matrix will be displayed.
-             * @param workspace javascript object of the workspace.
-             * @return this object itself to allow chaining methods.
+             * @param {object} workspace javascript object of the workspace.
+             * @return {object} this object itself to allow chaining methods.
              */
             setWorkspace: function (workspace) {
                 console.log(workspace);
@@ -107,9 +107,10 @@ enioka.ij = (
 
             /**
              * @function
-             * @param dataProvider data provider object that should contain generics methods
-             * to gather data necessary to display elements.
-             * @return dataProvider implementer.
+             * @description recover generics methods to gather data necessary to display
+             * elements.
+             * @param {object} dataProvider data provider object that should contain the methods
+             * @return {object} dataProvider implementer.
              */
             setDataProvider: function (dataprovider) {
                 if (typeof dataprovider !== "undefined")
@@ -121,6 +122,7 @@ enioka.ij = (
 
             /**
              * @function
+             * @description 
              * @param controller data provider object that should contain generics methods
              * to call Core API.
              * @return controller implemented.
@@ -169,7 +171,9 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
+             * @description create an array, and award a renderer at all datas
+             * @param {Array} rows an array who content all the information set in the row
+             * @return {Array} rowsArray an Array with the two elements of a row head
              */
             getRenderedRows: function (rows) {
                 var rowsArray = new Array();
@@ -182,9 +186,9 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
-             * @param {Array}
-             * @return {Array}
+             * @description create an array, and award a renderer at all datas
+             * @param {Array} columns an array who content all the information set in the column
+             * @return {Array} columnsArray an Array with the two elements of a column head
              */
             getRenderedColumns: function (columns) {
                 var colmunsArray = new Array();
@@ -317,8 +321,9 @@ enioka.ij = (
 
             /**
              * @function
-             * @description sort tree by order property
-             * @return tree sorted by order property
+             * @description organise the tree in order by id
+             * @param {Array} renderedTree rendered of an head column/row
+             * @return {Array} root tree sorted by order id
              */
             orderRenderedTree: function (renderedTree) {
                 var start = new Date();
@@ -340,8 +345,9 @@ enioka.ij = (
 
             /**
              * @function
-             * @description alphabetical sort
-             * @return {Array} sorter aphabetically on label object property
+             * @description sort alphabeticaly an Array
+             * @param {Array} array the array sorted 
+             * @return {Array} array sort aphabetically on label object property
              */
             alphabeticalSort: function (array) {
                 return array.sort(
@@ -357,9 +363,9 @@ enioka.ij = (
 
             /**
              * @function
-             * @description return depth
-             * @param {object} renderedObjectTree
-             * @return {int} depth
+             * @description return the tree depth
+             * @param {Array} renderedObjectTree 
+             * @return {number} depth
              */
             getTreeDepth: function (renderedObjectTree) {
                 var depth = 0;
@@ -374,6 +380,13 @@ enioka.ij = (
                 return depth + 1;
             },
 
+            /**
+             * @function
+             * @description return the tree with the depth object
+             * @param {Array} renderedObjectTree 
+             * @param {number} depth
+             * @return {Array} renderedObjectTree tree with the depth object
+             */
             applyTreeDepth: function (renderedObjectTree, depth) {
                 var start = new Date();
                 for (var id in renderedObjectTree) {
@@ -436,6 +449,12 @@ enioka.ij = (
                 };
             },
 
+            /**
+             * @function
+             * @description
+             * @param
+             * @param
+             */
             displayColumns: function (columns, rowsDepth) {
                 var columnsContainer = this.renderer.renderColumnsContainer();
                 var columnsLevels = this.buildColumns(columns.rendering);
@@ -471,10 +490,10 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
-             * @param {int} level
-             * @param {Array} renderedColumns
-             * @return
+             * @description build the default head columns (in the case or we have all the information)
+             * @param {number} level the number of columns
+             * @param {Array} renderedColumns a renderer of the columns with initial object
+             * @return {Array} columnsLevel return a build head columns
              */
             buildColumns: function (renderedColumns, level) {
                 level = typeof level !== 'undefined' ? level : 1;
@@ -1134,6 +1153,7 @@ enioka.ij = (
                 if (this.controller.onHeaderClick)
                     this.controller.onHeaderClick(event, headerNode);
             },
+            
 
             /**
              * @function

@@ -11,24 +11,7 @@ enioka.ij = (
         var DataHeader = {
             initialize : function() {
             },
-
-            /**
-             * @function
-             * @description Set a new state for the object
-             * @param {State} state - State object
-             */
-            setState : function(state){
-                this.state = state;
-            },
-
-            /**
-             * @function
-             * @description get the current object state
-             * @return {State}
-             */
-            getState : function(){
-                return this.state;
-            }
+            
         };
         //Instanciate the DataHeader Class into an object
         DataHeader = Class.create(DataHeader);
