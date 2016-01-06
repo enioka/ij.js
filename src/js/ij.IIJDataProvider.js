@@ -12,22 +12,24 @@ enioka.ij = (
          * <br/>
          */
         var IIJDataProvider = {
-            initialize : function() {
+            initialize : function(parent) {
             },
 
             /**
              * @function
              * @description getData will retrieve a sparse matrix given by dataCallBack function
-             * @return sparse matrix containing paths.
+             * @param {Array} rowsObjects the object content in the row
+             * @param {Array} columnObjects the object content in the column
+             * @return {Array} relations matrix containing paths.
              */
-            getData : function(){
+            getData : function(rowsObjects, columnsObjects){
             },
 
             /**
              * @function
              * @description getRows will retrieve an array of objects that will be instanciated
              * as DataHeader
-             * @return rows.
+             * @return {Array}
              */
             getRows : function(){
             },
@@ -36,38 +38,11 @@ enioka.ij = (
              * @function
              * @description getColumns will retrieve an array of objects that will be
              * instanciated as DataHeader
-             * @return columns.
+             * @return {Array}
              */
             getColumns : function(){
             },
-
-            /**
-             * @function
-             * @description Will retrieve an intersection objects. This method implementation is optional.
-             * @param row object
-             * @param column object
-             * @return objects in intersection.
-             */
-            getIntersection : function(row, column){
-            },
-
-            /**
-             * @function
-             * @description Will retrieve father id of an object.
-             * @param object from which we want to get sons from.
-             * @return object sons.
-             */
-            getParentId : function(object){
-            },
-
-            /**
-             * @function
-             * @description Will retrieve id of an object.
-             * @param object from which we want to get sons from.
-             * @return object sons.
-             */
-            getId : function(object){
-            }
+            
         };
         IIJDataProvider = Class.create(IIJDataProvider);
 
