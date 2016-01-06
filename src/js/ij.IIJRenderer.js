@@ -170,14 +170,22 @@ enioka.ij = (
              * @description Add a node at a pre-existent node
              * @param {Element} element HTML statement
              * @param {Element|string} child as a node add to element
-             * @return {Element} element with the text of child
+             * @return {Element} eslement with the text of child
              */
             appendChild : function(element, child) {
             },
 
             /**
              * @function
-             * @description create new 
+             * @description awards value at attributes
+             * @param {string} id value set to id
+             * @param {string} object value set to object
+             * @param {string} label value set to label
+             * @param {string} order value set to order
+             * @param {Element} rendering value set to rendering
+             * @param {boolean} open value set to open
+             * @param {boolean} hidden value set to hidden
+             * @return {string|Element|boolean}
              */
             _createRenderedJSON : function(id, object, label, order, rendering, open, hidden){
             }, 
