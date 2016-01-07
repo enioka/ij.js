@@ -887,14 +887,20 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
-             * @param 
-             * @return
+             * @description get the type of the header
+             * @param {Element} headerNode the header with the first letter
+             * @return {string} headerNode.type
              */
             getHeaderType: function (headerNode) {
                 return headerNode.type;
             },
 
+            /**
+             * @function
+             * @description get a row with all the data of the central matrix
+             * @param {Array} number an Array content the data of the central matrix
+             * @return {Array} rowsOjects the row with the data of the central matrix
+             */
             getRowObject: function (number) {
                 if (!this.rowsObjects) {
                     this.rowsObjects = this._getObjectsFromTree(this.rows.rendering);
@@ -902,6 +908,12 @@ enioka.ij = (
                 return this.rowsObjects[number];
             },
 
+            /**
+             * @function
+             * @description get an row with all the data of the central matrix
+             * @param {Array} number an row content the data of the central matrix
+             * @return {Array} rowsOjects the row with the data of the central matrix
+             */
             getRowsObjects: function (numbers) {
                 var rowsObjects = new Array();
                 for (var i = 0; i < numbers.length; i++) {
@@ -910,6 +922,12 @@ enioka.ij = (
                 return rowsObjects;
             },
 
+            /**
+             * @function
+             * @description get an column with all the data of the central matrix
+             * @param {Array} number an column content the data of the central matrix
+             * @return {Array} columnsOjects the column with the data of the central matrix
+             */
             getColumnObject: function (number) {
                 if (!this.columnsObjects) {
                     this.columnsObjects = this._getObjectsFromTree(this.columns.rendering);
@@ -917,6 +935,12 @@ enioka.ij = (
                 return this.columnsObjects[number];
             },
 
+            /**
+             * @function
+             * @description get an column with all the data of the central matrix
+             * @param {Array} number an column content the data of the central matrix
+             * @return {Array} columnsOjects the column with the data of the central matrix
+             */
             getColumnsObjects: function (numbers) {
                 var columnsObjects = new Array();
                 for (var i = 0; i < numbers.length; i++) {
@@ -925,6 +949,13 @@ enioka.ij = (
                 return columnsObjects;
             },
 
+            /**
+             * @function
+             * @description get the number of case of the row array
+             * @param {Array} object the row array
+             * @return {number} i or -1 the number of case of the row array or the absence 
+             * of case
+             */
             getRowNumber: function (object) {
                 if (!this.rowsObjects) {
                     this.rowsObjects = this._getObjectsFromTree(this.rows.rendering);
@@ -937,6 +968,13 @@ enioka.ij = (
                 return -1;
             },
 
+            /**
+             * @function
+             * @description get the number of case of the column array
+             * @param {Array} object the column array
+             * @return {number} i or -1 the number of case of the column array or the absence 
+             * of case
+             */
             getColumnNumber: function (object) {
                 if (!this.columnsObjects) {
                     this.columnsObjects = this._getObjectsFromTree(this.columns.rendering);
@@ -949,6 +987,12 @@ enioka.ij = (
                 return -1;
             },
 
+            /**
+             * @function
+             * @description get all the numbers of the column and set it in a new array
+             * @param {Array} columnObjects the column with the numbers to set
+             * @return {Array} numbers the arrya with the data numbers
+             */
             getColumnsNumbersFromObjects: function (columnsObjects) {
                 var numbers = new Array(),
                     lastNumber = 0;
@@ -962,81 +1006,12 @@ enioka.ij = (
                 return numbers;
             },
 
-            getAllRowsObjects: function () {
-                if (!this.rowsObjects) {
-                    this.rowsObjects = this._getObjectsFromTree(this.rows.rendering);
-                }
-                return this.rowsObjects;
-            },
-
-            getAllColumnsObjects: function () {
-                if (!this.columnsObjects) {
-                    this.columnsObjects = this._getObjectsFromTree(this.columns.rendering);
-                }
-                return this.columnsObjects;
-            },
-
-            getRowsNumber: function () {
-                if (!this.rowsObjects) {
-                    this.rowsObjects = this._getObjectsFromTree(this.rows.rendering);
-                }
-                return this.rowsObjects;
-            },
-
-            getColumnsNumber: function () {
-                if (!this.columnsObjects) {
-                    this.columnsObjects = this._getObjectsFromTree(this.columns.rendering);
-                }
-                return this.columnsObjects.length;
-            },
-
-            getNodeFromProperty: function (property, value, from) {
-                var node = null;
-                for (var id in from) {
-                    if (from[id][property] == value) {
-                        node = from[id];
-                    }
-                    else if (from[id].children) {
-                        node = this.getNodeFromProperty(property,
-                            value,
-                            from[id].children);
-                    }
-                    if (node != null)
-                        break;
-                }
-                return node;
-            },
-
-            matchNodesFromProperty: function (property, value, type) {
-                var node = new Array();
-                if (type == "rowHeader") {
-                    if (!this.rows)
-                        return [];
-                    var from = this.rows.rendering;
-                }
-                else if (type == "columnHeader") {
-                    if (!this.columns)
-                        return [];
-                    var from = this.columns.rendering;
-                }
-                else
-                    return;
-                for (var id in from) {
-                    if (from[id][property].indexOf(value) > -1) {
-                        node.push(from[id]);
-                    }
-                    else if (from[id].children && (from[id].open == true || from[id].open == "true")) {
-                        var returned = this.getNodeFromProperty(property,
-                            value,
-                            from[id].children);
-                        if (returned)
-                            node = node.concat(returned);
-                    }
-                    else continue;
-                }
-                return node;
-            },
-
+            /**
+             * @function
+             * @description get an array with all the component of an html group
+             * @param {Array} renderedObjectstree 
+             * @return {Array|*} objects return a void if objects doesn't exist
+             */
             getObjectsGrouped: function (renderedObjectsTree) {
                 var objects = new Array();
                 if (typeof renderedObjectsTree == undefined)
@@ -1096,8 +1071,10 @@ enioka.ij = (
 
             /**
              * @function
-             * @description fire event before click on matrix cell
-             * @return {boolean} true for onCellClick event
+             * @description proceed at a event when a click are done in a cell
+             * @param {Array} rowsNumbers the numbers of the cell in the row
+             * @param {Array} columnsNumbers the numbers of the cell in the column
+             * @param {HTMLEvent}
              */
             onCellClick: function (rowsNumbers, columnsNumbers, event) {
                 console.log(rowsNumbers, columnsNumbers);
@@ -1112,8 +1089,12 @@ enioka.ij = (
             },
 
             /**
+             /**
              * @function
-             * @description fire event on matrix cell hover
+             * @description proceed at a event when the mouse set hover a position
+             * @param {Array} rowsNumbers the numbers of the cell in the row
+             * @param {Array} columnsNumbers the numbers of the cell in the column
+             * @param {HTMLEvent}
              */
             onCellHover: function (rowsNumbers, columnsNumbers, event) {
                 if (this.controller.onCellHover)
@@ -1122,10 +1103,12 @@ enioka.ij = (
 
             /**
              * @function
-             * @description fire event before click on matrix cell
-             * @return {boolean} true for onCellClick event
+             * @description proceed at a event when the mouse set over a position
+             * @param {Array} rowsNumbers the numbers of the cell in the row
+             * @param {Array} columnsNumbers the numbers of the cell in the column
+             * @param {HTMLEvent}
              */
-            onCellOut: function (event) {
+            onCellOut: function (rowsNumbers, columnsNumbers, event) {
                 if (this.controller.onCellOut)
                     this.controller.onCellOut(event);
             },
