@@ -365,7 +365,7 @@ enioka.ij = (
              * @function
              * @description return the tree depth
              * @param {Array} renderedObjectTree 
-             * @return {number} depth
+             * @return {number} depth the depth of the tree
              */
             getTreeDepth: function (renderedObjectTree) {
                 var depth = 0;
@@ -382,10 +382,10 @@ enioka.ij = (
 
             /**
              * @function
-             * @description return the tree with the depth object
+             * @description return the tree with the her depth property
              * @param {Array} renderedObjectTree 
-             * @param {number} depth
-             * @return {Array} renderedObjectTree tree with the depth object
+             * @param {number} depth 
+             * @return {Array} renderedObjectTree tree with the depth property
              */
             applyTreeDepth: function (renderedObjectTree, depth) {
                 var start = new Date();
@@ -451,9 +451,9 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
-             * @param
-             * @param
+             * @description display the columns on the web page
+             * @param {Array} columns the column object
+             * @param {number} rowsDepth the depth of the row 
              */
             displayColumns: function (columns, rowsDepth) {
                 var columnsContainer = this.renderer.renderColumnsContainer();
@@ -490,7 +490,8 @@ enioka.ij = (
 
             /**
              * @function
-             * @description build the default head columns (in the case or we have all the information)
+             * @description build the default head columns (in the case or we have all the
+             * information)
              * @param {number} level the number of columns
              * @param {Array} renderedColumns a renderer of the columns with initial object
              * @return {Array} columnsLevel return a build head columns
@@ -566,6 +567,12 @@ enioka.ij = (
                 };
             },
 
+            /**
+             * @function
+             * @description build the display of the data matrix
+             * @param {Array} rows the data rows to display
+             * @param {Array} columns the data columns to display
+             */
             displayData: function (rows, columns) {
                 if (!this.container)
                     this.container = this.renderer.renderContainer();
@@ -574,41 +581,19 @@ enioka.ij = (
                     rows = this.buildRows(rows.rendering, columns).rows;
                 else if (rows)
                     rows = this.buildRows(rows.rendering, null).rows;
-                else
-                    rows = this.buildMatrix();
                 for (var row in rows) {
                     this._appendChild(rowsContainer, rows[row]);
                 }
                 this._appendChild(this.container, rowsContainer);
             },
 
-            buildMatrix: function () {
-                var matrix = this.dataprovider.getData(),
-                    rows = new Array(),
-                    rowContainer,
-                    cells;
-                console.log(matrix);
-                for (var i = 0; i < matrix.length; i++) {
-                    cells = new Array();
-                    rowContainer = this.renderer.renderRowContainer();
-                    for (var j = 0; j < matrix[i].length; j++) {
-                        cells.push(this.renderer.renderCell([i],
-                            [j],
-                            matrix[i][j],
-                            this._getCellEventsCallbacks([i], [j])));
-                    }
-                    this._appendChildren(rowContainer, cells);
-                    rows.push(rowContainer);
-                }
-                return rows;
-            },
-
             /**
              * @function
              * @description apply a specific callback on all renderedObjects (including children)
-             * @param
-             * @param
-             * @return
+             * @param {Array} renderedObjects
+             * @param {Element} callBack element HTML statement
+             * @param {string} params an attribute of renderedObjects
+             * @return {Array} renderedObjects the Array with a specific callback
              */
             applyOnRenderedObjects: function (renderedObjects, callback, params) {
                 for (var id in renderedObjects) {
@@ -621,6 +606,14 @@ enioka.ij = (
                 return renderedObjects;
             },
 
+            /**
+             * @function
+             * @description apply a classe at rendererdObjects, by the way of currentId
+             * @param {Array} renderedObjcts the array to applied a classe
+             * @param {Element} callback the classe to applied
+             * @param {string} currentId the Id of the array
+             * @return {Array} renderedObjects the array with applied classe
+             */
             applyClasses: function (renderedObjects, callback, currentId) {
                 if (!currentId)
                     var currentId = 0;
@@ -655,8 +648,10 @@ enioka.ij = (
             /**
              * @function
              * @description build rows array, each cell contains a row header
-             * @param {object} rowsTreeNode - A node from Rows tree
-             * @return
+             * @param {Array} rowsTreeNode a node from Rows tree
+             * @param {Array} columns the columns array
+             * @param {string} rowNumber the number of the row sort
+             * @return {Array|string} rows and number
              */
             buildRows: function (rowsTreeNode, columns, rowNumber) {
                 if (!rowNumber)
@@ -781,9 +776,9 @@ enioka.ij = (
             /**
              * @function
              * @description Retrieve group span for headers
-             * @param {object} renderedTreeNode - rendered tree node generated by the core
-             * @param {object} span - initialy 1
-             * @return {object} renderedTreeNode and span for recursivity
+             * @param {Array} renderedTreeNode rendered tree node generated by the core
+             * @param {number} span initialize the order of the header
+             * @return {Array|number} renderedTreeNode and span for recursivity
              */
             getGroupSpan: function (renderedTreeNode, span) {
                 if (!span)
@@ -864,14 +859,15 @@ enioka.ij = (
 
             /**
              * @function
-             * @description Update matrix & headers. This does a full update, and recollect data
+             * @description Update matrix & headers. This does a full update, and recollect
+             * data. NOT UPDATE
              */
             update: function () {
             },
 
             /**
              * @function
-             * @description export matrix to a CSV
+             * @description export matrix to a CSV NOT UPDATE
              * @return true if exported, false if no
              */
             exportToCSV: function () {
@@ -879,7 +875,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description export matrix to a javascript table
+             * @description export matrix to a javascript table NOT UPDATE
              * @return true if exported, false if no
              */
             exportMatrix: function () {
@@ -889,6 +885,12 @@ enioka.ij = (
             /// GETTERS ///
             ///////////////
 
+            /**
+             * @function
+             * @description
+             * @param 
+             * @return
+             */
             getHeaderType: function (headerNode) {
                 return headerNode.type;
             },
@@ -1079,14 +1081,14 @@ enioka.ij = (
 
             /**
              * @function
-             * @description fire event on resize of the matrix
+             * @description fire event on resize of the matrix NOT UPDATE
              */
             onResize: function () {
             },
 
             /**
              * @function
-             * @description fire event before click on matrix cell
+             * @description fire event before click on matrix cell NOT UPDATE
              * @return {boolean} true for onCellClick event, false if no
              */
             beforeCellClick: function () {
@@ -1123,14 +1125,14 @@ enioka.ij = (
              * @description fire event before click on matrix cell
              * @return {boolean} true for onCellClick event
              */
-            onCellOut: function (rowsNumbers, columnsNumbers, event) {
+            onCellOut: function (event) {
                 if (this.controller.onCellOut)
                     this.controller.onCellOut(event);
             },
 
             /**
              * @function
-             * @description
+             * @description NOT UPDATE
              * @return
              */
             onCellRightClick: function () {
@@ -1138,7 +1140,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
+             * @description NOT UPDATE
              * @return
              */
             onCellDoubleClick: function () {
@@ -1146,8 +1148,10 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
-             * @return
+             * @description call the function onHeaderClick in the controller, with the event 
+             * and headerNode attribute
+             * @headerNode {Element} headerNode the header of each columns/rows
+             * @param {HTMLEvent} event
              */
             onHeaderClick: function (headerNode, event) {
                 if (this.controller.onHeaderClick)
@@ -1157,8 +1161,9 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
-             * @return
+             * @description call the function onHeaderHover in the controller, with the event 
+             * attribute
+             * @param {HTMLEvent} event
              */
             onHeaderHover: function (event) {
                 if (this.controller.onHeaderHover)
@@ -1167,8 +1172,9 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
-             * @return
+             * @description call the function onHeaderOut in the controller, with the event 
+             * attribute
+             * @param {HTMLEvent} event
              */
             onHeaderOut: function (event) {
                 if (this.controller.onHeaderOut)
@@ -1177,7 +1183,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
+             * @description NOT UPDATE
              * @return
              */
             onHeaderRightClick: function () {
@@ -1185,7 +1191,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
+             * @description NOT UPDATE
              * @return
              */
             onHeaderDoubleClick: function () {
@@ -1197,7 +1203,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description filter graphically on rows
+             * @description filter graphically on rows NOT UPDATE
              * @param {string} filter query
              */
             graphicalRowFilter: function (filter) {
@@ -1205,7 +1211,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description filter through the data provider
+             * @description filter through the data provider NOT UPDATE
              * @param {string} filter query
              */
             dataRowFilter: function (filter) {
@@ -1213,7 +1219,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description filter graphically on columns
+             * @description filter graphically on columns NOT UPDATE
              * @param {string} filter query
              */
             graphicalColumnFilter: function (filter) {
@@ -1221,7 +1227,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description filter thourgh the data provider
+             * @description filter thourgh the data provider NOT UPDATE
              * @param {string} filter query
              */
             dataColumnFilter: function (filter) {
@@ -1229,7 +1235,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description filter graphically on data cells
+             * @description filter graphically on data cells NOT UPDATE
              * @param {string} filter query
              */
             graphicalCellFilter: function (filter) {
@@ -1237,7 +1243,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description filter through the data provider
+             * @description filter through the data provider NOT UPDATE
              * @param {string} filter query
              */
             dataCellFilter: function (filter) {
@@ -1247,6 +1253,13 @@ enioka.ij = (
             /// Property ///
             ////////////////
 
+            /**
+             * @function
+             * @description set a value at a property
+             * @param {string} propertyName the name of the property
+             * @param {string} propertyValue the value to add at the property
+             * @return {}
+             */
             set: function (propertyName, propertyValue) {
                 this[propertyName] = propertyValue;
                 return this;
@@ -1256,6 +1269,11 @@ enioka.ij = (
             /// HEADER PROPERTIES MODIFICATION ///
             //////////////////////////////////////
 
+            /**
+             * @function
+             * @description inverse the state of the Header (open or close)
+             * @param {boolean}
+             */
             toggleHeader: function (headerNode) {
                 if (headerNode.open == false || headerNode.open == "false") {
                     headerNode.open = true;
@@ -1264,6 +1282,11 @@ enioka.ij = (
                 }
             },
 
+            /**
+             * @function
+             * @description inverse the state of the Header (hidden or present)
+             * @param {boolean}
+             */
             toggleHeaderVisibility: function (headerNode) {
                 if (headerNode.hidden == false || headerNode.hidden == "false") {
                     headerNode.hidden = true;
@@ -1276,6 +1299,11 @@ enioka.ij = (
             /// REFRESH ///
             ///////////////
 
+            /**
+             * @function
+             * @description refresh the matric display at the screen on the web page
+             * @param {string} the HTML statement of the rows:columns header
+             */
             refresh: function (type) {
                 var start = new Date();
                 this.renderer.clearOutput(this.workspace);
