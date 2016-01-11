@@ -232,15 +232,6 @@ enioka.ij = (
                             //if current renderedObject has children, then create them
                             if (renderedObjects[i].length - 1 > j) {
                                 renderedObjects[i][j].children = new Array();
-                                //check if there is property to hide summaries
-                                if (renderedObjects[i][j].hasSummary) {
-                                    var summary =
-                                        this.renderer.renderSummary(renderedObjects[i][j],
-                                                                    type);
-                                    renderedObjects[i][j].children.push(
-                                        summary
-                                    );
-                                }
                                 if (renderedObjects[i][j].object) {
                                     renderedObjects[i][j].children.push(
                                         this._cloneHeader(renderedObjects[i][j],
@@ -248,13 +239,24 @@ enioka.ij = (
                                     );
                                     delete renderedObjects[i][j].object;
                                 }
+                                //check if there is property to hide summaries
+                                if (renderedObjects[i][j].hasSummary) {
+                                    var summary =
+                                        this.renderer.renderSummary(renderedObjects[i][j],
+                                                                    type);
+                                    //identify this as a summary
+                                    summary.summary = true;
+                                    renderedObjects[i][j].children.push(
+                                        summary
+                                    );
+                                }
                             }
                             map[currentID] = renderedObjects[i][j];
                         } else {
                             if (j > 0) {
                                 var found = false;
                                 for (var k = 0; k < parentRoot.length; k++) {
-                                    if (parentRoot[k].id == renderedObjects[i][j].id) {
+                                    if (parentRoot[k].id && parentRoot[k].id == renderedObjects[i][j].id) {
                                         found = true;
                                         break;
                                     }
@@ -285,7 +287,6 @@ enioka.ij = (
                         parentRoot = map[currentID].children;
                     }
                 }
-                console.log(_scope.root);
                 return _scope.root;
             },
 
@@ -302,9 +303,11 @@ enioka.ij = (
                 var duplicatedHeader = {};
                 for (var attr in header) {
                     if (attr == "label")
-                        duplicatedHeader[attr] = "";
+                        duplicatedHeader[attr] = header[attr] + " [object]";
                     else if (attr == "children")
                         continue;
+                    else if (attr == "order")
+                        duplicatedHeader[attr] = -1;
                     else if (attr == "id") {
                         duplicatedHeader[attr] = header[attr] + "_child";
                     }
@@ -337,8 +340,12 @@ enioka.ij = (
                         renderedTree[id].children =
                         this.orderRenderedTree(renderedTree[id].children);
                 }
-                for (var i in ordered) {
-                    root = root.concat(this.alphabeticalSort(ordered[i]));
+                console.log(ordered);
+                if (ordered["-1"])
+                    root = root.concat(this.alphabeticalSort(ordered["-1"]));
+                for (var id in ordered) {
+                    if (id != -1)
+                        root = root.concat(this.alphabeticalSort(ordered[id]));
                 }
                 return root;
             },
@@ -399,12 +406,13 @@ enioka.ij = (
              */
             populateSummaries : function(treeNode){
                 for (var id in treeNode) {
-                    if (treeNode[id].hasSummary){
+                    if (treeNode[id].hasSummary && treeNode[id].open == true){
                         treeNode[id].children[treeNode[id].children.length - 1].object = new Array();
                         var objects = this._getObjectsFromTree(treeNode[id].children, false);
+                        console.log(objects);
                         treeNode[id].children[treeNode[id].children.length - 1].object = objects;
                     }
-                    if (treeNode[id].children)
+                    if (treeNode[id].children && treeNode[id].open == true)
                         this.populateSummaries(treeNode[id].children);
                 }
             },
@@ -654,40 +662,27 @@ enioka.ij = (
                                           callback,
                                           currentId,
                                           properties);
-                        if (renderedObjects[id].type == "rowHeader") {
-                            if (renderedObjects[id].open == ("false" || false) &&
-                                renderedObjects[id].group == true)
-                                var nextId = currentId + 1;
-                            else
-                                var nextId = currentId + renderedObjects[id].span - 1;
-                        }
-                        else {
-                            if (renderedObjects[id].group == true &&
-                                renderedObjects[id].open == ("false" || false))
-                                var nextId = currentId +
-                                    this._getObjectsFromTree(renderedObjects[id].children, true).length;
-                            else
-                                var nextId = currentId + renderedObjects[id].span;
-                        }
+                        if (renderedObjects[id].group == true &&
+                            renderedObjects[id].open == false)
+                            var nextId = currentId + 1;
+                        else
+                            var nextId = currentId +
+                                this.getObjectsGrouped(renderedObjects[id].children).length;
                         for (var i = currentId; i < nextId; i++) {
                             classes.push(i);
                         }
-                        currentId = nextId;
-                        renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
-                                                                 renderedObjects[id].type,
-                                                                 classes,
-                                                                 properties);
                     } else if (renderedObjects[id].object) {
                         var nextId = currentId + 1;
                         for (var i = currentId; i < nextId; i++) {
                             classes.push(i);
                         }
-                        currentId = nextId;
-                        renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
-                                                                 renderedObjects[id].type,
-                                                                 classes,
-                                                                 properties);
                     }
+
+                    currentId = nextId;
+                    renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
+                                                             renderedObjects[id].type,
+                                                             classes,
+                                                             properties);
                 }
                 return renderedObjects;
             },
@@ -743,8 +738,6 @@ enioka.ij = (
                             rowNumber = builtRows.rowNumber;
                         } else {
                             rows.push(row);
-                            var rowsObjectsLength = this._getObjectsFromTree(
-                                    rowsTreeNode[id].children).length;
                             var rowsData = this._renderAggregateRowData(columns,
                                                                         rowNumber,
                                                                         rowsTreeNode[id]);
@@ -758,6 +751,10 @@ enioka.ij = (
                 };
             },
 
+            _renderGlobalRow: function(columns, rowsNumbers, rowsTreeNode){
+
+            },
+
             /**
              * @function
              * @description
@@ -767,7 +764,6 @@ enioka.ij = (
                     cells = new Array(),
                     row = this.renderer.renderRowContainer(),
                     columnsNumbers = this.getColumnsNumbersFromObjects(columns);
-                console.log("rendered", this._getObjectsFromTree(rowsTreeNode.children, false));
                 for (var i = 0; i < columnsNumbers.length; i++) {
                     var cellData = this.dataprovider.getData(this._getObjectsFromTree(rowsTreeNode.children, false),
                                                              (columns[i].object ||
@@ -791,11 +787,9 @@ enioka.ij = (
              * @param {Array} matrixLine - Contains all data we need to render
              */
             _renderRowData: function (columns, rowNumber, renderedRow) {
-                console.log(columns);
                 var columnsNumbers = this.getColumnsNumbersFromObjects(columns),
                     cells = new Array(),
                     rowsNumbers = [rowNumber];
-                console.log(columns[i]);
                 for (var i = 0; i < columnsNumbers.length; i++) {
                     var cellData = this.dataprovider.getData([renderedRow.object],
                                                              (columns[i].object ||
@@ -1043,7 +1037,6 @@ enioka.ij = (
                 var numbers = new Array(),
                     lastNumber = 0,
                     map;
-                console.log(columnsObjects);
                 for (var i = 0; i < columnsObjects.length; i++) {
                     numbers[i] = new Array();
                     numbers[i].push(i);
@@ -1160,7 +1153,6 @@ enioka.ij = (
              * @return
              */
             _getObjectsFromTree: function (renderedObjectsTree, summary) {
-                console.log("getObjectsFromTree with : ", summary);
                 var objects = new Array();
                 for (var id in renderedObjectsTree) {
                     if (summary == true &&
@@ -1203,7 +1195,7 @@ enioka.ij = (
              */
             onCellClick: function (rowsNumbers, columnsNumbers, event) {
                 console.log(rowsNumbers, columnsNumbers);
-                console.log(this.getObjectsGrouped(this.rows.rendering, true), this.getObjectsGrouped(this.columns.rendering, true));
+                console.log(this.getRowsObjects(rowsNumbers, true),this.getColumnsObjects(columnsNumbers, true));
                 if (this.controller.onCellClick) {
                     this.controller.onCellClick(event,
                                                 this.dataprovider.getData(
