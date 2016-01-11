@@ -110,7 +110,7 @@ enioka.ij = (
              * @description recover generics methods to gather data necessary to display
              * elements.
              * @param {object} dataProvider data provider object that should contain the methods
-             * @return {object} dataProvider implementer.
+             * @return {object} dataProvider implemented.
              */
             setDataProvider: function (dataprovider) {
                 if (typeof dataprovider !== "undefined")
@@ -122,7 +122,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description 
+             * @description
              * @param controller data provider object that should contain generics methods
              * to call Core API.
              * @return controller implemented.
@@ -186,8 +186,8 @@ enioka.ij = (
 
             /**
              * @function
-             * @description create an array, and award a renderer at all datas
-             * @param {Array} columns an array who content all the information set in the column
+             * @description create an array, and render each column retrieved with the DataProvider
+             * @param {Array} columns an array who contains all the information set in the column
              * @return {Array} columnsArray an Array with the two elements of a column head
              */
             getRenderedColumns: function (columns) {
@@ -204,8 +204,8 @@ enioka.ij = (
              * @description Build a hierarchical tree from renderedObjects flat arrays
              * Map for each objects and create a corresponding tree view considering each
              * attributes
-             * @param {Array} renderedObjects - renderedObjects recovered from Renderer
-             * @param {String} type - define type of tree (rowsHeader, columnsHeader)
+             * @param {Array} renderedObjects renderedObjects recovered from Renderer
+             * @param {String} type define type of tree (rowsHeader, columnsHeader)
              * @return {object} contains rendered tree
              */
             buildRenderedTree: function (renderedObjects, type) {
@@ -346,7 +346,7 @@ enioka.ij = (
             /**
              * @function
              * @description sort alphabeticaly an Array
-             * @param {Array} array the array sorted 
+             * @param {Array} array the array sorted
              * @return {Array} array sort aphabetically on label object property
              */
             alphabeticalSort: function (array) {
@@ -364,7 +364,7 @@ enioka.ij = (
             /**
              * @function
              * @description return the tree depth
-             * @param {Array} renderedObjectTree 
+             * @param {Array} renderedObjectTree
              * @return {number} depth the depth of the tree
              */
             getTreeDepth: function (renderedObjectTree) {
@@ -382,9 +382,9 @@ enioka.ij = (
 
             /**
              * @function
-             * @description return the tree with the her depth property
-             * @param {Array} renderedObjectTree 
-             * @param {number} depth 
+             * @description return the tree with the depth property describing its depth
+             * @param {Array} renderedObjectTree
+             * @param {number} depth current Depth
              * @return {Array} renderedObjectTree tree with the depth property
              */
             applyTreeDepth: function (renderedObjectTree, depth) {
@@ -452,8 +452,8 @@ enioka.ij = (
             /**
              * @function
              * @description display the columns on the web page
-             * @param {Array} columns the column object
-             * @param {number} rowsDepth the depth of the row 
+             * @param {Array} columns the columns objects
+             * @param {number} rowsDepth the depth of the rowsTree
              */
             displayColumns: function (columns, rowsDepth) {
                 var columnsContainer = this.renderer.renderColumnsContainer();
@@ -611,7 +611,7 @@ enioka.ij = (
              * @description apply a classe at rendererdObjects, by the way of currentId
              * @param {Array} renderedObjcts the array to applied a classe
              * @param {Element} callback the classe to applied
-             * @param {string} currentId the Id of the array
+             * @param {int} currentId the Id of the array
              * @return {Array} renderedObjects the array with applied classe
              */
             applyClasses: function (renderedObjects, callback, currentId) {
@@ -650,7 +650,7 @@ enioka.ij = (
              * @description build rows array, each cell contains a row header
              * @param {Array} rowsTreeNode a node from Rows tree
              * @param {Array} columns the columns array
-             * @param {string} rowNumber the number of the row sort
+             * @param {int} rowNumber the number of the row sort
              * @return {Array|string} rows and number
              */
             buildRows: function (rowsTreeNode, columns, rowNumber) {
@@ -953,7 +953,7 @@ enioka.ij = (
              * @function
              * @description get the number of case of the row array
              * @param {Array} object the row array
-             * @return {number} i or -1 the number of case of the row array or the absence 
+             * @return {number} i or -1 the number of case of the row array or the absence
              * of case
              */
             getRowNumber: function (object) {
@@ -972,7 +972,7 @@ enioka.ij = (
              * @function
              * @description get the number of case of the column array
              * @param {Array} object the column array
-             * @return {number} i or -1 the number of case of the column array or the absence 
+             * @return {number} i or -1 the number of case of the column array or the absence
              * of case
              */
             getColumnNumber: function (object) {
@@ -1009,7 +1009,7 @@ enioka.ij = (
             /**
              * @function
              * @description get an array with all the component of an html group
-             * @param {Array} renderedObjectstree 
+             * @param {Array} renderedObjectstree
              * @return {Array|*} objects return a void if objects doesn't exist
              */
             getObjectsGrouped: function (renderedObjectsTree) {
@@ -1131,7 +1131,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description call the function onHeaderClick in the controller, with the event 
+             * @description call the function onHeaderClick in the controller, with the event
              * and headerNode attribute
              * @headerNode {Element} headerNode the header of each columns/rows
              * @param {HTMLEvent} event
@@ -1140,11 +1140,11 @@ enioka.ij = (
                 if (this.controller.onHeaderClick)
                     this.controller.onHeaderClick(event, headerNode);
             },
-            
+
 
             /**
              * @function
-             * @description call the function onHeaderHover in the controller, with the event 
+             * @description call the function onHeaderHover in the controller, with the event
              * attribute
              * @param {HTMLEvent} event
              */
@@ -1155,7 +1155,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description call the function onHeaderOut in the controller, with the event 
+             * @description call the function onHeaderOut in the controller, with the event
              * attribute
              * @param {HTMLEvent} event
              */
