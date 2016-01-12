@@ -768,7 +768,9 @@ enioka.ij = (
                     var cellData = this.dataprovider.getData(this._getObjectsFromTree(rowsTreeNode.children, false),
                                                              (columns[i].object ||
                                                               columns[i].summary ||
-                                                              columns[i].group));
+                                                              columns[i].group),
+                                                             null,
+                                                             {group:true});
                     cells.push(this.renderer.renderCell([rowNumber],
                                                         columnsNumbers[i],
                                                         cellData,
