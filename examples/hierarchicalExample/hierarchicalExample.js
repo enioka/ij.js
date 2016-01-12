@@ -4,8 +4,8 @@ var Component = {
 
     getRows : function(){
         var objects = new Array(),
-            number = Math.random() * (50 - 10) + 10,
-            possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            number =10,
+            possible = "abcdefghijk";
         for (var i = 0; i < number; i++) {
             var text = "";
             for( var j=0; j < (Math.random() * (10 - 3) + 3); j++ )
@@ -19,7 +19,7 @@ var Component = {
     getColumns : function(){
         var objects = new Array(),
             number = Math.random() * (50 - 10) + 10,
-            possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            possible = "abcdefghijklmnopqrstuvwxyz0123456789";
         for (var i = 0; i < number; i++) {
             var text = "";
             for( var j=0; j < (Math.random() * (10 - 3) + 3); j++ )
@@ -53,16 +53,15 @@ var DataProvider = {
         return this.component.getColumns();
     },
 
-    getData : function(rowsObjects, columnsObjects, filter){
+    getData : function(rowsObjects, columnsObjects, filter, spec){
         var relations = [],
             occurences = 0;
+        console.log(rowsObjects, columnsObjects);
         for (var i = 0; i < rowsObjects.length; i++){
             for (var j = 0; j < columnsObjects.length; j++){
                 occurences += this._getOccurences(rowsObjects[i], columnsObjects[j]);
             }
         }
-        console.log(rowsObjects, columnsObjects);
-        console.log(":", occurences);
         relations.push(occurences);
         return relations;
     },
@@ -135,9 +134,26 @@ var Renderer = {
             hidden;
         rowArray.push(
             this._createRenderedJSON(
-                rowObject.substring(0,1),
-                undefined,
+                "group",
                 null,
+                "group",
+                (order || 0),
+                this.renderer.addAttribute(
+                    this.renderer.createElementWithText("th",
+                                                        "group",
+                                                        "id",
+                                                        this.template.getAttribute("rowHeader","idPrefix") + "group")
+                ),
+                (open || true),
+                (hidden || true),
+                true
+            )
+        );
+        rowArray.push(
+            this._createRenderedJSON(
+                rowObject.substring(0,1),
+                null,
+                rowObject.substring(0,1),
                 (order || 0),
                 this.renderer.addAttribute(
                     this.renderer.createElementWithText("th",
@@ -146,7 +162,8 @@ var Renderer = {
                     this.template.getAttribute("rowHeader","idPrefix") + rowObject.substring(0,1)
                 ),
                 (open || true),
-                (hidden || true)
+                (hidden || true),
+                true
             )
         );
         rowArray.push(
@@ -164,7 +181,6 @@ var Renderer = {
                 (hidden || true)
             )
         );
-        console.log(rowArray[0].id);
         return rowArray;
     },
 
@@ -177,8 +193,8 @@ var Renderer = {
      */
     applyRowSpan : function(renderedObject, property){
         this.renderer.addAttribute(renderedObject,
-            "rowspan",
-            property);
+                                   "rowspan",
+                                   property);
         return renderedObject;
     },
 
@@ -191,8 +207,8 @@ var Renderer = {
      */
     applyColSpan : function(renderedObject, property){
         this.renderer.addAttribute(renderedObject,
-            "colspan",
-            property);
+                                   "colspan",
+                                   property);
         return renderedObject;
     },
 
@@ -230,7 +246,41 @@ var Renderer = {
             hidden;
         columnArray.push(
             this._createRenderedJSON(
-                columnNumber,
+                "id" + "group",
+                undefined,
+                "group",
+                (order || 0),
+                this.renderer.addAttribute(
+                    this.renderer.createElementWithText("th",
+                                                        "group"),
+                    "id",
+                    this.template.getAttribute("columnHeader","idPrefix") + "group"
+                ),
+                (open || true),
+                (hidden || true),
+                true
+            )
+        );
+        columnArray.push(
+            this._createRenderedJSON(
+                columnObject.substring(0,1),
+                undefined,
+                columnObject.substring(0,1),
+                (order || 0),
+                this.renderer.addAttribute(
+                    this.renderer.createElementWithText("th",
+                                                        columnObject.substring(0,1)),
+                    "id",
+                    this.template.getAttribute("columnHeader","idPrefix") + columnObject.substring(0,1)
+                ),
+                (open || true),
+                (hidden || true),
+                true
+            )
+        );
+        columnArray.push(
+            this._createRenderedJSON(
+                columnObject,
                 columnObject,
                 columnObject,
                 (order || 0),
@@ -244,6 +294,57 @@ var Renderer = {
             )
         );
         return columnArray;
+    },
+
+    /**
+     * @function
+     * @description
+     * @param renderedColumn
+     * @param events
+     * @returns {Object}
+     */
+    reRenderColumn : function(renderedColumn, events){
+        if (!renderedColumn.children) {
+            var vtext = this.renderer.createElement("div",
+                                                    ["vtext"]);
+            var vtextInner = this.renderer.createElementWithText("div",
+                                                                 renderedColumn.label,
+                                                                 ["vtext__inner"]);
+            renderedColumn.rendering.textContent = "";
+            this.appendChild(vtext,
+                             vtextInner);
+            this.appendChild(renderedColumn.rendering,
+                             vtext);
+        }
+        renderedColumn.rendering = this.addEventsToRendering(renderedColumn.rendering,
+                                                             events);
+        return renderedColumn;
+    },
+
+    /**
+     * @function
+     * @description
+     * @param
+     * @param
+     * @returns
+     */
+    renderSummary : function(renderedObject, type){
+        var renderedSummary = this._createRenderedJSON(
+            renderedObject.id + "__summary__",
+            null,
+            renderedObject.label + "__summary__",
+            30,
+            this.renderer.addAttribute(
+                this.renderer.createElementWithText("th", renderedObject.label + "__summary__"),
+                "id",
+                this.template.getAttribute(type,"idPrefix") + renderedObject.id
+            ),
+            (renderedObject.open || true),
+            (renderedObject.hidden || false)
+        );
+        renderedSummary.summary = true;
+        renderedSummary.type = type;
+        return renderedSummary;
     },
 
     /**
@@ -275,16 +376,6 @@ var Renderer = {
 
     /**
      * @function
-     * @descrpition
-     * @param renderedObject
-     * @returns {*|{id, object, label, order, rendering, open, visible}}
-     */
-    renderSummary : function(renderedObject){
-        return this._createRenderedJSON();
-    },
-
-    /**
-     * @function
      * @description
      * @param rowsNumbers
      * @param columnsNumbers
@@ -293,31 +384,27 @@ var Renderer = {
      * @returns {*}
      */
     renderCell : function(rowsNumbers, columnsNumbers, cellData, eventsCallBacks){
+        var reset = false;
         if (cellData && cellData.length > 0) {
             var cell =  this.renderer.createElementWithText("td", cellData[0]);
-            this.renderer.addAttribute(cell, "data-toggle", "popover");
-            this.renderer.addAttribute(cell, "data-original-title", "Summary (first relation)");
-            this.renderer.addAttribute(cell, "data-content",
-                this._getSummaryHoverCell(cellData)
-            );
-            this.renderer.addAttribute(cell, "data-html", "true");
-            this.renderer.addAttribute(cell, "data-container", "body");
+            cell.style.textAlign = "center";
         }
         else {
             var cell = this.renderer.createElement("td");
         }
         cell = this.addEventsToRendering(cell,
-            eventsCallBacks);
+                                         eventsCallBacks);
         for (var row in rowsNumbers){
             this.renderer.addClasses(cell,
-                [this.template.getAttribute("rowHeader", "classPrefix") +
-                rowsNumbers[row]]);
+                                     [this.template.getAttribute("rowHeader", "classPrefix") +
+                                      rowsNumbers[row]]);
         }
         for (var column in columnsNumbers){
-            return this.renderer.addClasses(cell,
-                [this.template.getAttribute("columnHeader", "classPrefix") +
-                columnsNumbers[column]]);
+            this.renderer.addClasses(cell,
+                                     [this.template.getAttribute("columnHeader", "classPrefix") +
+                                      columnsNumbers[column]]);
         }
+        return cell;
     },
 
     /**
@@ -344,7 +431,7 @@ var Renderer = {
      * @returns {{id: *, object: *, label: *, order: *, rendering: *, open: *, hidden: *}}
      * @private
      */
-    _createRenderedJSON : function(id, object, label, order, rendering, open, hidden){
+    _createRenderedJSON : function(id, object, label, order, rendering, open, hidden, summary){
         return {
             "id" : id,
             "object" : object,
@@ -352,7 +439,8 @@ var Renderer = {
             "order" : order,
             "rendering" : rendering,
             "open" : open,
-            "hidden" : hidden
+            "hidden" : hidden,
+            "hasSummary" : (summary || false)
         };
     },
 
@@ -396,12 +484,12 @@ var Renderer = {
      * @param classes
      * @returns {*}
      */
-    addClasses : function(element, elementType, classes){
+    addClasses : function(element, elementType, classes, properties){
         var classPrefix = this.template.getAttribute(elementType, "classPrefix");
         for (var i = 0; i < classes.length; i++){
             classes[i] = classPrefix + classes[i];
         }
-        return this.renderer.addClasses(element, classes);
+        return this.renderer.addClasses(element, classes, properties);
     },
 
     /**
@@ -498,7 +586,6 @@ var Controller = {
         info_debug("onCellHover");
         var classes = event.target.className.split(" ");
         var elements = new Array();
-        console.log($(event.target));
         for (i = 0; i < classes.length; i++){
             elements = document.getElementsByClassName(
                 classes[i]
@@ -506,20 +593,21 @@ var Controller = {
             for (var j = 0; j < elements.length; j++){
                 if (elements[j].tagName == "TD")
                     this.component.renderer.setCSSProperty("background-color",
-                        elements[j],
-                        "#e3e3e3");
+                                                           elements[j],
+                                                           "#e3e3e3");
                 else if (elements[j].tagName == "TH")
                     this.component.renderer.setCSSProperty("background-color",
-                        elements[j],
-                        "#d77b18");
+                                                           elements[j],
+                                                           "#d77b18");
             }
         }
         this.component.renderer.setCSSProperty("background-color",
-            event.target,
-            "#d77b18");
+                                               event.target,
+                                               "#d77b18");
     },
 
-    onCellClick : function(event, cellData){
+    onCellClick : function(event, cellData, rowsObjects, columnsObjects){
+        console.log(cellData);
         alert("there is " + cellData[0] + " characters shared");
     },
 
@@ -532,7 +620,6 @@ var Controller = {
         info_debug("onCellHover");
         var classes = event.target.className.split(" ");
         var elements = new Array();
-        console.log($(event.target));
         for (i = 0; i < classes.length; i++){
             elements = document.getElementsByClassName(
                 classes[i]
@@ -540,14 +627,14 @@ var Controller = {
             for (var j = 0; j < elements.length; j++){
                 if (elements[j].tagName == "TD")
                     this.component.renderer.emptyCSSProperty("background-color",
-                        elements[j]);
+                                                             elements[j]);
                 else if (elements[j].tagName == "TH")
                     this.component.renderer.emptyCSSProperty("background-color",
-                        elements[j]);
+                                                             elements[j]);
             }
         }
         this.component.renderer.emptyCSSProperty("background-color",
-            event.target);
+                                                 event.target);
     },
 
     /**
@@ -626,16 +713,15 @@ component.dataprovider = new DataProvider(component, ij);
 ij.setController(component.controller);
 ij.setDataProvider(component.dataprovider);
 ij.setRenderer(component.renderer);
-ij.hideSummaries = true;
 
 component.renderer.template.addClassPrefix("columnHeader",
-    "c");
+                                           "c");
 component.renderer.template.addClassPrefix("rowHeader",
-    "r");
+                                           "r");
 component.renderer.template.addIdPrefix("columnHeader",
-    "c");
+                                        "c");
 component.renderer.template.addIdPrefix("rowHeader",
-    "r");
+                                        "r");
 
 ij.setWorkspace(document.getElementById("matrix"));
 ij.display();
