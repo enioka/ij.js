@@ -16,9 +16,9 @@ enioka.ij = (
             /**
              * @function
              * @description Add classe(s) to the element given in parameter
-             * @param {Element} element HTML statement
-             * @param {Array} classes an array containing HTMl classe(s) to be added
-             * @return {Element} element with new classe(s)
+             * @param {Element} element an HTMLElement statement
+             * @param {Array} classes an array containing classe(s) to be added
+             * @return {Element} element with new classe(s) added
              */
             addClasses : function(element, classes){
                 if (classes)
@@ -31,7 +31,7 @@ enioka.ij = (
             /**
              * @function
              * @description Add an attribute with a value at an element
-             * @param {Element} element HTML statement
+             * @param {Element} element the element whose we add an attribute
              * @param {string} attributeName the name of the attribute to be added
              * @param {string} attributeValue the value given to the attribute
              * @return {Element} element with new attribute
@@ -44,7 +44,7 @@ enioka.ij = (
             /**
              * @function
              * @description Add a CSS property to an element given in parameter
-             * @param {Element} element HTML statement
+             * @param {Element} element the element give in parameter
              * @param {string} attributeName the name of the attribute to be added
              * @param {stinrg} dattributeValue the value given to the attribute
              * @return {Element} element with new CSS property
@@ -84,7 +84,7 @@ enioka.ij = (
 
             /** 
              * @function
-             * @description Add a node at a pre-existent node
+             * @description Add a childnode at a pre-existent node
              * @param {Element} element HTML statement
              * @param {Element|string} child as a node add to element
              * @retrun {Element} element with the text of child
