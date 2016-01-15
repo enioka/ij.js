@@ -17,10 +17,12 @@ enioka.ij = (
 
             /**
              * @function
-             * @description getData will retrieve a sparse matrix given by dataCallBack function
+             * @description getData will recovered the data of the row's header, and the column's
+             * header, calculate the nomber of commun character between the two headers, and set 
+             * in the approppriate cell. This functions return the Array with the cell's data.
              * @param {Array} rowsObjects the object content in the row
              * @param {Array} columnObjects the object content in the column
-             * @return {Array} relations matrix containing paths.
+             * @return {Array} relations an Array with all the cell's data
              */
             getData : function(rowsObjects, columnsObjects){
             },
@@ -28,7 +30,7 @@ enioka.ij = (
             /**
              * @function
              * @description getRows will retrieve an array of objects that will be instanciated
-             * as DataHeader
+             * as DataHeader by the function getrows in the component
              * @return {Array}
              */
             getRows : function(){
@@ -37,7 +39,7 @@ enioka.ij = (
             /**
              * @function
              * @description getColumns will retrieve an array of objects that will be
-             * instanciated as DataHeader
+             * instanciated as DataHeader by the function getColumns in the component
              * @return {Array}
              */
             getColumns : function(){
