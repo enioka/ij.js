@@ -255,7 +255,9 @@ enioka.ij = (
                         } else {
                             if (j > 0) {
                                 var found = false;
-                                for (var k = 0; k < parentRoot.length; k++) {
+                                //not a for for each case in table beacause some may have been
+                                //relocated to new root
+                                for (var k in parentRoot) {
                                     if (parentRoot[k].id && parentRoot[k].id == renderedObjects[i][j].id) {
                                         found = true;
                                         break;
