@@ -1,4 +1,5 @@
-var Renderer = {
+var DefaultHTMLRenderer = {
+
     initialize : function(parent){
         this.component = parent;
         this.renderer = new enioka.ij.HTMLRenderer();
