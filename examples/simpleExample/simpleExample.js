@@ -228,6 +228,12 @@ var Renderer = {
         return renderedColumn;
     },
 
+    reRenderRow : function(renderedRow, events){
+        renderedRow.rendering = this.addEventsToRendering(renderedRow.rendering,
+                                                          events);
+        return renderedRow;
+    },
+
     /**
      * @function
      * @description

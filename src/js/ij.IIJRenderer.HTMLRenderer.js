@@ -72,7 +72,20 @@ enioka.ij = (
                 return htmlElement;
             },
 
-            appendChild : function(element, child){
+            appendChild : function(element, child, prepend){
+                var children = new Array();
+                //prepend function
+                if (prepend) {
+                    while (element.firstChild) {
+                        children.push(element.firstChild);
+                        element.removeChild(element.firstChild);
+                    }
+                    element.appendChild(child);
+                    for (var i = 0; i < children.length; i++){
+                        element.appendChild(children[i]);
+                    }
+                    return element;
+                }
                 return element.appendChild(child);
             }
         };
