@@ -88,4 +88,4 @@ var DefaultHTMLRenderer = {
     }
 };
 
-Renderer = Class.extend(enioka.ij.IIJRenderer, Renderer);
+DefaultHTMLRenderer = Class.extend(enioka.ij.IIJRenderer, DefaultHTMLRenderer);
