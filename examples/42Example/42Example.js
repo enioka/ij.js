@@ -1,5 +1,7 @@
 var Component = {
     initialize : function(parent){
+        this.minNumber;
+        this.maxNumber;
     }
 };
 
@@ -31,8 +33,8 @@ var DataProvider = {
     	var headerArray = new Array();
     	var text = '';
     	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        var cpt = Math.floor(Math.random() * (16 - 1 ) + 1);
-        var cpt1 = Math.floor(Math.random() * (11 - 1 ) + 1);
+        var cpt = Math.floor(Math.random() * (51 - 11 ) + 11);
+        var cpt1 = Math.floor(Math.random() * (21 - 11 ) + 11);
 
     	for (var i = 0; i < cpt; i++) {
             for (var j = 0; j < cpt1; j++){
@@ -42,8 +44,6 @@ var DataProvider = {
             console.log(text);
     		text = '';
     	}
-    	console.log("tutu");
-        console.log(headerArray.length);
     	return headerArray;
     },
 
@@ -66,11 +66,18 @@ var DataProvider = {
         				};
         			};
         		};
+                if (this.component.minNumber == undefined || this.component.minNumber > communCarac){
+                    this.component.minNumber = communCarac;
+                };
+                if (this.component.maxNumber == undefined || this.component.maxNumber < communCarac){
+                    this.component.maxNumber = communCarac;
+                };
 
         	};
         	dataArray.push(communCarac);
         };
-        console.log("toto");
+        console.log("tobu", this.component.maxNumber);
+        console.log("tobu", this.component.minNumber);
         return dataArray;
     }
 
@@ -133,19 +140,8 @@ var Renderer = {
     },
 
     renderCell : function(rowsNumbers, columnsNumbers, cellData, eventsCallBacks){
-        if (cellData && cellData.length > 0) {
-            var cell = this.renderer.createElementWithText("td", cellData[0]);
-            this.renderer.addAttribute(cell, "data-toggle", "popover");
-            this.renderer.addAttribute(cell, "data-original-title", "Summary (first relation)");
-            this.renderer.addAttribute(cell, "data-content", this._getSummaryHoverCell(cellData));
-            this.renderer.addAttribute(cell, "data-html", "true");
-            this.renderer.addAttribute(cell, "data-container", "body");
-
-        }
-        else {
-            var cell = this.renderer.createElement("td");
-        }
-
+ 
+        var cell = this.renderer.createElementWithText("td", cellData[0]);
         cell = this.addEventsToRendering(cell, eventsCallBacks);
 
         for (var row in rowsNumbers){
@@ -153,9 +149,70 @@ var Renderer = {
         }
 
         for (var column in columnsNumbers){
+            this.setCSSProperty("background-color", cell, this.renderColorCell(cellData) );
             return this.renderer.addClasses(cell, [this.template.getAttribute("columnHeader", "classPrefix") + columnsNumbers[column]]);
+
         }
+
+    },
+
+
+
+    renderColorCell : function(dataNumber){
+
+        var colorCell = '',
+            minNumber = this.component.minNumber,
+            maxNumber = this.component.maxNumber,
+            rangeNumber = maxNumber - minNumber,
+            colorRed,
+            cpt = 0;
+
+        for (var i = minNumber; i < maxNumber; i++) {
+            colorRed = Math.floor(255 / rangeNumber);
+            if (dataNumber == i) {
+                colorRed = colorRed * cpt;
+                colorCell = 'rgb(colorRed, 255, 0)';
+                cpt ++;
+            };
+        };
+
+
+        /*if (dataNumber == 0) {
+            colorCell = '#ffff00';
+        };
+        if (dataNumber == 1) {
+            colorCell = '#ffe500';
+        };
+        if (dataNumber == 2) {
+            colorCell = '#ffcc00';
+        };
+        if (dataNumber == 3) {
+            colorCell = '#ffb200';
+        };
+        if (dataNumber == 4) {
+            colorCell = '#ff9900';
+        };
+        if (dataNumber == 5) {
+            colorCell = '#ff7f00';
+        };
+        if (dataNumber == 6) {
+            colorCell = '#ff6600';
+        };
+        if (dataNumber == 7) {
+            colorCell = '#ff4c00';
+        };
+        if (dataNumber == 8) {
+            colorCell = '#ff3300';
+        };
+        if (dataNumber == 9) {
+            colorCell = '#ff1900';
+        };
+        if (dataNumber == 10) {
+            colorCell = '#ff0000';
+        };*/
+        return colorCell;
     }
+
 };
 
 
@@ -187,7 +244,7 @@ var Controller = {
     },
 
     onCellOut : function(event){
-        info_debug("onCellHover");
+        info_debug("onCellOut");
         var classes = event.target.className.split(" ");
         var elements = new Array();
         console.log($(event.target));
@@ -195,14 +252,16 @@ var Controller = {
             elements = document.getElementsByClassName(classes[i]);
 
             for (var j = 0; j < elements.length; j++){
-                if (elements[j].tagName == "TD")
-                    this.component.renderer.emptyCSSProperty("background-color", elements[j]);
+                if (elements[j].tagName == "TD"){
+                    this.component.renderer.emptyCSSProperty("background-color", 
+                        elements[j]);
+                console.log(elements[j]);
+                console.log("Trautu");}
                 else if (elements[j].tagName == "TH")
-                    this.component.renderer.emptyCSSProperty("background-color", elements[j]);
+                    this.component.renderer.emptyCSSProperty("background-color", 
+                        elements[j]);
             }
         }
-        this.component.renderer.emptyCSSProperty("background-color",
-            event.target, "#d77b18");
     },
 
     onCellClick : function(event, cellData){
@@ -230,19 +289,6 @@ var Aggregator = {
 
     initialize : function(parent){
         this.component = parent;
-    },
-
-    aggregateData : function(rowsObjects, columnsObjects) {
-        var result = new Array();
-        for (var i = 0; i < rowsObjects.length; i++){
-            var rowId = this.component.view.getID(rowsObjects[i]);
-            for (var j = 0; j < columnsObjects.length; j++){
-                var columnId = this.component.view.getID(columnsObjects[j]);
-                if (this.component.matrix[rowId] && this.component.matrix[rowId][columnId])
-                    result = result.concat(this.component.matrix[rowId][columnId]);
-            }
-        }
-        return result;
     }
 };
 Aggregator = Class.extend(enioka.ij.IIJAggregator, Aggregator);
