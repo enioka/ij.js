@@ -31,8 +31,8 @@ var DataProvider = {
     	var headerArray = new Array();
     	var text = '';
     	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        var cpt = Math.floor((Math.random() * 16 - 1 ) + 1);
-        var cpt1 = Math.floor((Math.random() * 11 - 1 ) + 1);
+        var cpt = Math.floor(Math.random() * (16 - 1 ) + 1);
+        var cpt1 = Math.floor(Math.random() * (11 - 1 ) + 1);
 
     	for (var i = 0; i < cpt; i++) {
             for (var j = 0; j < cpt1; j++){
@@ -155,135 +155,70 @@ var Renderer = {
         for (var column in columnsNumbers){
             return this.renderer.addClasses(cell, [this.template.getAttribute("columnHeader", "classPrefix") + columnsNumbers[column]]);
         }
-    },
-
-    addClasses : function(element, elementType, classes){
-        var classPrefix = this.template.getAttribute("classPrefix");
-        for (var i = 0; i < classes.length; i++) {
-            classes[i] = classPrefix + classes[i];
-        };
-        return this.renderer.addClasses(element, classes);
-
-    },
-
-    addEventsToRendering : function(rendering, events){
-        var HeaderEvents = rendering.cloneNode(true);
-        for (var event in events){
-            HeaderEvents.addEventListener(event, events[event]);
-        }
-        return HeaderEvents;
-    },
-
-    clearOutput : function(output) {
-        while (output.lastChild){
-            output.removeChild(output.lastChild);
-        }
-        return output;
     }
-
 };
 
 
 Renderer = Class.extend(DefaultHTMLRenderer, Renderer);
 
 var Controller = {
-    /**
-     * @function
-     * @description
-     * @param modelet
-     */
+    
     initialize : function(parent, core){
         this.component = parent;
         this.core = core;
     },
 
-    /**
-     * @function
-     * @description
-     * @param event
-     */
     onCellHover : function(event){
         info_debug("onCellHover");
         var classes = event.target.className.split(" ");
         var elements = new Array();
         console.log($(event.target));
         for (i = 0; i < classes.length; i++){
-            elements = document.getElementsByClassName(
-                classes[i]
-            );
+            elements = document.getElementsByClassName(classes[i]);
+
             for (var j = 0; j < elements.length; j++){
                 if (elements[j].tagName == "TD")
-                    this.component.renderer.setCSSProperty("background-color",
-                        elements[j],
-                        "#e3e3e3");
+                    this.component.renderer.setCSSProperty("background-color", elements[j], "#e3e3e3");
                 else if (elements[j].tagName == "TH")
-                    this.component.renderer.setCSSProperty("background-color",
-                        elements[j],
-                        "#d77b18");
+                    this.component.renderer.setCSSProperty("background-color", elements[j], "#d77b18");
             }
         }
-        this.component.renderer.setCSSProperty("background-color",
-            event.target,
-            "#d77b18");
+        this.component.renderer.setCSSProperty("background-color", event.target, "#d77b18");
     },
 
-    onCellClick : function(event, cellData){
-        alert("there is " + cellData[0] + " characters shared");
-    },
-
-    /**
-     * @function
-     * @description
-     * @param event
-     */
     onCellOut : function(event){
         info_debug("onCellHover");
         var classes = event.target.className.split(" ");
         var elements = new Array();
         console.log($(event.target));
         for (i = 0; i < classes.length; i++){
-            elements = document.getElementsByClassName(
-                classes[i]
-            );
+            elements = document.getElementsByClassName(classes[i]);
+
             for (var j = 0; j < elements.length; j++){
                 if (elements[j].tagName == "TD")
-                    this.component.renderer.emptyCSSProperty("background-color",
-                        elements[j]);
+                    this.component.renderer.emptyCSSProperty("background-color", elements[j]);
                 else if (elements[j].tagName == "TH")
-                    this.component.renderer.emptyCSSProperty("background-color",
-                        elements[j]);
+                    this.component.renderer.emptyCSSProperty("background-color", elements[j]);
             }
         }
         this.component.renderer.emptyCSSProperty("background-color",
-            event.target);
+            event.target, "#d77b18");
     },
 
-    /**
-     * @function
-     * @description
-     * @param event
-     * @param headerNode
-     */
+    onCellClick : function(event, cellData){
+        alert("there is " + cellData[0] + " characters shared");
+    },
+
     onHeaderClick : function(event, headerNode){
         console.log("headerClick", headerNode);
         this.core.toggleHeader(headerNode);
         this.core.refresh(this.core.getHeaderType(headerNode))
     },
 
-    /**
-     * @function
-     * @description
-     * @param event
-     */
     onHeaderHover : function(event){
         info_debug("onHeaderHover", event);
     },
 
-    /**
-     * @function
-     * @description
-     * @param event
-     */
     onHeaderOut : function(event){
         info_debug("onHeaderOut", event);
     }
@@ -292,23 +227,11 @@ var Controller = {
 Controller = Class.extend(enioka.ij.IIJController, Controller);
 
 var Aggregator = {
-    /**
-     * @function
-     * @description
-     * @param modelet
-     */
+
     initialize : function(parent){
         this.component = parent;
     },
 
-    /**
-     * @function
-     * @description
-     * @param rowsObjects
-     * @param columnsObjects
-     * @param 
-     * @returns {Array}
-     */
     aggregateData : function(rowsObjects, columnsObjects) {
         var result = new Array();
         for (var i = 0; i < rowsObjects.length; i++){
