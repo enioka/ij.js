@@ -2,6 +2,49 @@ var Component = {
     initialize : function(parent){
         this.minNumber;
         this.maxNumber;
+        this.rangeNumber;
+        this.dataColumnHead;
+        this.dataRowHead;
+    },
+
+    getRange : function(){
+
+        var dataRowHead = this.dataRowHead,
+            dataColumnHead = this.dataColumnHead,        
+            communCarac = 0,
+            stringRow,
+            splitStringRow,
+            stringColumn,
+            splitStringColumn;
+
+        for (var i = 0; i < dataColumnHead.length; i++) {
+            stringColumn = dataColumnHead[i];
+            splitStringColumn = stringColumn.split("");
+
+            for (var j = 0; j < dataRowHead.length; j++) {
+                stringRow = dataRowHead[j];
+                splitStringRow = stringRow.split("");
+
+                for (var k = 0; k < splitStringRow.length; k++) {
+                    for (var n = 0; n < splitStringColumn.length; n++) {
+                        if (splitStringColumn[n] == splitStringRow[k]) {
+                            communCarac++;
+
+                        };
+                    };
+                };
+                if (this.minNumber == undefined || this.minNumber > communCarac){
+                    this.minNumber = communCarac;
+                };
+                if (this.maxNumber == undefined || this.maxNumber < communCarac){
+                    this.maxNumber = communCarac;
+                };
+                communCarac = 0;
+            };
+
+        };
+        this.rangeNumber = this.maxNumber - this.minNumber;
+
     }
 };
 
@@ -20,20 +63,20 @@ var DataProvider = {
     },
 
     getColumns : function(){
-        console.log("tata");
-        return this.dataHeader();
+        this.component.dataColumnHead = this.dataHeader();
+        return this.component.dataColumnHead;
     },
 
     getRows : function(){
-    	console.log("tptp");
-    	return this.dataHeader();
+    	this.component.dataRowHead = this.dataHeader();
+        return this.component.dataRowHead;
     },
 
     dataHeader : function () {
     	var headerArray = new Array();
     	var text = '';
     	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        var cpt = Math.floor(Math.random() * (51 - 11 ) + 11);
+        var cpt = Math.floor(Math.random() * (41 - 11 ) + 11);
         var cpt1 = Math.floor(Math.random() * (21 - 11 ) + 11);
 
     	for (var i = 0; i < cpt; i++) {
@@ -41,7 +84,6 @@ var DataProvider = {
                 text+= possible.charAt(Math.floor(Math.random() * possible.length));       
             }
             headerArray.push(text);
-            console.log(text);
     		text = '';
     	}
     	return headerArray;
@@ -66,20 +108,12 @@ var DataProvider = {
         				};
         			};
         		};
-                if (this.component.minNumber == undefined || this.component.minNumber > communCarac){
-                    this.component.minNumber = communCarac;
-                };
-                if (this.component.maxNumber == undefined || this.component.maxNumber < communCarac){
-                    this.component.maxNumber = communCarac;
-                };
-
         	};
         	dataArray.push(communCarac);
         };
-        console.log("tobu", this.component.maxNumber);
-        console.log("tobu", this.component.minNumber);
         return dataArray;
     }
+
 
 };
 
@@ -149,7 +183,7 @@ var Renderer = {
         }
 
         for (var column in columnsNumbers){
-            this.setCSSProperty("background-color", cell, this.renderColorCell(cellData) );
+            this.setCSSProperty("background-color", cell, this.renderColorCell(cellData, this.component.minNumber, this.component.maxNumber) );
             return this.renderer.addClasses(cell, [this.template.getAttribute("columnHeader", "classPrefix") + columnsNumbers[column]]);
 
         }
@@ -158,58 +192,36 @@ var Renderer = {
 
 
 
-    renderColorCell : function(dataNumber){
+    renderColorCell : function(dataNumber, minNumber, maxNumber){
 
         var colorCell = '',
-            minNumber = this.component.minNumber,
-            maxNumber = this.component.maxNumber,
-            rangeNumber = maxNumber - minNumber,
-            colorRed,
+            colorGreen,
             cpt = 0;
 
-        for (var i = minNumber; i < maxNumber; i++) {
-            colorRed = Math.floor(255 / rangeNumber);
+            if (this.component.rangeNumber == undefined) {
+            this.component.getRange();
+            console.log("rangeNumber : ", this.component.rangeNumber);
+            console.log("maxNumber : ", this.component.maxNumber);
+            console.log("minNumber : ", this.component.minNumber);
+            console.log("sortis du getRange");
+            };
+
+            minNumber = this.component.minNumber;
+            maxNumber = this.component.maxNumber;
+            rangeNumber = this.component.rangeNumber
+
+        for (var i = minNumber; i <= maxNumber; i++) {
+            colorGreen = Math.floor(255 / rangeNumber);
+            
             if (dataNumber == i) {
-                colorRed = colorRed * cpt;
-                colorCell = 'rgb(colorRed, 255, 0)';
+                
+                colorGreen = 255 - colorGreen * (i - minNumber);
+                colorCell = 'rgb(255, '+ colorGreen +' , 0)';
                 cpt ++;
+                return colorCell;
+                
             };
         };
-
-
-        /*if (dataNumber == 0) {
-            colorCell = '#ffff00';
-        };
-        if (dataNumber == 1) {
-            colorCell = '#ffe500';
-        };
-        if (dataNumber == 2) {
-            colorCell = '#ffcc00';
-        };
-        if (dataNumber == 3) {
-            colorCell = '#ffb200';
-        };
-        if (dataNumber == 4) {
-            colorCell = '#ff9900';
-        };
-        if (dataNumber == 5) {
-            colorCell = '#ff7f00';
-        };
-        if (dataNumber == 6) {
-            colorCell = '#ff6600';
-        };
-        if (dataNumber == 7) {
-            colorCell = '#ff4c00';
-        };
-        if (dataNumber == 8) {
-            colorCell = '#ff3300';
-        };
-        if (dataNumber == 9) {
-            colorCell = '#ff1900';
-        };
-        if (dataNumber == 10) {
-            colorCell = '#ff0000';
-        };*/
         return colorCell;
     }
 
@@ -255,8 +267,7 @@ var Controller = {
                 if (elements[j].tagName == "TD"){
                     this.component.renderer.emptyCSSProperty("background-color", 
                         elements[j]);
-                console.log(elements[j]);
-                console.log("Trautu");}
+                }
                 else if (elements[j].tagName == "TH")
                     this.component.renderer.emptyCSSProperty("background-color", 
                         elements[j]);
