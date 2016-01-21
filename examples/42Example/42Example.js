@@ -177,6 +177,7 @@ var Renderer = {
  
         var cell = this.renderer.createElementWithText("td", cellData[0]);
         cell = this.addEventsToRendering(cell, eventsCallBacks);
+        console.log(cell);
 
         for (var row in rowsNumbers){
             this.renderer.addClasses(cell, [this.template.getAttribute("rowHeader", "classPrefix") + rowsNumbers[row]]);
@@ -206,11 +207,17 @@ var Renderer = {
             console.log("sortis du getRange");
             };
 
+
             minNumber = this.component.minNumber;
             maxNumber = this.component.maxNumber;
             rangeNumber = this.component.rangeNumber
+            console.log("rangeNumber : ", this.component.rangeNumber);
+            console.log("maxNumber : ", this.component.maxNumber);
+            console.log("minNumber : ", this.component.minNumber);
 
         for (var i = minNumber; i <= maxNumber; i++) {
+            console.log(i);
+
             colorGreen = Math.floor(255 / rangeNumber);
             
             if (dataNumber == i) {
@@ -222,6 +229,7 @@ var Renderer = {
                 
             };
         };
+        console.log(colo);
         return colorCell;
     }
 
@@ -259,14 +267,28 @@ var Controller = {
         info_debug("onCellOut");
         var classes = event.target.className.split(" ");
         var elements = new Array();
+        var dataCell;
+
         console.log($(event.target));
+        console.log("event", dataCell);
+
         for (i = 0; i < classes.length; i++){
             elements = document.getElementsByClassName(classes[i]);
 
+
             for (var j = 0; j < elements.length; j++){
+
                 if (elements[j].tagName == "TD"){
-                    this.component.renderer.emptyCSSProperty("background-color", 
-                        elements[j]);
+
+                    dataCell = elements[j].innerText;
+                    this.component.renderer.setCSSProperty("background-color", 
+                        elements[j], 
+                        this.component.renderer.renderColorCell(dataCell, 
+                            this.component.minNumber, 
+                            this.component.maxNumber));
+                    console.log(this.component.renderer.renderColorCell(dataCell, 
+                            this.component.minNumber, 
+                            this.component.maxNumber));
                 }
                 else if (elements[j].tagName == "TH")
                     this.component.renderer.emptyCSSProperty("background-color", 
