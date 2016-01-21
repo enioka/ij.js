@@ -280,7 +280,7 @@ var Controller = {
 
                 if (elements[j].tagName == "TD"){
 
-                    dataCell = elements[j].innerText;
+                    dataCell = elements[j].textContent;
                     this.component.renderer.setCSSProperty("background-color", 
                         elements[j], 
                         this.component.renderer.renderColorCell(dataCell, 
