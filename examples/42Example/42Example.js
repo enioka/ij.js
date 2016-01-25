@@ -9,6 +9,7 @@ var Component = {
 
     getRange : function(){
 
+        console.log("getrange212");
         var dataRowHead = this.dataRowHead,
             dataColumnHead = this.dataColumnHead,        
             communCarac = 0,
@@ -77,9 +78,9 @@ var DataProvider = {
     	var text = '';
     	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         var cpt = Math.floor(Math.random() * (41 - 11 ) + 11);
-        var cpt1 = Math.floor(Math.random() * (21 - 11 ) + 11);
 
     	for (var i = 0; i < cpt; i++) {
+            var cpt1 = Math.floor(Math.random() * (21 - 11 ) + 11);
             for (var j = 0; j < cpt1; j++){
                 text+= possible.charAt(Math.floor(Math.random() * possible.length));       
             }
@@ -91,6 +92,7 @@ var DataProvider = {
 
     getData : function(rowsObjects, columnsObjects){
 
+        console.log("getData213");
         var dataArray = new Array() ;
         var communCarac = 0;
 
@@ -110,7 +112,11 @@ var DataProvider = {
         		};
         	};
         	dataArray.push(communCarac);
+            console.log(dataArray);
+            console.log(rowsObjects);
+            console.log(columnsObjects);
         };
+        
         return dataArray;
     }
 
@@ -229,7 +235,6 @@ var Renderer = {
                 
             };
         };
-        console.log(colo);
         return colorCell;
     }
 

@@ -796,35 +796,21 @@ enioka.ij = (
             display: function () {
                 if (!this.container)
                     this.container = this.renderer.renderContainer();
-                var start = new Date();
-
-                var columns = this._preRenderColumns(this.dataprovider.getColumns());
-                if (columns)
-                    this.columns = columns;
-                info_debug("column pre-render : " + (new Date() - start));
-                info_debug("columns", columns);
 
                 var rows = this._preRenderRows(this.dataprovider.getRows());
                 if (rows)
                     this.rows = rows;
-                info_debug("rows pre-render : " + (new Date() - start));
-                info_debug("rows pre-render : ", rows);
 
-                if (columns)
+                var columns = this._preRenderColumns(this.dataprovider.getColumns());
+                if (columns){
+                    this.columns = columns;
                     this.displayColumns(columns, rows.depth);
-
-                info_debug("appendColumns : " + (new Date() - start));
-                if (columns)
                     this.displayData(rows, this.getObjectsGrouped(columns.rendering));
+                }
                 else
                     this.displayData(rows);
-                console.log("get columns by group");
-
-                info_debug("appendData & pre-display : " + (new Date() - start));
+                
                 this._appendChild(this.workspace, this.container);
-                info_debug("displayed : " + (new Date() - start));
-
-                console.log(rows, columns);
             },
 
             _getCellEventsCallbacks: function (rowsNumbers, columnsNumbers) {
