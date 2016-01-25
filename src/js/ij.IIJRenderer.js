@@ -22,7 +22,7 @@ enioka.ij = (
             /**
              * @function
              * @description create a HTMl element of type tbody
-             * @return {Element} an element with a HTML type
+             * @return {HTMLElement} an element with a HTML type
              */
             renderRowsContainer : function(){
             },
@@ -30,9 +30,9 @@ enioka.ij = (
             /**
              *@function
              *@description add an attribute name rowspan at renderedObject with the value property
-             *@param {Element} renderObject element HTML statement
+             *@param {HTMLElement} renderObject element HTML statement
              *@param {string} property value of the attribute rowspan
-             *@return {Element} renderObject with a attribute rowspan
+             *@return {HTMLElement} renderObject with a attribute rowspan
              */
             applyRowSpan : function(renderedObject, property){
             },
@@ -40,9 +40,9 @@ enioka.ij = (
             /**
              *@function
              *@description add an attribute name colspan at renderedObject with the value property
-             *@param {Element} renderObject element HTML statement
+             *@param {HTMLElement} renderObject element HTML statement
              *@param {string} property value of the attribute colspan
-             *@return {Element} renderObject with a attribute colspan
+             *@return {HTMLElement} renderObject with a attribute colspan
              */
             applyColSpan : function(renderedObject, property){
             },
@@ -50,7 +50,7 @@ enioka.ij = (
             /**
              * @function
              * @description return a variable where is create a new html class : tr
-             * @return {Element} row containing tr
+             * @return {HTMLElement} row containing tr
              */
             renderRowContainer : function(){
             },
@@ -59,7 +59,7 @@ enioka.ij = (
              * @function
              * @description create a html class : th, with text
              * @param {string} label the text add at the html class
-             * @return {Element}
+             * @return {HTMLElement}
              */
             renderSubTotalHeader : function(label){
             },
@@ -67,7 +67,7 @@ enioka.ij = (
             /**
              * @function
              * @description Render Left upper corner, essential for a well displayed HTML Table
-             * @return {Element}
+             * @return {HTMLElement}
              */
             renderLeftUpperCorner : function(){
             },
@@ -75,7 +75,7 @@ enioka.ij = (
             /**
              * @function
              * @description create an html element of type tr
-             * @return {Element}
+             * @return {HTMLElement}
              */
             renderColumnsLevelContainer : function(){
             },
@@ -83,16 +83,16 @@ enioka.ij = (
             /**
              * @function
              * @description create an html element of type thead
-             * @return {Element}
+             * @return {HTMLElement}
              */
             renderColumnsContainer : function(){
             },
 
             /**
-             * @function
+             * @function //FALSE NEED TO BE UNDERSTAND
              * @description render container for all rendered objects. Core will put together
              * all rendered object in a sigle one ; this one.
-             * @return {Element}
+             * @return {HTMLElement}
              */
             renderContainer : function(){
             },
@@ -101,9 +101,9 @@ enioka.ij = (
              * @function
              * @description set a CSS property at an element
              * @param {string} property the CSS property
-             * @param {Element} element the element which we add the property
+             * @param {HTMLElement} element the element which we add the property
              * @param {string} propertyValue the value of the added property
-             * @retrun {Element} element the element with a new CSS property
+             * @retrun {HTMLElement} element the element with a new CSS property
              */
             setCSSProperty : function(property, element, propertyValue){
             },
@@ -112,8 +112,8 @@ enioka.ij = (
              * @function
              * @description empty the value of a property of an element, canceled the property
              * @param {string} property the CSS property
-             * @param {Element} element the element which we canceled a property
-             * @return {Element} element the element with a canceled property
+             * @param {HTMLElement} element the element which we canceled a property
+             * @return {HTMLElement} element the element with a canceled property
              */
             emptyCSSProperty : function(property, element){
             },
@@ -122,10 +122,10 @@ enioka.ij = (
              * @function
              * @description recover the classPrefix of a template and give this class prefix
              * with the number of the location at the renderer
-             * @param {Element} element HTML statement
+             * @param {HTMLElement} element HTML statement
              * @param {string} elementType an element categorie generated by the Renderer
              * @param {Array} classes an array containing HTMl classe(s) to be added
-             * @return {Element} 
+             * @return {HTMLElement} 
              */
             addClasses : function(element, elementType, classes){
             },
@@ -153,14 +153,14 @@ enioka.ij = (
             },
 
             /**
-             * @function
+             * @function NEED TO ACTUALISE
              * @description prepare the renderer of all the cells of the final array, awards 
              * HTMl class, numbers of row/columns, and attribute a value of event
              * @param {Array} rowsNumbers content the numbers of the rows
              * @param {Array} columnsNumbers content the numbers of the columns
              * @param {Array} cellData an array content the Data of existence of the cells
              * @param {Array} eventsCallBacks the vallues of event of all the cells
-             * @return {Element}
+             * @return {HTMLElement}
              */
             renderCell : function(rowsNumbers, columnsNumbers, cellData, eventsCallBacks){
             },
@@ -168,9 +168,9 @@ enioka.ij = (
             /**
              * @function
              * @description Add a node at a pre-existent node
-             * @param {Element} element HTML statement
+             * @param {HTMLElement} element HTML statement
              * @param {Element|string} child as a node add to element
-             * @return {Element} eslement with the text of child
+             * @return {HTMLElement} eslement with the text of child
              */
             appendChild : function(element, child) {
             },
@@ -182,7 +182,7 @@ enioka.ij = (
              * @param {string} object value set to object
              * @param {string} label value set to label
              * @param {string} order value set to order
-             * @param {Element} rendering value set to rendering
+             * @param {HTMLElement} rendering value set to rendering
              * @param {boolean} open value set to open
              * @param {boolean} hidden value set to hidden
              * @return {string|Element|boolean}
@@ -192,11 +192,11 @@ enioka.ij = (
 
             /**
              * @function
-             * @description add eventsListeners for the rendering
-             * @param rendering {Element} the header
+             * @description build a new header when 
+             * @param rendering {HTMLElement} the header
              * @param events {Array} containing events available for the rendering following the
              * pattern
-             * @returns {Element} newHeader the header built in function of the events
+             * @returns {HTMLElement} newHeader the header built in function of the events
              */
             addEventsToRendering : function(rendering, events){
             },
