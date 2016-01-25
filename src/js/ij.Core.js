@@ -31,9 +31,6 @@ enioka.ij = (
         var Core = {
             initialize: function (properties) {
                 if (!properties) {
-                    this.setController(new eniokaij.IIJController());
-                    this.setRenderer(new eniokaij.IIJRenderer());
-                    this.setDataProvider(new eniokaij.IIJDataProvider());
                     return;
                 } else {
                     for (var prop in properties) {
@@ -209,7 +206,7 @@ enioka.ij = (
                 //create root array & map table
                 var _scope = {};
                 var map = new Array(),
-                    idMap = new Array();
+                    parent = new Array();
                 _scope.root = new Array();
                 for (var i = 0; i < renderedObjects.length; i++) {
                     //set the parrent root at the initial array (level 0)
@@ -217,11 +214,14 @@ enioka.ij = (
                         parentRoot = _scope.root,
                         currentID = new String();
                     for (var j = 0; j < renderedObjects[i].length; j++) {
+                        //retrieve root if it exists for the new root
+                        if (!parent[renderedObjects[i][j].id])
+                            parent[renderedObjects[i][j].id] = currentID;
+                        //if renderedObjects is unique
+                        else if (!renderedObjects[i][j].cannotReRoot) {
+                            currentID = parent[renderedObjects[i][j].id];
+                        }
                         currentID += renderedObjects[i][j].id;
-                        if (!idMap[renderedObjects[i][j].id])
-                            idMap[renderedObjects[i][j].id] = currentID;
-                        else
-                            currentID = idMap[renderedObjects[i][j].id];
                         //if object is not mapped
                         if (!map[currentID]) {
                             if (!parentRoot instanceof Array)
@@ -273,6 +273,7 @@ enioka.ij = (
                                     map[currentID] = tmpRoot;
                                 }
                             }
+                            //If there is at least on child
                             if (renderedObjects[i].length - 1 > j) {
                                 if (!map[currentID].children) {
                                     map[currentID].children = new Array();
@@ -358,6 +359,7 @@ enioka.ij = (
              * @return {Array} sorter aphabetically on label object property
              */
             alphabeticalSort: function (array) {
+                if (this.sort)
                 return array.sort(
                     function compare(a, b) {
                         if (a.label < b.label)
@@ -367,6 +369,8 @@ enioka.ij = (
                         return 0;
                     }
                 );
+                else
+                    return array;
             },
 
             /**
@@ -672,7 +676,7 @@ enioka.ij = (
                         for (var i = currentId; i < nextId; i++) {
                             classes.push(i);
                         }
-                    } else if (renderedObjects[id].object) {
+                    } else if (renderedObjects[id].object != undefined) {
                         var nextId = currentId + 1;
                         for (var i = currentId; i < nextId; i++) {
                             classes.push(i);
@@ -789,7 +793,6 @@ enioka.ij = (
             /**
              * @function
              * @description
-             * @param {Array} matrixLine - Contains all data we need to render
              */
             _renderRowData: function (columns, rowNumber, renderedRow) {
                 var columnsNumbers = this.getColumnsNumbersFromObjects(columns),
@@ -1139,7 +1142,7 @@ enioka.ij = (
                                 objects = objects.concat(childrenObjects);
                         } else if (renderedObjectsTree[id].summary){
                             objects.push({"summary" : renderedObjectsTree[id].object});
-                        } else if (renderedObjectsTree[id].object) {
+                        } else if (renderedObjectsTree[id].object != undefined) {
                             objects.push({"object" : [renderedObjectsTree[id].object]});
                         }
                     }
