@@ -22,7 +22,7 @@ enioka.ij = (
             /**
              * @function
              * @description create a HTMl element of type tbody
-             * @return {HTMLElement} an element with a HTML type
+             * @return {HTMLElement} an element with a HTML type tbody
              */
             renderRowsContainer : function(){
             },
@@ -50,7 +50,7 @@ enioka.ij = (
             /**
              * @function
              * @description return a variable where is create a new html class : tr
-             * @return {HTMLElement} row containing tr
+             * @return {HTMLElement} an element of type 'tr'
              */
             renderRowContainer : function(){
             },
@@ -59,7 +59,7 @@ enioka.ij = (
              * @function
              * @description create a html class : th, with text
              * @param {string} label the text add at the html class
-             * @return {HTMLElement}
+             * @return {HTMLElement} an element of type 'th', with text
              */
             renderSubTotalHeader : function(label){
             },
@@ -75,7 +75,7 @@ enioka.ij = (
             /**
              * @function
              * @description create an html element of type tr
-             * @return {HTMLElement}
+             * @return {HTMLElement} an element of type 'tr'
              */
             renderColumnsLevelContainer : function(){
             },
@@ -83,16 +83,15 @@ enioka.ij = (
             /**
              * @function
              * @description create an html element of type thead
-             * @return {HTMLElement}
+             * @return {HTMLElement} an element of type 'thead'
              */
             renderColumnsContainer : function(){
             },
 
             /**
-             * @function //FALSE NEED TO BE UNDERSTAND
-             * @description render container for all rendered objects. Core will put together
-             * all rendered object in a sigle one ; this one.
-             * @return {HTMLElement}
+             * @function
+             * @description create the first node for the final renderer : table
+             * @return {HTMLElement} an element of type 'table'
              */
             renderContainer : function(){
             },
