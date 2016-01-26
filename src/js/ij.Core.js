@@ -31,9 +31,6 @@ enioka.ij = (
         var Core = {
             initialize: function (properties) {
                 if (!properties) {
-                    this.setController(new eniokaij.IIJController());
-                    this.setRenderer(new eniokaij.IIJRenderer());
-                    this.setDataProvider(new eniokaij.IIJDataProvider());
                     return;
                 } else {
                     for (var prop in properties) {
@@ -362,6 +359,7 @@ enioka.ij = (
              * @return {Array} sorter aphabetically on label object property
              */
             alphabeticalSort: function (array) {
+                if (this.sort)
                 return array.sort(
                     function compare(a, b) {
                         if (a.label < b.label)
@@ -371,6 +369,8 @@ enioka.ij = (
                         return 0;
                     }
                 );
+                else
+                    return array;
             },
 
             /**
@@ -676,7 +676,7 @@ enioka.ij = (
                         for (var i = currentId; i < nextId; i++) {
                             classes.push(i);
                         }
-                    } else if (renderedObjects[id].object) {
+                    } else if (renderedObjects[id].object != undefined) {
                         var nextId = currentId + 1;
                         for (var i = currentId; i < nextId; i++) {
                             classes.push(i);
@@ -793,7 +793,6 @@ enioka.ij = (
             /**
              * @function
              * @description
-             * @param {Array} matrixLine - Contains all data we need to render
              */
             _renderRowData: function (columns, rowNumber, renderedRow) {
                 var columnsNumbers = this.getColumnsNumbersFromObjects(columns),
@@ -1143,7 +1142,7 @@ enioka.ij = (
                                 objects = objects.concat(childrenObjects);
                         } else if (renderedObjectsTree[id].summary){
                             objects.push({"summary" : renderedObjectsTree[id].object});
-                        } else if (renderedObjectsTree[id].object) {
+                        } else if (renderedObjectsTree[id].object != undefined) {
                             objects.push({"object" : [renderedObjectsTree[id].object]});
                         }
                     }
