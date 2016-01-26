@@ -17,12 +17,12 @@ enioka.ij = (
 
             /**
              * @function
-             * @description getData will recovered the data of the row's header, and the column's
+             * @description getData will recovered the strings of the row's header, and the column's
              * header, calculate the nomber of commun character between the two headers, and set 
              * in the approppriate cell. This functions return the Array with the cell's data.
              * @param {Array} rowsObjects the object content in the row
              * @param {Array} columnObjects the object content in the column
-             * @return {Array} relations an Array with all the cell's data
+             * @return {Array} relations an Array with the data cell
              */
             getData : function(rowsObjects, columnsObjects){
             },

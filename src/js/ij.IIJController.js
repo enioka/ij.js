@@ -49,7 +49,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description give an information when a event is applicable
+             * @description give an debug information when a event is applicable
              * @param {HTMLEvent} event
              */
             onHeaderHover : function(event){
@@ -57,7 +57,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description give an information when a event is stop
+             * @description give an debug information when a event is stop
              * @param {HTMLEvent} event
              */
             onHeaderOut : function(event){
@@ -65,8 +65,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description allows to change the content of the header (replace all the objects
-             * and the their cummun first letter just by the commun first letter), and vice versa
+             * @description initialize the prerogative for change the header, when a event is coming
              * @param {HTMLElement} event
              * @param {Element} headerNode provided by the core (properties can be accessed by
              * calling core functions)
