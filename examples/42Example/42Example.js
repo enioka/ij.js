@@ -5,6 +5,7 @@ var Component = {
         this.rangeNumber;
         this.dataColumnHead;
         this.dataRowHead;
+        this.rangeNumbersHead = new Array();
     },
 
     getRange : function(rowsObjects, columnsObjects){
@@ -17,7 +18,9 @@ var Component = {
             splitStringRow,
             stringColumn,
             splitStringColumn,
-            valReturnCarac;
+            valReturnCarac,
+            lengthRangeArray,
+            exist = 0;
 
         for (var i = 0; i < dataColumnHead.length; i++) {
             stringColumn = dataColumnHead[i];
@@ -31,16 +34,31 @@ var Component = {
                     for (var n = 0; n < splitStringColumn.length; n++) {
                         if (splitStringColumn[n] == splitStringRow[k]) {
                             communCarac++;
-
                         };
                     };
                 };
+
+                if(this.rangeNumbersHead != undefined){
+                    for (var r = 0; r < this.rangeNumbersHead.length; r++) {
+                        if(this.rangeNumbersHead[r] == communCarac){
+                            exist = 1;
+                        }
+                    };
+                }
+                if(exist == 0){
+                    this.rangeNumbersHead.push(communCarac);
+                }
+                console.log(communCarac, exist);
+                console.log("range2", this.rangeNumbersHead);
+                exist = 0;
+
                 if (this.minNumber == undefined || this.minNumber > communCarac){
                     this.minNumber = communCarac;
                 };
                 if (this.maxNumber == undefined || this.maxNumber < communCarac){
                     this.maxNumber = communCarac;
                 };
+
                 if(valReturnCarac == undefined && rowsObjects == dataRowHead[j] && columnsObjects == dataColumnHead[i]){
                     console.log(dataRowHead[j], dataColumnHead[i]);
                     valReturnCarac = communCarac;
@@ -50,7 +68,7 @@ var Component = {
             };
 
         };
-        this.rangeNumber = this.maxNumber - this.minNumber;
+        this.rangeNumber = this.rangeNumbersHead.length;
         console.log("provisoire", valReturnCarac);
         return valReturnCarac;
     }
@@ -84,7 +102,7 @@ var DataProvider = {
     	var headerArray = new Array();
     	var text = '';
     	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        var cpt = 200;//Math.floor(Math.random() * (41 - 11 ) + 11);
+        var cpt = Math.floor(Math.random() * (41 - 11 ) + 11);
 
     	for (var i = 0; i < cpt; i++) {
             var cpt1 = Math.floor(Math.random() * (21 - 11 ) + 11);
@@ -212,25 +230,38 @@ var Renderer = {
             colorGreen,
             cpt = 0;
 
-            minNumber = this.component.minNumber;
-            maxNumber = this.component.maxNumber;
-            rangeNumber = this.component.rangeNumber
+        minNumber = this.component.minNumber;
+        maxNumber = this.component.maxNumber;
+        rangeNumber = this.component.rangeNumber
 
-            console.log("minNumber", minNumber);
-            console.log("maxNumber", maxNumber);
-            console.log("rangeNumber", rangeNumber);
+        console.log("minNumber", minNumber);
+        console.log("maxNumber", maxNumber);
+        console.log("rangeNumber", rangeNumber);
+        console.log("this.component.rangeNumbersHead", this.component.rangeNumbersHead);
 
-        for (var i = minNumber; i <= maxNumber; i++) {
+        this.component.rangeNumbersHead.sort(function (a, b) {
 
-            colorGreen = Math.floor(255 / rangeNumber);
-            console.log("colorGreen", colorGreen);
+            if (a < b) {
+                return -1;
+            } else if (a > b) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
+        colorGreen = Math.floor(255 / rangeNumber);
+
+        for (var i = 0; i <= rangeNumber - 1; i++) {
             
-            if (dataNumber == i) {
+            if (dataNumber == this.component.rangeNumbersHead[i]) {
                 
-                colorGreen = 255 - colorGreen * (i - minNumber);
+                colorGreen = 255 - colorGreen * i;
                 colorCell = 'rgb(255, '+ colorGreen +' , 0)';
                 cpt ++;
                 console.log("colorCell", colorCell);
+                console.log(dataNumber);
+                console.log("sortis du colorCell");
                 return colorCell;
                 
             };
@@ -350,6 +381,6 @@ component.renderer.template.addIdPrefix("rowHeader",
     "r");
 
 ij.setWorkspace(document.getElementById("matrix"));
-var start = new Date();
+//var start = new Date();
 ij.display();
-alert("displayed : " + (new Date() - start));
+//alert("displayed : " + (new Date() - start));
