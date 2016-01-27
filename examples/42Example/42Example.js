@@ -7,16 +7,17 @@ var Component = {
         this.dataRowHead;
     },
 
-    getRange : function(){
+    getRange : function(rowsObjects, columnsObjects){
 
-        console.log("getrange212");
+        console.log("getRange", rowsObjects, columnsObjects);
         var dataRowHead = this.dataRowHead,
             dataColumnHead = this.dataColumnHead,        
             communCarac = 0,
             stringRow,
             splitStringRow,
             stringColumn,
-            splitStringColumn;
+            splitStringColumn,
+            valReturnCarac;
 
         for (var i = 0; i < dataColumnHead.length; i++) {
             stringColumn = dataColumnHead[i];
@@ -40,12 +41,18 @@ var Component = {
                 if (this.maxNumber == undefined || this.maxNumber < communCarac){
                     this.maxNumber = communCarac;
                 };
+                if(valReturnCarac == undefined && rowsObjects == dataRowHead[j] && columnsObjects == dataColumnHead[i]){
+                    console.log(dataRowHead[j], dataColumnHead[i]);
+                    valReturnCarac = communCarac;
+                }
+                
                 communCarac = 0;
             };
 
         };
         this.rangeNumber = this.maxNumber - this.minNumber;
-
+        console.log("provisoire", valReturnCarac);
+        return valReturnCarac;
     }
 };
 
@@ -77,7 +84,7 @@ var DataProvider = {
     	var headerArray = new Array();
     	var text = '';
     	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        var cpt = Math.floor(Math.random() * (41 - 11 ) + 11);
+        var cpt = 200;//Math.floor(Math.random() * (41 - 11 ) + 11);
 
     	for (var i = 0; i < cpt; i++) {
             var cpt1 = Math.floor(Math.random() * (21 - 11 ) + 11);
@@ -92,31 +99,32 @@ var DataProvider = {
 
     getData : function(rowsObjects, columnsObjects){
 
-        console.log("getData213");
         var dataArray = new Array() ;
         var communCarac = 0;
 
-        for (var i = 0; i < rowsObjects.length; i++) {
-        	var stringRows = rowsObjects[i],
-        		splitStringRows = stringRows.split("");
-        	for (var j = 0; j < columnsObjects.length; j++) {
-        		var stringColumn = columnsObjects[i],
-        			splitStringColumn = stringColumn.split("");
-        		
-        		for (var k = 0; k < splitStringRows.length; k++) {
-        			for (var n = 0; n < splitStringColumn.length; n++) {
-        				if (splitStringColumn[n] == splitStringRows[k]) {
-        					communCarac++;
-        				};
-        			};
-        		};
-        	};
-        	dataArray.push(communCarac);
-            console.log(dataArray);
-            console.log(rowsObjects);
-            console.log(columnsObjects);
-        };
-        
+        if(!this.component.rangeNumber){
+            communCarac = this.component.getRange(rowsObjects, columnsObjects);
+            dataArray.push(communCarac);
+        }
+        else{
+            for (var i = 0; i < rowsObjects.length; i++) {
+            	var stringRows = rowsObjects[i],
+            		splitStringRows = stringRows.split("");
+            	for (var j = 0; j < columnsObjects.length; j++) {
+            		var stringColumn = columnsObjects[i],
+            			splitStringColumn = stringColumn.split("");
+            		
+            		for (var k = 0; k < splitStringRows.length; k++) {
+            			for (var n = 0; n < splitStringColumn.length; n++) {
+            				if (splitStringColumn[n] == splitStringRows[k]) {
+            					communCarac++;
+            				};
+            			};
+            		};
+            	};
+            	dataArray.push(communCarac);
+            };
+        }
         return dataArray;
     }
 
@@ -183,7 +191,6 @@ var Renderer = {
  
         var cell = this.renderer.createElementWithText("td", cellData[0]);
         cell = this.addEventsToRendering(cell, eventsCallBacks);
-        console.log(cell);
 
         for (var row in rowsNumbers){
             this.renderer.addClasses(cell, [this.template.getAttribute("rowHeader", "classPrefix") + rowsNumbers[row]]);
@@ -205,32 +212,25 @@ var Renderer = {
             colorGreen,
             cpt = 0;
 
-            if (this.component.rangeNumber == undefined) {
-            this.component.getRange();
-            console.log("rangeNumber : ", this.component.rangeNumber);
-            console.log("maxNumber : ", this.component.maxNumber);
-            console.log("minNumber : ", this.component.minNumber);
-            console.log("sortis du getRange");
-            };
-
-
             minNumber = this.component.minNumber;
             maxNumber = this.component.maxNumber;
             rangeNumber = this.component.rangeNumber
-            console.log("rangeNumber : ", this.component.rangeNumber);
-            console.log("maxNumber : ", this.component.maxNumber);
-            console.log("minNumber : ", this.component.minNumber);
+
+            console.log("minNumber", minNumber);
+            console.log("maxNumber", maxNumber);
+            console.log("rangeNumber", rangeNumber);
 
         for (var i = minNumber; i <= maxNumber; i++) {
-            console.log(i);
 
             colorGreen = Math.floor(255 / rangeNumber);
+            console.log("colorGreen", colorGreen);
             
             if (dataNumber == i) {
                 
                 colorGreen = 255 - colorGreen * (i - minNumber);
                 colorCell = 'rgb(255, '+ colorGreen +' , 0)';
                 cpt ++;
+                console.log("colorCell", colorCell);
                 return colorCell;
                 
             };
@@ -289,9 +289,6 @@ var Controller = {
                     this.component.renderer.setCSSProperty("background-color", 
                         elements[j], 
                         this.component.renderer.renderColorCell(dataCell, 
-                            this.component.minNumber, 
-                            this.component.maxNumber));
-                    console.log(this.component.renderer.renderColorCell(dataCell, 
                             this.component.minNumber, 
                             this.component.maxNumber));
                 }
@@ -353,4 +350,6 @@ component.renderer.template.addIdPrefix("rowHeader",
     "r");
 
 ij.setWorkspace(document.getElementById("matrix"));
+var start = new Date();
 ij.display();
+alert("displayed : " + (new Date() - start));
