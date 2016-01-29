@@ -29,10 +29,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="enioka.html">enioka</a><a href="enioka.ij.html">.ij</a><a href="enioka.ij.IIJRenderer.html">.IIJRenderer</a>.</span>
-        
-        HTMLRenderer
-        </h2>
+            <span class="ancestors"><a href="enioka.html">enioka</a><a href="enioka.ij.html">.ij</a><a href="enioka.ij.IIJRenderer.html">.IIJRenderer</a>.</span>HTMLRenderer</h2>
         
             <div class="class-description">Will generate html with predefined functions</div>
         
@@ -53,6 +50,10 @@
     
 
 
+
+<div class="description">
+    Handle functions to add/create Classe/Attribute/node
+</div>
 
 
 
@@ -95,7 +96,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line10">line 10</a>
+        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line11">line 11</a>
     </li></ul></dd>
     
 
@@ -144,14 +145,14 @@
 
     
 
-    <h4 class="name" id=".addClasses"><span class="type-signature">(static) </span>addClasses<span class="signature">(element, classes)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".addAttribute"><span class="type-signature">(static) </span>addAttribute<span class="signature">(element, attributeName, attributeValue)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
 
     
 
 
 
 <div class="description">
-    Add classes to the element given in parameter
+    Add an attribute with a value at an element
 </div>
 
 
@@ -192,23 +193,10 @@
 
             <td class="type">
             
-            </td>
+                
+<span class="param-type">HTMLElement</span>
 
-            
 
-            
-
-            <td class="description last">html element to add the class to</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>classes</code></td>
-            
-
-            <td class="type">
             
             </td>
 
@@ -216,139 +204,7 @@
 
             
 
-            <td class="description last">as an array</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    element with new classes
-</div>
-
-
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".addCSS"><span class="type-signature">(static) </span>addCSS<span class="signature">(element, attributeName, attributeValue)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>element</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last">the element whose we add an attribute</td>
         </tr>
 
     
@@ -360,13 +216,18 @@
 
             <td class="type">
             
+                
+<span class="param-type">string</span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last"></td>
+            <td class="description last">the name of the attribute to be added</td>
         </tr>
 
     
@@ -378,13 +239,18 @@
 
             <td class="type">
             
+                
+<span class="param-type">string</span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last"></td>
+            <td class="description last">the value given to the attribute</td>
         </tr>
 
     
@@ -425,151 +291,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line40">line 40</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".createElement"><span class="type-signature">(static) </span>createElement<span class="signature">(element, classes)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Create HTML element
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>element</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">name of the HTML statement</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>classes</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">as an array</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line66">line 66</a>
+        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line39">line 39</a>
     </li></ul></dd>
     
 
@@ -596,10 +318,22 @@
 
         
 <div class="param-desc">
-    element
+    element with new attribute
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLElement</span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -610,14 +344,14 @@
 
     
 
-    <h4 class="name" id=".createElementWithText"><span class="type-signature">(static) </span>createElementWithText<span class="signature">(element, text, classes)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".addClasses"><span class="type-signature">(static) </span>addClasses<span class="signature">(element, classes)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
 
     
 
 
 
 <div class="description">
-    Create HTML element with text inside
+    Add classe(s) to the element given in parameter
 </div>
 
 
@@ -658,23 +392,10 @@
 
             <td class="type">
             
-            </td>
+                
+<span class="param-type">HTMLElement</span>
 
-            
 
-            
-
-            <td class="description last">name of the HTML statement</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>text</code></td>
-            
-
-            <td class="type">
             
             </td>
 
@@ -682,7 +403,7 @@
 
             
 
-            <td class="description last">to add in the HTML statement</td>
+            <td class="description last">an HTMLElement with class, attribute, etc...</td>
         </tr>
 
     
@@ -694,13 +415,217 @@
 
             <td class="type">
             
+                
+<span class="param-type">Array</span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last">as an array</td>
+            <td class="description last">an array containing classe(s) to be added</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    element with new classe(s) added
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLElement</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".addCSS"><span class="type-signature">(static) </span>addCSS<span class="signature">(element, attributeName, dattributeValue)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Add a CSS property to an element given in parameter
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the element whose we add a parameter</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attributeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the name of the attribute to be added</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dattributeValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">stinrg</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the value given to the attribute</td>
         </tr>
 
     
@@ -768,10 +693,554 @@
 
         
 <div class="param-desc">
-    element
+    element with new CSS property
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLElement</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".appendChild"><span class="type-signature">(static) </span>appendChild<span class="signature">(element, child)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Add a childnode at a pre-existent node
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">HTML statement</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>child</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Element</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">as a node add to element</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".createElement"><span class="type-signature">(static) </span>createElement<span class="signature">(element, classes)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Create HTML element
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">HTML statement</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>classes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">as an array of HTMl classes</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    htmlElement with HTMl classe(s)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLElement</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".createElementWithText"><span class="type-signature">(static) </span>createElementWithText<span class="signature">(element, text, classes)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Create HTML element with text inside
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">HTML statement</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">to be added in the HTML statement</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>classes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">as an array of HTML classe(s)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line64">line 64</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    htmlElement with HTMl classe(s) and text inside
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLElement</span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -793,13 +1262,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NEEDTOACTUALISE">NEED TO ACTUALISE</a></li><li><a href="global.html#NOTUSE">NOT USE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Dec 15 2015 16:51:25 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jan 29 2016 18:03:33 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

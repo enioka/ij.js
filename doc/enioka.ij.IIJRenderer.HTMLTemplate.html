@@ -29,14 +29,9 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="enioka.html">enioka</a><a href="enioka.ij.html">.ij</a><a href="enioka.ij.IIJRenderer.html">.IIJRenderer</a>.</span>
+            <span class="ancestors"><a href="enioka.html">enioka</a><a href="enioka.ij.html">.ij</a><a href="enioka.ij.IIJRenderer.html">.IIJRenderer</a>.</span>HTMLTemplate</h2>
         
-        HTMLTemplate
-        </h2>
-        
-            <div class="class-description">HTMLTemplate module is part of HTMLRenderer to allow customisation
-to the user, add classes to cells, table, headers, etc.
-<br/></div>
+            <div class="class-description">HTMLTemplate module is part of HTMLRenderer to allow customisationto the user, add classes to : cells, table, headers, etc.<br/></div>
         
     
 </header>
@@ -55,6 +50,10 @@ to the user, add classes to cells, table, headers, etc.
     
 
 
+
+<div class="description">
+    Handle functions to add ClassPrefix/IdPrefix and get their values
+</div>
 
 
 
@@ -97,7 +96,7 @@ to the user, add classes to cells, table, headers, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLTemplate.js.html">ij.IIJRenderer.HTMLTemplate.js</a>, <a href="ij.IIJRenderer.HTMLTemplate.js.html#line12">line 12</a>
+        <a href="ij.IIJRenderer.HTMLTemplate.js.html">ij.IIJRenderer.HTMLTemplate.js</a>, <a href="ij.IIJRenderer.HTMLTemplate.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -146,14 +145,14 @@ to the user, add classes to cells, table, headers, etc.
 
     
 
-    <h4 class="name" id=".addClassPrefix"><span class="type-signature">(static) </span>addClassPrefix<span class="signature">(elementType, classes)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".addClassPrefix"><span class="type-signature">(static) </span>addClassPrefix<span class="signature">(elementType, classPrefix)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    add classes to a html element or to another predefined statements
+    add a class prefix to an object; create the object, if he doesn't exist
 </div>
 
 
@@ -194,23 +193,33 @@ to the user, add classes to cells, table, headers, etc.
 
             <td class="type">
             
+                
+<span class="param-type">string</span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last">either HTML statement or one of the predefined statements</td>
+            <td class="description last">the type of header (row or column)</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>classes</code></td>
+                <td class="name"><code>classPrefix</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
             
             </td>
 
@@ -218,7 +227,7 @@ to the user, add classes to cells, table, headers, etc.
 
             
 
-            <td class="description last">as an array</td>
+            <td class="description last">a class that evokes the kind of header (row or column)</td>
         </tr>
 
     
@@ -259,7 +268,7 @@ to the user, add classes to cells, table, headers, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLTemplate.js.html">ij.IIJRenderer.HTMLTemplate.js</a>, <a href="ij.IIJRenderer.HTMLTemplate.js.html#line23">line 23</a>
+        <a href="ij.IIJRenderer.HTMLTemplate.js.html">ij.IIJRenderer.HTMLTemplate.js</a>, <a href="ij.IIJRenderer.HTMLTemplate.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -290,15 +299,14 @@ to the user, add classes to cells, table, headers, etc.
 
     
 
-    <h4 class="name" id=".addIdPrefix"><span class="type-signature">(static) </span>addIdPrefix<span class="signature">(elementType, pattern)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".addIdPrefix"><span class="type-signature">(static) </span>addIdPrefix<span class="signature">(elementType, idPrefix)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    add an id pattern for a html element or to another predefined
-statement
+    add a id prefix to an object; create the object, if he doesn't exist
 </div>
 
 
@@ -339,23 +347,33 @@ statement
 
             <td class="type">
             
+                
+<span class="param-type">string</span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last">either HTML statement or one of the predefined statements</td>
+            <td class="description last">the type of header (row or column)</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>pattern</code></td>
+                <td class="name"><code>idPrefix</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
             
             </td>
 
@@ -363,7 +381,7 @@ statement
 
             
 
-            <td class="description last">is an id pattern (has to be defined)</td>
+            <td class="description last">a id that evokes the kind of header</td>
         </tr>
 
     
@@ -404,7 +422,7 @@ statement
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLTemplate.js.html">ij.IIJRenderer.HTMLTemplate.js</a>, <a href="ij.IIJRenderer.HTMLTemplate.js.html#line36">line 36</a>
+        <a href="ij.IIJRenderer.HTMLTemplate.js.html">ij.IIJRenderer.HTMLTemplate.js</a>, <a href="ij.IIJRenderer.HTMLTemplate.js.html#line38">line 38</a>
     </li></ul></dd>
     
 
@@ -427,6 +445,185 @@ statement
 
 
 
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".getAttribute"><span class="type-signature">(static) </span>getAttribute<span class="signature">(elementType, name)</span><span class="type-signature"> &rarr; {string|null}</span></h4>
+
+    
+
+
+
+<div class="description">
+    get the value of an object or 'null' if elementType doesn't exist
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>elementType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">an element categorie generated by the Renderer</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">of the pattern</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.IIJRenderer.HTMLTemplate.js.html">ij.IIJRenderer.HTMLTemplate.js</a>, <a href="ij.IIJRenderer.HTMLTemplate.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the value of propertyName, or null
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+|
+
+<span class="param-type">null</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -446,13 +643,13 @@ statement
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NEEDTOACTUALISE">NEED TO ACTUALISE</a></li><li><a href="global.html#NOTUSE">NOT USE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Dec 15 2015 16:51:25 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jan 29 2016 18:03:33 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

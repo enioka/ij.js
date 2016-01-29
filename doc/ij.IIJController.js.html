@@ -39,69 +39,68 @@ enioka.ij = (
          * &lt;br/>
          */
         var IIJController = {
-            initialize : function(core){
-            },
 
             /**
              * @function
-             * @description on cellHover
-             * @param event HTMLEvent
-             * @param cellData cellData as provided by the DataProvider
+             * @description
+             * @param modelet
              */
-            onCellHover : function(event, cellData){
+            initialize : function(parent, core){
             },
 
             /**
              * @function
-             * @description on cellClick
-             * @param event HTMLEvent
-             * @param cellData cellData as provided by the DataProvider
+             * @description onCellClick display an alert if a event are applicable
+             * @param {HTMLEvent} event
+             * @param {Array} cellData data provide by the DataProvider (logic)
              */
             onCellClick : function(event, cellData){
             },
 
             /**
              * @function
-             * @description on cellOut
-             * @param event HTMLEvent
-             * @param cellData cellData as provided by the DataProvider
+             * @description onCellHover applied new color at TD element and TH element when 
+             * a event are applicable
+             * @param {HTMLEvent} event 
              */
-            onCellOut : function(event, cellData){
+            onCellHover : function(event){
             },
 
             /**
              * @function
-             * @description
-             * @param event HTMLEvent
-             * @param headerNode {Object} provided by the core (properties can be accessed by calling core functions)
+             * @description on cellOut applied original color at TD element and TH element when 
+             * a event stop
+             * @param {HTMLEvent} event
              */
-            onHeaderHover : function(event, headerNode){
+            onCellOut : function(event){
             },
 
             /**
              * @function
-             * @description
-             * @param event HTMLEvent
-             * @param headerNode {Object} provided by the core (properties can be accessed by calling core functions)
+             * @description give an debug information when a event is applicable
+             * @param {HTMLEvent} event
              */
-            onHeaderOut : function(event, headerNode){
+            onHeaderHover : function(event){
             },
 
             /**
              * @function
-             * @description
-             * @param event
-             * @param headerNode {Object} provided by the core (properties can be accessed by calling core functions)
+             * @description give an debug information when a event is stop
+             * @param {HTMLEvent} event
+             */
+            onHeaderOut : function(event){
+            },
+
+            /**
+             * @function
+             * @description initialize the prerogative for change the header, when a event is coming
+             * @param {HTMLElement} event
+             * @param {Element} headerNode provided by the core (properties can be accessed by
+             * calling core functions)
              */
             onHeaderClick : function(event, headerNode){
             },
-            /**
-             * @function
-             * @description
-             * @param filter {String}
-             */
-            onGraphicalRowFilter : function(filter) {
-            }
+
         };
         IIJController = Class.create(IIJController);
 
@@ -126,13 +125,13 @@ enioka.ij = (
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NEEDTOACTUALISE">NEED TO ACTUALISE</a></li><li><a href="global.html#NOTUSE">NOT USE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Dec 15 2015 16:51:25 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jan 29 2016 18:03:32 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>
