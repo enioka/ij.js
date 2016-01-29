@@ -10,7 +10,6 @@ var Component = {
 
     getRange : function(rowsObjects, columnsObjects){
 
-        console.log("getRange", rowsObjects, columnsObjects);
         var dataRowHead = this.dataRowHead,
             dataColumnHead = this.dataColumnHead,        
             communCarac = 0,
@@ -33,7 +32,7 @@ var Component = {
                 for (var k = 0; k < splitStringRow.length; k++) {
                     for (var n = 0; n < splitStringColumn.length; n++) {
                         if (splitStringColumn[n] == splitStringRow[k]) {
-                            communCarac++;
+                            communCarac++; //init of the all dataCell (for comparaison)
                         };
                     };
                 };
@@ -41,35 +40,32 @@ var Component = {
                 if(this.rangeNumbersHead != undefined){
                     for (var r = 0; r < this.rangeNumbersHead.length; r++) {
                         if(this.rangeNumbersHead[r] == communCarac){
-                            exist = 1;
+                            exist = 1; //defined of the pre-existence of a data, for the range
                         }
                     };
                 }
-                if(exist == 0){
+                if(exist == 0){ //if the data doesn't exist in the Array
                     this.rangeNumbersHead.push(communCarac);
                 }
-                console.log(communCarac, exist);
-                console.log("range2", this.rangeNumbersHead);
                 exist = 0;
 
                 if (this.minNumber == undefined || this.minNumber > communCarac){
-                    this.minNumber = communCarac;
+                    this.minNumber = communCarac; //init of the minimum data cell
                 };
                 if (this.maxNumber == undefined || this.maxNumber < communCarac){
-                    this.maxNumber = communCarac;
+                    this.maxNumber = communCarac; //init of the maximum data cell
                 };
 
                 if(valReturnCarac == undefined && rowsObjects == dataRowHead[j] && columnsObjects == dataColumnHead[i]){
                     console.log(dataRowHead[j], dataColumnHead[i]);
-                    valReturnCarac = communCarac;
+                    valReturnCarac = communCarac; //init of the first datacell
                 }
                 
                 communCarac = 0;
             };
 
         };
-        this.rangeNumber = this.rangeNumbersHead.length;
-        console.log("provisoire", valReturnCarac);
+        this.rangeNumber = this.rangeNumbersHead.length; //return of the first datacell
         return valReturnCarac;
     }
 };
@@ -120,11 +116,11 @@ var DataProvider = {
         var dataArray = new Array() ;
         var communCarac = 0;
 
-        if(!this.component.rangeNumber){
+        if(!this.component.rangeNumber){ //init of the range Number and of the first DataCell
             communCarac = this.component.getRange(rowsObjects, columnsObjects);
             dataArray.push(communCarac);
         }
-        else{
+        else{ //generation of all other's dataCell
             for (var i = 0; i < rowsObjects.length; i++) {
             	var stringRows = rowsObjects[i],
             		splitStringRows = stringRows.split("");
@@ -143,7 +139,7 @@ var DataProvider = {
             	dataArray.push(communCarac);
             };
         }
-        return dataArray;
+        return dataArray; //return of the data cell 
     }
 
 
@@ -215,7 +211,7 @@ var Renderer = {
         }
 
         for (var column in columnsNumbers){
-            this.setCSSProperty("background-color", cell, this.renderColorCell(cellData, this.component.minNumber, this.component.maxNumber) );
+            this.setCSSProperty("background-color", cell, this.renderColorCell(cellData, this.component.minNumber, this.component.maxNumber) ); //applied of the color, function of the datacell
             return this.renderer.addClasses(cell, [this.template.getAttribute("columnHeader", "classPrefix") + columnsNumbers[column]]);
 
         }
@@ -224,7 +220,7 @@ var Renderer = {
 
 
 
-    renderColorCell : function(dataNumber, minNumber, maxNumber){
+    renderColorCell : function(dataNumber){
 
         var colorCell = '',
             colorGreen,
@@ -234,12 +230,7 @@ var Renderer = {
         maxNumber = this.component.maxNumber;
         rangeNumber = this.component.rangeNumber
 
-        console.log("minNumber", minNumber);
-        console.log("maxNumber", maxNumber);
-        console.log("rangeNumber", rangeNumber);
-        console.log("this.component.rangeNumbersHead", this.component.rangeNumbersHead);
-
-        this.component.rangeNumbersHead.sort(function (a, b) {
+        this.component.rangeNumbersHead.sort(function (a, b) { //crescent sort of all the range data
 
             if (a < b) {
                 return -1;
@@ -250,18 +241,15 @@ var Renderer = {
             }
         });
 
-        colorGreen = Math.floor(255 / rangeNumber);
+        colorGreen = Math.floor(255 / rangeNumber); //init of the rangecolor
 
-        for (var i = 0; i <= rangeNumber - 1; i++) {
+        for (var i = 0; i < rangeNumber; i++) { //creation of the color function of the data cell
             
-            if (dataNumber == this.component.rangeNumbersHead[i]) {
+            if (dataNumber == this.component.rangeNumbersHead[i]) { 
                 
                 colorGreen = 255 - colorGreen * i;
                 colorCell = 'rgb(255, '+ colorGreen +' , 0)';
                 cpt ++;
-                console.log("colorCell", colorCell);
-                console.log(dataNumber);
-                console.log("sortis du colorCell");
                 return colorCell;
                 
             };
@@ -319,7 +307,7 @@ var Controller = {
                     dataCell = elements[j].textContent;
                     this.component.renderer.setCSSProperty("background-color", 
                         elements[j], 
-                        this.component.renderer.renderColorCell(dataCell, 
+                        this.component.renderer.renderColorCell(dataCell, //applied of a color, function of the datacell
                             this.component.minNumber, 
                             this.component.maxNumber));
                 }
@@ -383,4 +371,13 @@ component.renderer.template.addIdPrefix("rowHeader",
 ij.setWorkspace(document.getElementById("matrix"));
 //var start = new Date();
 ij.display();
+var jsp = require("uglify-js").parser;
+var pro = require("uglify-js").uglify;
+
+var orig_code = "... JS code here";
+var ast = jsp.parse(orig_code); // parse code and get the initial AST
+ast = pro.ast_mangle(ast); // get a new AST with mangled names
+ast = pro.ast_squeeze(ast); // get an AST with compression optimizations
+var final_code = pro.gen_code(ast); // compressed code here
+alert(ast);
 //alert("displayed : " + (new Date() - start));
