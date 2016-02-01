@@ -5,9 +5,11 @@ enioka.ij = (
         /**
          * @class
          * @memberof enioka.ij
-         * @classdesc will handle rendering with two modules, HTMLRenderer and
-         * HTMLEventHandler. It generates an HTML table with an HTMLTemplate to design
-         * classes, attributes, and style for each important parts of the table.
+         * @classdesc Will handle rendering with two modules : 
+         *                    -HTMLRenderer who gives a HTML value at the element of the head of columns and rows.
+         *                    -HTMLEventHandler who gives a HTML class and id at the head of columns and rows.
+         *            The renderer has all the specifics functions for create the Headers of the columns and rows 
+         *            and access/modify HTMLclass/CSSProperty.
          * @param {object} properties
          */
         var IIJRenderer = {
@@ -19,48 +21,47 @@ enioka.ij = (
 
             /**
              * @function
-             * @description Render rows Container where all the rows will be appened to
-             * @return {HTMLElement}
+             * @description create a HTMl element of type tbody
+             * @return {HTMLElement} an element with a HTML type tbody
              */
             renderRowsContainer : function(){
             },
 
             /**
-             * @function
-             * @description Render row and get back its fathers. By default no father is given
-             * @return {Array} Contains hierarchical structure for the row headers, with
-             * following attributes : <br/> - id<br/> - label<br/> - order<br/> - rendering <br/> and what you may need
+             *@function
+             *@description add an attribute name rowspan at renderedObject with the value property
+             *@param {HTMLElement} renderObject element HTML statement
+             *@param {string} property value of the attribute rowspan
+             *@return {HTMLElement} renderObject with a attribute rowspan
              */
-            renderRow : function(rowObject){
-            },
-
             applyRowSpan : function(renderedObject, property){
             },
 
+            /**
+             *@function
+             *@description add an attribute name colspan at renderedObject with the value property
+             *@param {HTMLElement} renderObject element HTML statement
+             *@param {string} property value of the attribute colspan
+             *@return {HTMLElement} renderObject with a attribute colspan
+             */
             applyColSpan : function(renderedObject, property){
             },
 
             /**
              * @function
-             * @description Render row container where a row will be append to
-             * @return {HTMLElement}
+             * @description return a variable where is create a new html class : tr
+             * @return {HTMLElement} an element of type 'tr'
              */
             renderRowContainer : function(){
             },
 
-            renderSubTotalHeader : function(label){
-            },
-
             /**
              * @function
-             * @description Render row and get back its fathers. By default no father is given
-             * @return {Array} Contains hierarchical structure for the column headers, with following attributes :
-             *  - id
-             *  - label
-             *  - order
-             *  - rendering
+             * @description create a html class : th, with text
+             * @param {string} label the text add at the html class
+             * @return {HTMLElement} an element of type 'th', with text
              */
-            renderColumn : function(columnObject) {
+            renderSubTotalHeader : function(label){
             },
 
             /**
@@ -73,279 +74,136 @@ enioka.ij = (
 
             /**
              * @function
-             * @description Render Left upper corner, essential for a well displayed HTML Table
-             * @return {HTMLElement}
+             * @description create an html element of type tr
+             * @return {HTMLElement} an element of type 'tr'
              */
             renderColumnsLevelContainer : function(){
             },
 
             /**
              * @function
-             * @description Render a columns container in which all the columns will be appened to
-             * @return {HTMLElement}
+             * @description create an html element of type thead
+             * @return {HTMLElement} an element of type 'thead'
              */
             renderColumnsContainer : function(){
             },
 
             /**
              * @function
-             * @description Render cell
-             */
-            renderCell : function(row, column, cellData){
-            },
-
-            /**
-             * @function
-             * @description render container for all rendered objects. Core will put together
-             * all rendered object in a sigle one ; this one.
-             * @return {HTMLElement}
+             * @description create the first node for the final renderer : table
+             * @return {HTMLElement} an element of type 'table'
              */
             renderContainer : function(){
             },
 
+            /**
+             * @function
+             * @description set a CSS property at an element
+             * @param {string} property the CSS property
+             * @param {HTMLElement} element the element which we add the property
+             * @param {string} propertyValue the value of the added property
+             * @retrun {HTMLElement} element the element with a new CSS property
+             */
             setCSSProperty : function(property, element, propertyValue){
             },
 
+            /**
+             * @function
+             * @description empty the value of a property of an element, canceled the property
+             * @param {string} property the CSS property
+             * @param {HTMLElement} element the element which we canceled a property
+             * @return {HTMLElement} element the element with a canceled property
+             */
             emptyCSSProperty : function(property, element){
             },
 
+            /**
+             * @function
+             * @description recover the classPrefix of a template and give this class prefix
+             * with the number of the location at the renderer
+             * @param {HTMLElement} element HTML statement
+             * @param {string} elementType an element categorie generated by the Renderer
+             * @param {Array} classes an array containing HTMl classe(s) to be added
+             * @return {HTMLElement} 
+             */
             addClasses : function(element, elementType, classes){
             },
 
-
             /**
              * @function
-             * @description
-             * @param rendering
-             * @returns {*}
-             */
-            getRenderingId : function(rendering){
-                return rendering.id;
-            },
-
-            /**
-             * @function
-             * @description
-             * @param rendering
-             * @returns {DOMTokenList}
-             */
-            getRenderingClasses : function(rendering){
-                return rendering.classList;
-            },
-
-            /**
-             * @function
-             * @description
-             * @returns {Element|*}
-             */
-            renderRowsContainer : function(){
-            },
-
-            /**
-             * @function
-             * @description
-             * @param rowObject
-             * @param rowNumber
-             * @returns {Array}
+             * @description create the content of the head of the row, awards a idprefix, HTML 
+             * class
+             * @param {string} rowObject the object content in the row
+             * @param {Array} rowNumber the numbers of the case of the row
+             * @returns {Array} rowArray the two elements of a row head
              */
             renderRow : function(rowObject, rowNumber){
             },
 
             /**
              * @function
-             * @description
-             * @param renderedObject
-             * @param property
-             * @returns {*}
-             */
-            applyRowSpan : function(renderedObject, property){
-            },
-
-            /**
-             * @function
-             * @descrpition
-             * @param renderedObject
-             * @param property
-             * @returns {*}
-             */
-            applyColSpan : function(renderedObject, property){
-            },
-
-            /**
-             * @function
-             * @description
-             * @returns {Element|*}
-             */
-            renderRowContainer : function(){
-            },
-
-            /**
-             * @function
-             * @descrption
-             * @param label
-             * @returns {*}
-             */
-            renderSubTotalHeader : function(label){
-            },
-
-            /**
-             * @function
-             * @description
-             * @param columnObject
-             * @param columnNumber
-             * @returns {Array}
+             * @description create the content of the head of the column, awards a idprefix, HTML 
+             * class
+             * @param {string} columnObject the object content in the column
+             * @param {Array} columnNumber the numbers of the case of the column
+             * @returns {Array} columnArray the two elements of a column head
              */
             renderColumn : function(columnObject, columnNumber) {
             },
 
             /**
-             * @function
-             * @description
-             * @returns {Element|*}
-             */
-            renderLeftUpperCorner : function(){
-            },
-
-            /**
-             * @function
-             * @description
-             * @returns {Element|*}
-             */
-            renderColumnsLevelContainer : function(){
-            },
-
-            /**
-             * @function
-             * @description
-             * @returns {Element|*}
-             */
-            renderColumnsContainer : function(){
-            },
-
-            /**
-             * @function
-             * @descrpition
-             * @param renderedObject
-             * @returns {*|{id, object, label, order, rendering, open, visible}}
-             */
-            renderSummary : function(renderedObject){
-            },
-
-            /**
-             * @function
-             * @description
-             * @param rowsNumbers
-             * @param columnsNumbers
-             * @param cellData
-             * @param eventsCallBacks
-             * @returns {*}
+             * @function NEED TO ACTUALISE
+             * @description prepare the renderer of all the cells of the final array, awards 
+             * HTMl class, numbers of row/columns, and attribute a value of event
+             * @param {Array} rowsNumbers content the numbers of the rows
+             * @param {Array} columnsNumbers content the numbers of the columns
+             * @param {Array} cellData an array content the Data of existence of the cells
+             * @param {Array} eventsCallBacks the vallues of event of all the cells
+             * @return {HTMLElement}
              */
             renderCell : function(rowsNumbers, columnsNumbers, cellData, eventsCallBacks){
             },
 
             /**
              * @function
-             * @description
-             * @param cellData
-             * @returns {*}
-             * @private
-             */
-            _getSummaryHoverCell : function(cellData){
-            },
-
-            /**
-             * @function
-             * @description
-             * @param element
-             * @param child
-             * @returns {*|Node|XML}
+             * @description Add a node at a pre-existent node
+             * @param {HTMLElement} element HTML statement
+             * @param {Element|string} child as a node add to element
+             * @return {HTMLElement} eslement with the text of child
              */
             appendChild : function(element, child) {
             },
 
             /**
              * @function
-             * @description
-             * @returns {Element|*}
+             * @description awards value at attributes
+             * @param {string} id value set to id
+             * @param {string} object value set to object
+             * @param {string} label value set to label
+             * @param {string} order value set to order
+             * @param {HTMLElement} rendering value set to rendering
+             * @param {boolean} open value set to open
+             * @param {boolean} hidden value set to hidden
+             * @return {string|Element|boolean}
              */
-            renderContainer : function(){
-            },
+            _createRenderedJSON : function(id, object, label, order, rendering, open, hidden){
+            }, 
 
             /**
              * @function
-             * @description
-             * @param property
-             * @param element
-             * @param propertyValue
-             * @returns {*|void}
-             */
-            setCSSProperty : function(property, element, propertyValue){
-            },
-
-            /**
-             * @function
-             * @description
-             * @param property
-             * @param element
-             * @returns {*|void}
-             */
-            emptyCSSProperty : function(property, element){
-            },
-
-            /**
-             * @function
-             * @description
-             * @param element
-             * @param elementType
-             * @param classes
-             * @returns {*}
-             */
-            addClasses : function(element, elementType, classes){
-            },
-
-            /**
-             * @function
-             * @description
-             * @param element
-             * @param id
-             * @returns {*}
-             */
-            setId : function(element, id){
-            },
-
-            /**
-             * @function
-             * @description
-             * @param type
-             * @returns {*|string}
-             */
-            getClassPrefix : function(type){
-            },
-
-            /**
-             * @function
-             * @description
-             * @param type
-             * @returns {*|string}
-             */
-            getIdPrefix : function(type){
-            },
-
-            /**
-             * @function
-             * @description add eventsListeners for the rendering
-             * @param rendering {object}
-             * @param events {object} containing events available for the rendering following this partern :
-             *  - eventName : event
-             * @returns {Node|*}
+             * @description build a new header when 
+             * @param rendering {HTMLElement} the header
+             * @param events {Array} containing events available for the rendering following the
+             * pattern
+             * @returns {HTMLElement} newHeader the header built in function of the events
              */
             addEventsToRendering : function(rendering, events){
             },
 
             /**
              * @function
-             * @description clear output (DOM element or buffer)
-             * @param output {Object}
+             * @description clear output
+             * @param {Array} output an array who need to be clear
              */
             clearOutput : function(output) {
             }

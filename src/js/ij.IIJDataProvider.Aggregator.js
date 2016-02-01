@@ -13,17 +13,6 @@ enioka.ij = (
              * @function
              */
             initialize : function() {
-            },
-
-            /**
-             * @function
-             * @description
-             * @param {Array} rowsObjects
-             * @param {Array} columnsObjects
-             * @param {String} filter
-             * @returns {Array} data
-             */
-            aggregateData : function(rowsObjects, columnsObjects, filter) {
             }
         };
         //Instanciate the IMatrixRenderer Class into an object

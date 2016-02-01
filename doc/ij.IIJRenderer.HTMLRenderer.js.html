@@ -32,6 +32,7 @@ enioka.ij = (
     function (eniokaij) {
         /**
          * @class
+         * @description Handle functions to add/create Classe/Attribute/node 
          * @memberof enioka.ij.IIJRenderer
          * @classdesc Will generate html with predefined functions
          */
@@ -42,10 +43,10 @@ enioka.ij = (
 
             /**
              * @function
-             * @description Add classes to the element given in parameter
-             * @param element html element to add the class to
-             * @param classes as an array
-             * @return element with new classes
+             * @description Add classe(s) to the element given in parameter
+             * @param {HTMLElement} element an HTMLElement with class, attribute, etc...
+             * @param {Array} classes an array containing classe(s) to be added
+             * @return {HTMLElement} element with new classe(s) added
              */
             addClasses : function(element, classes){
                 if (classes)
@@ -55,15 +56,26 @@ enioka.ij = (
                 return element;
             },
 
+            /**
+             * @function
+             * @description Add an attribute with a value at an element
+             * @param {HTMLElement} element the element whose we add an attribute
+             * @param {string} attributeName the name of the attribute to be added
+             * @param {string} attributeValue the value given to the attribute
+             * @return {HTMLElement} element with new attribute
+             */
             addAttribute : function(element, attributeName, attributeValue) {
                 element.setAttribute(attributeName, attributeValue);
                 return element;
             },
 
             /**
-             * @param element
-             * @param attributeName
-             * @param attributeValue
+             * @function
+             * @description Add a CSS property to an element given in parameter
+             * @param {HTMLElement} element the element whose we add a parameter
+             * @param {string} attributeName the name of the attribute to be added
+             * @param {stinrg} dattributeValue the value given to the attribute
+             * @return {HTMLElement} element with new CSS property
              */
             addCSS : function(element, attributeName, attributeValue) {
                 element.style[attributeName] = attributeValue;
@@ -72,10 +84,10 @@ enioka.ij = (
             /**
              * @function
              * @description Create HTML element with text inside
-             * @param element name of the HTML statement
-             * @param text to add in the HTML statement
-             * @param classes as an array
-             * @return element
+             * @param {HTMLElement} element HTML statement
+             * @param {string} text to be added in the HTML statement
+             * @param {Array} classes as an array of HTML classe(s)
+             * @return {HTMLElement} htmlElement with HTMl classe(s) and text inside
              */
             createElementWithText : function(element, text, classes){
                 var htmlElement = this.createElement(element, classes),
@@ -87,9 +99,9 @@ enioka.ij = (
             /**
              * @function
              * @description Create HTML element
-             * @param element name of the HTML statement
-             * @param classes as an array
-             * @return element
+             * @param {HTMLElement} element HTML statement
+             * @param {Array} classes as an array of HTMl classes
+             * @return {HTMLElement} htmlElement with HTMl classe(s)
              */
             createElement : function(element, classes){
                 var htmlElement = document.createElement(element);
@@ -98,6 +110,13 @@ enioka.ij = (
                 return htmlElement;
             },
 
+            /** 
+             * @function
+             * @description Add a childnode at a pre-existent node
+             * @param {HTMLElement} element HTML statement
+             * @param {Element|string} child as a node add to element
+             * @retrun {HTMLElement} element with the text of child
+             */
             appendChild : function(element, child){
                 return element.appendChild(child);
             }
@@ -120,13 +139,13 @@ enioka.ij = (
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NEEDTOACTUALISE">NEED TO ACTUALISE</a></li><li><a href="global.html#NOTUSE">NOT USE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Dec 15 2015 16:51:25 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jan 29 2016 18:03:32 GMT+0100 (Paris, Madrid)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -11,69 +11,68 @@ enioka.ij = (
          * <br/>
          */
         var IIJController = {
-            initialize : function(core){
-            },
 
             /**
              * @function
-             * @description on cellHover
-             * @param event HTMLEvent
-             * @param cellData cellData as provided by the DataProvider
+             * @description
+             * @param modelet
              */
-            onCellHover : function(event, cellData){
+            initialize : function(parent, core){
             },
 
             /**
              * @function
-             * @description on cellClick
-             * @param event HTMLEvent
-             * @param cellData cellData as provided by the DataProvider
+             * @description onCellClick display an alert if a event are applicable
+             * @param {HTMLEvent} event
+             * @param {Array} cellData data provide by the DataProvider (logic)
              */
             onCellClick : function(event, cellData){
             },
 
             /**
              * @function
-             * @description on cellOut
-             * @param event HTMLEvent
-             * @param cellData cellData as provided by the DataProvider
+             * @description onCellHover applied new color at TD element and TH element when 
+             * a event are applicable
+             * @param {HTMLEvent} event 
              */
-            onCellOut : function(event, cellData){
+            onCellHover : function(event){
             },
 
             /**
              * @function
-             * @description
-             * @param event HTMLEvent
-             * @param headerNode {Object} provided by the core (properties can be accessed by calling core functions)
+             * @description on cellOut applied original color at TD element and TH element when 
+             * a event stop
+             * @param {HTMLEvent} event
              */
-            onHeaderHover : function(event, headerNode){
+            onCellOut : function(event){
             },
 
             /**
              * @function
-             * @description
-             * @param event HTMLEvent
-             * @param headerNode {Object} provided by the core (properties can be accessed by calling core functions)
+             * @description give an debug information when a event is applicable
+             * @param {HTMLEvent} event
              */
-            onHeaderOut : function(event, headerNode){
+            onHeaderHover : function(event){
             },
 
             /**
              * @function
-             * @description
-             * @param event
-             * @param headerNode {Object} provided by the core (properties can be accessed by calling core functions)
+             * @description give an debug information when a event is stop
+             * @param {HTMLEvent} event
+             */
+            onHeaderOut : function(event){
+            },
+
+            /**
+             * @function
+             * @description initialize the prerogative for change the header, when a event is coming
+             * @param {HTMLElement} event
+             * @param {Element} headerNode provided by the core (properties can be accessed by
+             * calling core functions)
              */
             onHeaderClick : function(event, headerNode){
             },
-            /**
-             * @function
-             * @description
-             * @param filter {String}
-             */
-            onGraphicalRowFilter : function(filter) {
-            }
+
         };
         IIJController = Class.create(IIJController);
 

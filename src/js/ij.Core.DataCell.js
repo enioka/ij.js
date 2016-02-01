@@ -33,19 +33,6 @@ enioka.ij = (
              */
             state : null,
 
-            /**
-             * @function
-             */
-            setState : function(state){
-                this.state = state;
-            },
-
-            /**
-             * @function
-             */
-            getState : function(){
-                return this.state;
-            }
         };
         //Instanciate the DataCell Class into an object
         DataCell = Class.create(DataCell);
