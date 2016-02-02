@@ -906,8 +906,6 @@ enioka.ij = (
                 var start = new Date();
 
                 var columns = this._preRenderColumns(this.dataprovider.getColumns());
-                if (columns)
-                    this.columns = columns;
                 console.log("column pre-render : " + (new Date() - start));
                 console.log("columns", columns);
 
@@ -917,12 +915,12 @@ enioka.ij = (
                 console.log("rows pre-render : " + (new Date() - start));
                 console.log("rows : ", rows);
 
-                if (columns)
+                if (columns){
+                    this.columns = columns;
                     this.displayColumns(columns, rows.depth);
-
-                console.log("appendColumns : " + (new Date() - start));
-                if (columns)
+                    console.log("appendColumns : " + (new Date() - start));
                     this.displayData(rows, this.getObjectsGrouped(columns.rendering));
+                }
                 else
                     this.displayData(rows);
 
