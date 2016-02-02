@@ -496,15 +496,15 @@ enioka.ij = (
                 for (var lvl in columnsLevels) {
                     var level = this.renderer.renderColumnsLevelContainer();
                     for (var col in columnsLevels[lvl]) {
-                        this._appendChild(level,
+                        level = this._appendChild(level,
                                           columnsLevels[lvl][col]
                                          );
                     }
-                    this._appendChild(
+                    columnsContainer = this._appendChild(
                         columnsContainer,
                         level);
                 }
-                this._appendChild(this.container, columnsContainer);
+                this.container = this._appendChild(this.container, columnsContainer);
             },
 
             /**
@@ -605,9 +605,9 @@ enioka.ij = (
                 else
                     rows = this.buildMatrix();
                 for (var row in rows) {
-                    this._appendChild(rowsContainer, rows[row]);
+                    rowsContainer = this._appendChild(rowsContainer, rows[row]);
                 }
-                this._appendChild(this.container, rowsContainer);
+                this.container = this._appendChild(this.container, rowsContainer);
             },
 
             buildMatrix: function () {
@@ -719,19 +719,19 @@ enioka.ij = (
                                                           rowsTreeNode[id]
                                                       )
                                                      );
-                        this._appendChild(row, rowsTreeNode[id].rendering);
+                        row = this._appendChild(row, rowsTreeNode[id].rendering);
                         if (rowsTreeNode[id].summary){
                             var rowData = this._renderRowSummary(columns,
                                                                  rowNumber,
                                                                  rowsTreeNode[id]);
-                            this._appendChildren(row, rowData);
+                            row = this._appendChildren(row, rowData);
                             rowNumber++;
                             rows.push(row);
                         } else if (rowsTreeNode[id].object) {
                             var rowData = this._renderRowData(columns,
                                                               rowNumber,
                                                               rowsTreeNode[id]);
-                            this._appendChildren(row, rowData);
+                            row = this._appendChildren(row, rowData);
                             rowNumber++;
                             rows.push(row);
                         } else if (rowsTreeNode[id].children &&
@@ -758,10 +758,6 @@ enioka.ij = (
                 };
             },
 
-            _renderGlobalRow: function(columns, rowsNumbers, rowsTreeNode){
-
-            },
-
             /**
              * @function
              * @description
@@ -785,8 +781,7 @@ enioka.ij = (
                                                             [rowNumber],
                                                             columnsNumbers[i])));
                 }
-                this._appendChildren(row, cells);
-                rows.push(row);
+                row = this._appendChildren(row, cells);
                 return rows;
             },
 
@@ -838,6 +833,7 @@ enioka.ij = (
                                                             rowsNumbers,
                                                             columnsNumbers[i])));
                 }
+                console.log(cells);
                 return cells;
             },
 
@@ -861,7 +857,7 @@ enioka.ij = (
              */
             _appendChildren: function (element, children) {
                 for (var i = 0; i < children.length; i++) {
-                    this._appendChild(element, children[i]);
+                    element = this._appendChild(element, children[i]);
                 }
                 return element;
             },
@@ -925,7 +921,8 @@ enioka.ij = (
                     this.displayData(rows);
 
                 console.log("appendData & pre-display : " + (new Date() - start));
-                this._appendChild(this.workspace, this.container);
+                console.log(this.container);
+                this.workspace = this._appendChild(this.workspace, this.container);
                 console.log("displayed : " + (new Date() - start));
                 console.log("rows & columns structures :");
                 console.log(rows, columns);
@@ -1401,7 +1398,7 @@ enioka.ij = (
                 console.log("get columns by group");
 
                 console.log("appendData & pre-display : " + (new Date() - start));
-                this._appendChild(this.workspace, this.container);
+                this.workspace = this._appendChild(this.workspace, this.container);
                 console.log("displayed : " + (new Date() - start));
 
                 console.log(this.rows, this.columns);

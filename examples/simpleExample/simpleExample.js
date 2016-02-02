@@ -77,11 +77,7 @@ var Renderer = {
                 rowObject,
                 rowObject,
                 (order || 0),
-                this.renderer.addAttribute(
-                    this.renderer.createElementWithText("th", rowObject),
-                    "id",
-                    this.template.getAttribute("rowHeader","idPrefix") + rowNumber
-                ),
+                rowObject,
                 (open || true),
                 (hidden || true)
             )
@@ -100,11 +96,7 @@ var Renderer = {
                 columnObject,
                 columnObject,
                 (order || 0),
-                this.renderer.addAttribute(
-                    this.renderer.createElementWithText("th", columnObject),
-                    "id",
-                    this.template.getAttribute("columnHeader","idPrefix") + columnNumber
-                ),
+                columnObject,
                 (open || true),
                 (hidden || true)
             )
@@ -113,59 +105,19 @@ var Renderer = {
     },
 
     renderCell : function(rowsNumbers, columnsNumbers, cellData, eventsCallBacks){
-        if (cellData && cellData.length > 0 && cellData[0]) {
-            var cell =  this.renderer.createElementWithText("td", cellData[0]);
-            this.renderer.addAttribute(cell, "data-toggle", "popover");
-            this.renderer.addAttribute(cell, "data-original-title", "Summary (first relation)");
-            this.renderer.addAttribute(cell, "data-content",
-                this._getSummaryHoverCell(cellData)
-            );
-            this.renderer.addAttribute(cell, "data-html", "true");
-            this.renderer.addAttribute(cell, "data-container", "body");
-        }
-        else {
-            var cell = this.renderer.createElement("td");
-        }
-        cell = this.addEventsToRendering(cell,
-            eventsCallBacks);
-        for (var row in rowsNumbers){
-            this.renderer.addClasses(cell,
-                [this.template.getAttribute("rowHeader", "classPrefix") +
-                rowsNumbers[row]]);
-        }
-        for (var column in columnsNumbers){
-            return this.renderer.addClasses(cell,
-                [this.template.getAttribute("columnHeader", "classPrefix") +
-                columnsNumbers[column]]);
-        }
+        return cellData[0];
     },
 
     reRenderColumn : function(renderedColumn, events) {
-        if (!renderedColumn.children) {
-            var vtext = this.renderer.createElement("div",
-                                                    ["vtext"]);
-            var vtextInner = this.renderer.createElementWithText("div",
-                                                                 renderedColumn.label,
-                                                                 ["vtext__inner"]);
-            renderedColumn.rendering.textContent = "";
-            this.appendChild(vtext,
-                             vtextInner);
-            this.appendChild(renderedColumn.rendering,
-                             vtext);
-        }
-        renderedColumn.rendering = this.addEventsToRendering(renderedColumn.rendering,
-                                                             events);
         return renderedColumn;
     },
 
     reRenderRow : function(renderedRow, events) {
-        renderedRow.rendering = this.addEventsToRendering(renderedRow.rendering,
-                                                          events);
         return renderedRow;
     }
 };
 
-Renderer = Class.extend(DefaultHTMLRenderer, Renderer);
+Renderer = Class.extend(csvExportRenderer, Renderer);
 
 
 //
@@ -289,7 +241,7 @@ component.renderer.template.addIdPrefix("columnHeader",
 component.renderer.template.addIdPrefix("rowHeader",
     "r");
 
-ij.setWorkspace(document.getElementById("matrix"));
+ij.setWorkspace("");
 var start = new Date();
 ij.display();
 console.log(new Date() - start);
