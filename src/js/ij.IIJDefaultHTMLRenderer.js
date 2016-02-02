@@ -87,14 +87,13 @@ var DefaultHTMLRenderer = {
         return this.renderer.createElementWithText("p","There is " + cellData + " characters shared").outerHTML;
     },
 
-    
-    addClasses : function(element, elementType, classes){
-        var classPrefix = this.template.getAttribute("classPrefix");
-        for (var i = 0; i < classes.length; i++) {
-            classes[i] = classPrefix + classes[i];
-        };
-        return this.renderer.addClasses(element, classes);
 
+    addClasses : function(element, elementType, classes, properties){
+        var classPrefix = this.template.getAttribute(elementType, "classPrefix");
+        for (var i = 0; i < classes.length; i++){
+            classes[i] = classPrefix + classes[i];
+        }
+        return this.renderer.addClasses(element, classes, properties);
     },
 
     addEventsToRendering : function(rendering, events){
