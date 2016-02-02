@@ -45,15 +45,30 @@ var DefaultHTMLRenderer = {
         return this.renderer.createElement("thead");
     },
 
-    renderSummary : function(renderedObject){
-        return this._createRenderedJSON();
+    renderSummary : function(renderedObject, type){
+        var renderedSummary = this._createRenderedJSON(
+            renderedObject.id + "__summary__",
+            null,
+            renderedObject.label + "__summary__",
+            30,
+            this.renderer.addAttribute(
+                this.renderer.createElementWithText("th", renderedObject.label + "__summary__"),
+                "id",
+                this.template.getAttribute(type,"idPrefix") + renderedObject.id
+            ),
+            (renderedObject.open || true),
+            (renderedObject.hidden || false)
+        );
+        renderedSummary.summary = true;
+        renderedSummary.type = type;
+        return renderedSummary;
     },
 
     appendChild : function(element, child) {
         return this.renderer.appendChild(element, child);
     },
 
-    _createRenderedJSON : function(id, object, label, order, rendering, open, hidden){
+    _createRenderedJSON : function(id, object, label, order, rendering, open, hidden, hasSummary, cannotReRoot){
         return {
             "id" : id,
             "object" : object,
@@ -61,7 +76,9 @@ var DefaultHTMLRenderer = {
             "order" : order,
             "rendering" : rendering,
             "open" : open,
-            "hidden" : hidden
+            "hidden" : hidden,
+            "hasSummary" : (hasSummary || false),
+            "cannotReRoot" : (cannotReRoot || true)
         };
     },
 
