@@ -59,9 +59,6 @@ enioka.ij = (
         var Core = {
             initialize: function (properties) {
                 if (!properties) {
-                    this.setController(new eniokaij.IIJController());
-                    this.setRenderer(new eniokaij.IIJRenderer());
-                    this.setDataProvider(new eniokaij.IIJDataProvider());
                     return;
                 } else {
                     for (var prop in properties) {
@@ -97,18 +94,16 @@ enioka.ij = (
              */
             workspace: null,
 
-            cellsMap: [],
-
             /**
              * @function
-             * @description
-             * @param {object}
+             * @description init function
              */
             init: function (params) {
                 for (var attr in params) {
                     this.params[attr] = params[attr];
                 }
             },
+
             /**
              * @function
              * @description Set the workspace where the matrix will be displayed.
@@ -150,8 +145,8 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
-             * @param {object} controller data provider object that should contain generics methods
+             * @description expose user controller implemented interface to the core
+             * @param {object} controller object that should contain generics methods
              * to call Core API.
              * @return {object} controller implemented.
              */
@@ -177,12 +172,6 @@ enioka.ij = (
                 return this;
             },
 
-            /**
-             * @function
-             * @description Check for dependencies :
-             * DataProvider, Controller, Renderer, Workspace or DataHandler
-             * @return {boolean} true or false if dependencies are wheter or not set
-             */
             _checkDependencies: function () {
                 console.log("Something is missing : ");
                 console.log("Checking DataProvider : ", this.dataProvider);
@@ -208,7 +197,7 @@ enioka.ij = (
                 if (rows)
                     for (var i = 0; i &lt; rows.length; i++)
                         rowsArray.push(this.renderer.renderRow(rows[i],
-                            i));
+                                                               i));
                 return rowsArray;
             },
 
@@ -223,7 +212,7 @@ enioka.ij = (
                 if (columns)
                     for (var i = 0; i &lt; columns.length; i++)
                         colmunsArray.push(this.renderer.renderColumn(columns[i],
-                            i));
+                                                                     i));
                 return colmunsArray;
             },
 
@@ -241,7 +230,7 @@ enioka.ij = (
                 //create root array &amp; map table
                 var _scope = {};
                 var map = new Array(),
-                    idMap = new Array();
+                    parent = new Array();
                 _scope.root = new Array();
                 for (var i = 0; i &lt; renderedObjects.length; i++) {
                     //set the parrent root at the initial array (level 0)
@@ -249,11 +238,14 @@ enioka.ij = (
                         parentRoot = _scope.root,
                         currentID = new String();
                     for (var j = 0; j &lt; renderedObjects[i].length; j++) {
+                        //retrieve root if it exists for the new root
+                        if (!parent[renderedObjects[i][j].id])
+                            parent[renderedObjects[i][j].id] = currentID;
+                        //if renderedObjects is unique
+                        else if (!renderedObjects[i][j].cannotReRoot) {
+                            currentID = parent[renderedObjects[i][j].id];
+                        }
                         currentID += renderedObjects[i][j].id;
-                        if (!idMap[renderedObjects[i][j].id])
-                            idMap[renderedObjects[i][j].id] = currentID;
-                        else
-                            currentID = idMap[renderedObjects[i][j].id];
                         //if object is not mapped
                         if (!map[currentID]) {
                             if (!parentRoot instanceof Array)
@@ -264,25 +256,34 @@ enioka.ij = (
                             //if current renderedObject has children, then create them
                             if (renderedObjects[i].length - 1 > j) {
                                 renderedObjects[i][j].children = new Array();
-                                //check if there is property to hide summaries
-                                if (!this.hideSummaries)
-                                    renderedObjects[i][j].children.push(
-                                        this.renderer.renderSummary(renderedObjects[i][j])
-                                    );
                                 if (renderedObjects[i][j].object) {
                                     renderedObjects[i][j].children.push(
                                         this._cloneHeader(renderedObjects[i][j],
-                                            type)
+                                                          type)
                                     );
                                     delete renderedObjects[i][j].object;
+                                }
+                                //check if there is property to hide summaries
+                                if (renderedObjects[i][j].hasSummary) {
+                                    var summary =
+                                        this.renderer.renderSummary(renderedObjects[i][j],
+                                                                    type);
+                                    //identify this as a summary
+                                    summary.summary = true;
+                                    renderedObjects[i][j].children.push(
+                                        summary
+                                    );
                                 }
                             }
                             map[currentID] = renderedObjects[i][j];
                         } else {
                             if (j > 0) {
                                 var found = false;
-                                for (var k = 0; k &lt; parentRoot.length; k++) {
-                                    if (parentRoot[k].id == renderedObjects[i][j].id) {
+                                //not a for for each case in table beacause some may have been
+                                //relocated to new root
+                                for (var k in parentRoot) {
+                                    if (parentRoot[k].id &amp;&amp;
+                                        parentRoot[k].id == renderedObjects[i][j].id) {
                                         found = true;
                                         break;
                                     }
@@ -296,13 +297,14 @@ enioka.ij = (
                                     map[currentID] = tmpRoot;
                                 }
                             }
+                            //If there is at least on child
                             if (renderedObjects[i].length - 1 > j) {
                                 if (!map[currentID].children) {
                                     map[currentID].children = new Array();
                                     if (map[currentID].object) {
                                         map[currentID].children.push(
                                             this._cloneHeader(renderedObjects[i][j],
-                                                type)
+                                                              type)
                                         );
                                         map[currentID].children[0].object = map[currentID].object;
                                         delete map[currentID].object;
@@ -316,6 +318,12 @@ enioka.ij = (
                 return _scope.root;
             },
 
+            /**
+             * @function
+             * @description Delete node
+             * @param {Number} nodeId node id which gonna be deleted
+             * @param {Object} Node in which the children has to be deleted
+             */
             _deleteNode: function (nodeId, node) {
                 for (var id in node) {
                     if (node[id].id == nodeId)
@@ -325,13 +333,22 @@ enioka.ij = (
                 }
             },
 
+            /**
+             * @function
+             * @description Clone node without reference
+             * @param {Object} header Header to clone
+             * @param {String} type of the header to clone (rowHeader, columnHeader)
+             * @return {Object} duplicatedHeader cloned header
+             */
             _cloneHeader: function (header, type) {
                 var duplicatedHeader = {};
                 for (var attr in header) {
                     if (attr == "label")
-                        duplicatedHeader[attr] = "";
+                        duplicatedHeader[attr] = header[attr] + " [object]";
                     else if (attr == "children")
                         continue;
+                    else if (attr == "order")
+                        duplicatedHeader[attr] = -1;
                     else if (attr == "id") {
                         duplicatedHeader[attr] = header[attr] + "_child";
                     }
@@ -351,7 +368,7 @@ enioka.ij = (
              * @function
              * @description organise the tree in order by id
              * @param {Array} renderedTree rendered of an head column/row
-             * @return {Array} root tree sorted by order id
+             * @return {Array} root tree sorted by order property
              */
             orderRenderedTree: function (renderedTree) {
                 var start = new Date();
@@ -363,10 +380,13 @@ enioka.ij = (
                     ordered[renderedTree[id].order].push(renderedTree[id]);
                     if (renderedTree[id].children)
                         renderedTree[id].children =
-                            this.orderRenderedTree(renderedTree[id].children);
+                        this.orderRenderedTree(renderedTree[id].children);
                 }
-                for (var i in ordered) {
-                    root = root.concat(this.alphabeticalSort(ordered[i]));
+                if (ordered["-1"])
+                    root = root.concat(this.alphabeticalSort(ordered["-1"]));
+                for (var id in ordered) {
+                    if (id != -1)
+                        root = root.concat(this.alphabeticalSort(ordered[id]));
                 }
                 return root;
             },
@@ -378,6 +398,7 @@ enioka.ij = (
              * @return {Array} array sort aphabetically on label object property
              */
             alphabeticalSort: function (array) {
+                if (this.sort)
                 return array.sort(
                     function compare(a, b) {
                         if (a.label &lt; b.label)
@@ -387,6 +408,8 @@ enioka.ij = (
                         return 0;
                     }
                 );
+                else
+                    return array;
             },
 
             /**
@@ -431,9 +454,29 @@ enioka.ij = (
 
             /**
              * @function
-             * @description Build columns rendering necessary components
+             * @description populate summaries with reference to parent object
+             * @param {Object} treeNode in which you have to populate summaries (if there is !)
              */
-            _preRenderColumns: function (columns) {
+            populateSummaries : function(treeNode){
+                for (var id in treeNode) {
+                    if (treeNode[id].hasSummary &amp;&amp; treeNode[id].open == true){
+                        treeNode[id].children[treeNode[id].children.length - 1].object = new Array();
+                        var objects = this._getObjectsFromTree(treeNode[id].children, false);
+                        treeNode[id].children[treeNode[id].children.length - 1].object = objects;
+                    }
+                    if (treeNode[id].children &amp;&amp; treeNode[id].open == true)
+                        this.populateSummaries(treeNode[id].children);
+                }
+            },
+
+            /**
+             * @function
+             * @description Build columns rendering necessary components
+             * @param {Array} columns array containing all columns objects
+             * @param {Object} properties object containing some directives to modify default behavior
+             * @return {Object} object containing columnsDepth and columnsTree
+             */
+            _preRenderColumns: function (columns, properties) {
                 console.profile("_preRenderColumns");
                 if (columns) {
                     var renderedColumns = this.getRenderedColumns(
@@ -448,28 +491,32 @@ enioka.ij = (
                 } else if (this.columns &amp;&amp; this.columns.rendering) {
                     var renderedColumns = this.columns.rendering;
                 } else {
-                    //means no columns objects, have to return
+                    //means no columns objects
                     return;
                 }
                 for (var id in renderedColumns) {
                     renderedColumns[id] =
                         this.getGroupSpan(renderedColumns[id]).renderedTreeNode;
                 }
+                if (!this.hideSummaries)
+                    this.populateSummaries(renderedColumns);
                 var columnsDepth = this.getTreeDepth(renderedColumns);
                 this.applyTreeDepth(renderedColumns,
-                    columnsDepth);
+                                    columnsDepth);
                 this.applyOnRenderedObjects(renderedColumns,
-                    (this.renderer.applyColSpan)
-                        .bind(this.renderer),
-                    "span");
+                                            (this.renderer.applyColSpan)
+                                            .bind(this.renderer),
+                                            "span");
                 this.applyOnRenderedObjects(renderedColumns,
-                    (this.renderer.applyRowSpan)
-                        .bind(this.renderer),
-                    "depth");
+                                            (this.renderer.applyRowSpan)
+                                            .bind(this.renderer),
+                                            "depth");
 
                 this.applyClasses(renderedColumns,
-                    (this.renderer.addClasses)
-                        .bind(this.renderer));
+                                  (this.renderer.addClasses)
+                                  .bind(this.renderer),
+                                  null,
+                                  properties);
                 console.profileEnd();
                 return {
                     "depth": columnsDepth,
@@ -479,7 +526,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description display the columns on the web page
+             * @description display the columns in the container / workspace
              * @param {Array} columns the columns objects
              * @param {string} rowsDepth the depth of the rowsTree
              */
@@ -495,10 +542,10 @@ enioka.ij = (
                 };
                 leftUpperCorner.rendering =
                     this.renderer.applyColSpan(leftUpperCorner.rendering,
-                        leftUpperCorner["colspan"]);
+                                               leftUpperCorner["colspan"]);
                 leftUpperCorner.rendering =
                     this.renderer.applyRowSpan(leftUpperCorner.rendering,
-                        leftUpperCorner["rowspan"]);
+                                               leftUpperCorner["rowspan"]);
                 //Add it before every other columns
                 if (columns.rendering.length > 0)
                     columnsLevels[1].unshift(leftUpperCorner.rendering);
@@ -506,8 +553,8 @@ enioka.ij = (
                     var level = this.renderer.renderColumnsLevelContainer();
                     for (var col in columnsLevels[lvl]) {
                         this._appendChild(level,
-                            columnsLevels[lvl][col]
-                        );
+                                          columnsLevels[lvl][col]
+                                         );
                     }
                     this._appendChild(
                         columnsContainer,
@@ -529,11 +576,15 @@ enioka.ij = (
                 var columnsLevel = new Array();
                 columnsLevel[level] = new Array();
                 for (var id in renderedColumns) {
-                    renderedColumns[id].rendering = this.renderer.addEventsToRendering(renderedColumns[id].rendering,
-                        this._getHeaderEventsCallbacks(renderedColumns[id]));
+                    renderedColumns[id] =
+                        this.renderer.reRenderColumn(renderedColumns[id],
+                                                     this._getHeaderEventsCallbacks(
+                                                         renderedColumns[id]
+                                                     )
+                                                    );
                     columnsLevel[level].push(renderedColumns[id].rendering);
                     if (renderedColumns[id].children &amp;&amp; (renderedColumns[id].open != false &amp;&amp;
-                        renderedColumns[id].open != "false")) {
+                                                         renderedColumns[id].open != "false")) {
                         var childrenArray =
                             this.buildColumns(renderedColumns[id].children, level + 1);
                         for (var lvl in childrenArray) {
@@ -550,11 +601,13 @@ enioka.ij = (
                 return columnsLevel;
             },
 
-            /**
-             * @function
-             * @description Display rows
+            /** @function
+             * @description Build rows rendering necessary components
+             * @param {Array} rows array containing all columns objects
+             * @param {Object} properties object containing some directives to modify default behavior
+             * @return {Object} object containing columnsDepth and columnsTree
              */
-            _preRenderRows: function (rows) {
+            _preRenderRows: function (rows, properties) {
                 console.profile("rows");
                 if (rows) {
                     var renderedRows =
@@ -574,20 +627,24 @@ enioka.ij = (
                 for (var id in renderedRows) {
                     renderedRows[id] = this.getGroupSpan(renderedRows[id], 1).renderedTreeNode;
                 }
+                if (!this.hideSummaries)
+                    this.populateSummaries(renderedRows);
                 var rowsDepth = this.getTreeDepth(renderedRows);
                 this.applyTreeDepth(renderedRows,
-                    rowsDepth);
+                                    rowsDepth);
                 this.applyOnRenderedObjects(renderedRows,
-                    (this.renderer.applyRowSpan)
-                        .bind(this.renderer),
-                    "span");
+                                            (this.renderer.applyRowSpan)
+                                            .bind(this.renderer),
+                                            "span");
                 this.applyOnRenderedObjects(renderedRows,
-                    (this.renderer.applyColSpan)
-                        .bind(this.renderer),
-                    "depth");
+                                            (this.renderer.applyColSpan)
+                                            .bind(this.renderer),
+                                            "depth");
                 this.applyClasses(renderedRows,
-                    (this.renderer.addClasses)
-                        .bind(this.renderer));
+                                  (this.renderer.addClasses)
+                                  .bind(this.renderer),
+                                  null,
+                                  properties);
                 console.profileEnd();
                 return {
                     "depth": rowsDepth,
@@ -597,14 +654,15 @@ enioka.ij = (
 
             /**
              * @function
-             * @description call the function for build the display of the data head matrix
-             * @param {Array} rows the data rows to display
+             * @description Call the function to display data into container
+             * @param {Array} rows the rows objects
              * @param {Array} columns the data columns to display
              */
             displayData: function (rows, columns) {
                 if (!this.container)
                     this.container = this.renderer.renderContainer();
                 var rowsContainer = this.renderer.renderRowsContainer();
+                //Find a better way to do that
                 if (rows &amp;&amp; columns)
                     rows = this.buildRows(rows.rendering, columns).rows;
                 else if (rows)
@@ -618,69 +676,78 @@ enioka.ij = (
             /**
              * @function
              * @description apply a specific callback on all renderedObjects (including children)
-             * @param {Array} renderedObjects built the first line of each Header
-             * @param {function} callBack callback a function
-             * @param {string} params an attribute of renderedObjects
-             * @return {Array} renderedObjects the Array with a specific callback
+             * @param {Array} renderedObjects renderedObjects on which function has to be applied
+             * @param {function} callBack callback function that has to be applied on each renderedObject
+             * @param {string} params for the callback function
+             * @return {Array} renderedObjects with function applied
              */
             applyOnRenderedObjects: function (renderedObjects, callback, params) {
-                
+
                 for (var id in renderedObjects) {
                     renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
-                        renderedObjects[id][params]);
+                                                             renderedObjects[id][params]);
                     if (renderedObjects[id].children)
                         renderedObjects[id].children =
-                            this.applyOnRenderedObjects(renderedObjects[id].children, callback, params);
+                        this.applyOnRenderedObjects(renderedObjects[id].children, callback, params);
                 }
                 return renderedObjects;
             },
 
             /**
              * @function
-             * @description apply a classe at rendererdObjects, by the way of currentId
+             * @description apply a classe at rendererdObjects
              * @param {Array} renderedObjcts the array to applied a classe
-             * @param {function} callback callback the classe to applied
-             * @param {string} currentId the Id of the array
-             * @return {Array} renderedObjects the array with applied classe
+             * @param {function} callback function to apply class
+             * @param {string} currentId current row / column Number
+             * @param {Object} properties contains properties to modify default behavior
+             * @return {Object} renderedObjects with applied classes
              */
-            applyClasses: function (renderedObjects, callback, currentId) {
+            applyClasses: function (renderedObjects, callback, currentId, properties) {
                 if (!currentId)
                     var currentId = 0;
                 for (var id in renderedObjects) {
                     var classes = new Array();
+                    //if this is a group
                     if (renderedObjects[id].children) {
                         this.applyClasses(renderedObjects[id].children,
-                            callback,
-                            currentId);
-                        var nextId = currentId + this._getObjectsFromTree(renderedObjects[id].children).length;
+                                          callback,
+                                          currentId,
+                                          properties);
+                        //if group is closed, only add a line
+                        if (renderedObjects[id].group == true &amp;&amp;
+                            renderedObjects[id].open == false)
+                            var nextId = currentId + 1;
+                        //else add the length
+                        else
+                            var nextId = currentId +
+                                this.getObjectsGrouped(renderedObjects[id].children).length;
                         for (var i = currentId; i &lt; nextId; i++) {
                             classes.push(i);
                         }
-                        currentId = nextId;
-                        renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
-                            renderedObjects[id].type,
-                            classes);
-                    } else if (renderedObjects[id].object) {
+                        //else check if there is an object
+                    } else if (renderedObjects[id].object != undefined) {
                         var nextId = currentId + 1;
                         for (var i = currentId; i &lt; nextId; i++) {
                             classes.push(i);
                         }
-                        currentId = nextId;
-                        renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
-                            renderedObjects[id].type,
-                            classes);
                     }
+
+                    currentId = nextId;
+                    renderedObjects[id].rendering = callback(renderedObjects[id].rendering,
+                                                             renderedObjects[id].type,
+                                                             classes,
+                                                             properties);
                 }
                 return renderedObjects;
             },
 
             /**
              * @function
-             * @description build rows array, each cell contains a row header
+             * @description build rows array, each index contains a row
              * @param {Object} rowsTreeNode a node from Rows tree
-             * @param {Array} columns the columns array
-             * @param {string} rowNumber the number of the row sort
-             * @return {Array|string} rows and number
+             * @param {Array} columns columns objects in an array
+             * @param {Number} rowNumber current row number
+             * @return {Array|string} rows Array and number
              */
             buildRows: function (rowsTreeNode, columns, rowNumber) {
                 if (!rowNumber)
@@ -689,39 +756,50 @@ enioka.ij = (
                 if (rowsTreeNode.length > 0)
                     for (var id in rowsTreeNode) {
                         var row = this.renderer.renderRowContainer();
-                        if (rowsTreeNode[id].children &amp;&amp; (rowsTreeNode[id].open == "false" ||
-                            rowsTreeNode[id].open == false)) {
-                            rowsTreeNode[id].rendering = this.renderer.applyRowSpan(rowsTreeNode[id].rendering,
+                        if (rowsTreeNode[id].children &amp;&amp;
+                            (rowsTreeNode[id].open == "false" ||
+                             rowsTreeNode[id].open == false)
+                           ) {
+                            rowsTreeNode[id].rendering = this.renderer.applyRowSpan(
+                                rowsTreeNode[id].rendering,
                                 2);
                         }
-                        rowsTreeNode[id].rendering = this.renderer.addEventsToRendering(rowsTreeNode[id].rendering,
-                            this._getHeaderEventsCallbacks(rowsTreeNode[id]));
+                        rowsTreeNode[id] =
+                            this.renderer.reRenderRow(rowsTreeNode[id],
+                                                      this._getHeaderEventsCallbacks(
+                                                          rowsTreeNode[id]
+                                                      )
+                                                     );
                         this._appendChild(row, rowsTreeNode[id].rendering);
-                        if (rowsTreeNode[id].object) {
-                            var rowData = this._renderRowData(columns,
-                                rowNumber);
+                        if (rowsTreeNode[id].summary){
+                            var rowData = this._renderRowSummary(columns,
+                                                                 rowNumber,
+                                                                 rowsTreeNode[id]);
                             this._appendChildren(row, rowData);
                             rowNumber++;
                             rows.push(row);
-                        }
-                        else if (rowsTreeNode[id].children &amp;&amp; (rowsTreeNode[id].open != "false" &amp;&amp;
-                            rowsTreeNode[id].open != false)) {
+                        } else if (rowsTreeNode[id].object) {
+                            var rowData = this._renderRowData(columns,
+                                                              rowNumber,
+                                                              rowsTreeNode[id]);
+                            this._appendChildren(row, rowData);
+                            rowNumber++;
+                            rows.push(row);
+                        } else if (rowsTreeNode[id].children &amp;&amp;
+                                   (rowsTreeNode[id].open != "false" &amp;&amp;
+                                    rowsTreeNode[id].open != false)) {
                             rows.push(row);
                             var builtRows = this.buildRows(rowsTreeNode[id].children,
-                                columns,
-                                rowNumber);
+                                                           columns,
+                                                           rowNumber);
                             rows = rows.concat(builtRows.rows);
                             rowNumber = builtRows.rowNumber;
                         } else {
                             rows.push(row);
-                            var rowsNumbers = new Array(),
-                                rowsObjectsLength = this._getObjectsFromTree(rowsTreeNode[id].children).length;
-                            for (var i = 0; i &lt; rowsObjectsLength; i++) {
-                                rowsNumbers.push(rowNumber);
-                                rowNumber++;
-                            }
                             var rowsData = this._renderAggregateRowData(columns,
-                                rowsNumbers);
+                                                                        rowNumber,
+                                                                        rowsTreeNode[id]);
+                            rowNumber++;
                             rows = rows.concat(rowsData);
                         }
                     }
@@ -731,39 +809,91 @@ enioka.ij = (
                 };
             },
 
-            _renderAggregateRowData: function (columns, rowsNumbers) {
+            /**
+             * @function
+             * @description rendered aggregated row
+             * @param {Array} columns array containing all columns Objects by group
+             * @param {Number} rowNumber current row number
+             * @param {Object} rowsTreeNode current treeNode
+             * @return {Array} rows containing the row just rendered
+             */
+            _renderAggregateRowData: function (columns, rowNumber, rowsTreeNode) {
                 var rows = new Array(),
                     cells = new Array(),
                     row = this.renderer.renderRowContainer(),
                     columnsNumbers = this.getColumnsNumbersFromObjects(columns);
                 for (var i = 0; i &lt; columnsNumbers.length; i++) {
-                    var cellData = this.dataprovider.getData(this.getRowsObjects(rowsNumbers),
-                        columns[i]);
-                    cells.push(this.renderer.renderCell(rowsNumbers,
-                        columnsNumbers[i],
-                        cellData,
-                        this._getCellEventsCallbacks(
-                            rowsNumbers,
-                            columnsNumbers[i])));
+                    var cellData = this.dataprovider.getData(this._getObjectsFromTree(rowsTreeNode.children, false),
+                                                             (columns[i].object ||
+                                                              columns[i].summary ||
+                                                              columns[i].group),
+                                                             null,
+                                                             {group:true});
+                    cells.push(this.renderer.renderCell([rowNumber],
+                                                        columnsNumbers[i],
+                                                        cellData,
+                                                        this._getCellEventsCallbacks(
+                                                            [rowNumber],
+                                                            columnsNumbers[i])));
                 }
                 this._appendChildren(row, cells);
                 rows.push(row);
                 return rows;
             },
 
-            _renderRowData: function (columns, rowNumber) {
+            /**
+             * @function
+             * @description rendered row
+             * @param {Array} columns array containing all columns Objects by group
+             * @param {Number} rowNumber current row number
+             * @param {Object} rowsTreeNode current treeNode
+             * @return {Array} cells containing the cells just rendered
+             */
+            _renderRowData: function (columns, rowNumber, renderedRow) {
                 var columnsNumbers = this.getColumnsNumbersFromObjects(columns),
                     cells = new Array(),
                     rowsNumbers = [rowNumber];
                 for (var i = 0; i &lt; columnsNumbers.length; i++) {
-                    var cellData = this.dataprovider.getData(this.getRowsObjects(rowsNumbers),
-                        columns[i]);
+                    var cellData = this.dataprovider.getData([renderedRow.object],
+                                                             (columns[i].object ||
+                                                              columns[i].summary ||
+                                                              columns[i].group));
                     cells.push(this.renderer.renderCell(rowsNumbers,
-                        columnsNumbers[i],
-                        cellData,
-                        this._getCellEventsCallbacks(
-                            rowsNumbers,
-                            columnsNumbers[i])));
+                                                        columnsNumbers[i],
+                                                        cellData,
+                                                        this._getCellEventsCallbacks(
+                                                            rowsNumbers,
+                                                            columnsNumbers[i])));
+                }
+                return cells;
+            },
+
+            /**
+             * @function
+             * @description rendered row summary
+             * @param {Array} columns array containing all columns Objects by group
+             * @param {Number} rowNumber current row number
+             * @param {Object} rowsTreeNode current treeNode
+             * @return {Array} cells containing the row just rendered
+             */
+            _renderRowSummary : function(columns, rowNumber, rowsTreeNode){
+                var columnsNumbers = this.getColumnsNumbersFromObjects(columns),
+                    cells = new Array(),
+                    rowsNumbers = new Array();
+                rowsNumbers.push(rowNumber);
+                for (var i = 0; i &lt; columnsNumbers.length; i++) {
+                    var cellData = this.dataprovider.getData(rowsTreeNode.object,
+                                                             (columns[i].object ||
+                                                              columns[i].summary ||
+                                                              columns[i].group),
+                                                             null,
+                                                             {summary : true});
+                    cells.push(this.renderer.renderCell(rowsNumbers,
+                                                        columnsNumbers[i],
+                                                        cellData,
+                                                        this._getCellEventsCallbacks(
+                                                            rowsNumbers,
+                                                            columnsNumbers[i])));
                 }
                 return cells;
             },
@@ -782,8 +912,8 @@ enioka.ij = (
             /**
              * @function
              * @description Retrieve group span for headers
-             * @param {Array} renderedTreeNode rendered tree node generated by the core
-             * @param {string} span initialize the order of the header
+             * @param {Array} renderedTreeNode node
+             * @param {string} span current span during the recursivity
              * @return {Array|number} renderedTreeNode and span for recursivity
              */
             getGroupSpan: function (renderedTreeNode, span) {
@@ -796,7 +926,7 @@ enioka.ij = (
                         span += this.getGroupSpan(renderedTreeNode.children[id], initialSpan).span;
                     }
                 } else if (renderedTreeNode.children
-                    &amp;&amp; renderedTreeNode.type == "rowHeader") {
+                           &amp;&amp; renderedTreeNode.type == "rowHeader") {
                     //We have to add a span because data line will be added in another "TR"
                     span = 2;
                 } else {
@@ -811,7 +941,7 @@ enioka.ij = (
 
             /**
              * @function
-             * @description Display gather all other display and print it
+             * @description Display gather all other function to display rendering into the workspace
              */
             display: function () {
                 if (!this.container)
@@ -819,33 +949,26 @@ enioka.ij = (
                 var start = new Date();
 
                 var columns = this._preRenderColumns(this.dataprovider.getColumns());
-                
+
                 var rows = this._preRenderRows(this.dataprovider.getRows());
                 if (rows)
                     this.rows = rows;
-                
                 if (columns){
                     this.columns = columns;
                     info_debug("column pre-render : " + (new Date() - start));
                     info_debug("columns", columns);
-
                     this.displayColumns(columns, rows.depth);
                     info_debug("rows pre-render : " + (new Date() - start));
                     info_debug("rows pre-render : ", rows);
-
                     this.displayData(rows, this.getObjectsGrouped(columns.rendering));
                     info_debug("appendColumns : " + (new Date() - start));
                 }
-
-                
                 else
                     this.displayData(rows);
-                console.log("get columns by group");
-
-                info_debug("appendData &amp; pre-display : " + (new Date() - start));
+                console.log("appendData &amp; pre-display : " + (new Date() - start));
                 this._appendChild(this.workspace, this.container);
-                info_debug("displayed : " + (new Date() - start));
-
+                console.log("displayed : " + (new Date() - start));
+                console.log("rows &amp; columns structures :");
                 console.log(rows, columns);
             },
 
@@ -865,27 +988,12 @@ enioka.ij = (
                 };
             },
 
-            /**
-             * @function
-             * @description Update matrix &amp; headers. This does a full update, and recollect
-             * data. NOT UPDATE
-             */
             update: function () {
             },
 
-            /**
-             * @function
-             * @description export matrix to a NOT UPDATE
-             * @return true if exported, false if no
-             */
             exportToCSV: function () {
             },
 
-            /**
-             * @function
-             * @description export matrix to a javascript table NOT UPDATE
-             * @return true if exported, false if no
-             */
             exportMatrix: function () {
             },
 
@@ -897,7 +1005,7 @@ enioka.ij = (
              * @function
              * @description get the type of the header
              * @param {object} headerNode the cell object
-             * @return {string} headerNode.type
+             * @return {string} type headerNode type
              */
             getHeaderType: function (headerNode) {
                 return headerNode.type;
@@ -905,138 +1013,109 @@ enioka.ij = (
 
             /**
              * @function
-             * @description get a string in a row header
-             * @param {number} number the number for give the string in the row
-             * @return {string} rowsOjects the string to get
+             * @description get a row object from its number
+             * @param {number} number of the row wanted
+             * @return {string} rowObject
              */
-            getRowObject: function (number) {
-                if (!this.rowsObjects) {
-                    this.rowsObjects = this._getObjectsFromTree(this.rows.rendering);
-                }
-                return this.rowsObjects[number];
+            getRowObject: function (number, summary) {
+                var object = this.getObjectsGrouped(this.rows.rendering, summary)[number];
+                return (object.object ||
+                        object.summary ||
+                        object.group);
             },
 
             /**
              * @function
-             * @description get an row header array with all the cell's text
-             * @param {Array} the depth of the row header array
-             * @return {Array} rowsObjects the first node of the row header
+             * @description get row header array
+             * @param {numbers} numbers of the row objects wanted
+             * @return {Array} rowsObjects containing all the rows objects correponding to the numbers given in parameter
              */
-            getRowsObjects: function (numbers) {
+            getRowsObjects: function (numbers, summary) {
                 var rowsObjects = new Array();
                 for (var i = 0; i &lt; numbers.length; i++) {
-                    rowsObjects.push(this.getRowObject(numbers[i]));
+                    var objects = this.getRowObject(numbers[i], summary);
+                    if (objects instanceof Array)
+                        rowsObjects = rowsObjects.concat(objects);
+                    else
+                        rowsObjects.push(objects);
                 }
                 return rowsObjects;
             },
 
             /**
              * @function
-             * @description get a string in a column header
-             * @param {number} number the number for give the string in the column
-             * @return {string} columnsOjects the string to get
+             * @description get a column object from its number
+             * @param {number} number of the column wanted
+             * @return {string} columnObject
              */
-            getColumnObject: function (number) {
-                if (!this.columnsObjects) {
-                    this.columnsObjects = this._getObjectsFromTree(this.columns.rendering);
-                }
-                return this.columnsObjects[number];
+            getColumnObject: function (number, summary) {
+                var object = this.getObjectsGrouped(this.columns.rendering)[number];
+                return (object.object ||
+                        object.summary ||
+                        object.group);
             },
 
-            /**
+
+           /**
              * @function
-             * @description get an column header array with all the cell's text
-             * @param {Array} the depth of the column header array
-             * @return {Array} columnsObjects the first node of the column header
+             * @description get row header array
+             * @param {numbers} numbers of the column objects wanted
+             * @return {Array} rowsObjects containing all the rows objects correponding to the numbers given in parameter
              */
-            getColumnsObjects: function (numbers) {
+            getColumnsObjects: function (numbers, summary) {
                 var columnsObjects = new Array();
                 for (var i = 0; i &lt; numbers.length; i++) {
-                    columnsObjects.push(this.getColumnObject(numbers[i]));
+                    var objects = this.getColumnObject(numbers[i], summary);
+                    if (objects instanceof Array)
+                        columnsObjects = columnsObjects.concat(objects);
+                    else
+                        columnsObjects.push(objects);
                 }
                 return columnsObjects;
             },
 
             /**
-             * @function NOT USE 
-             * @description
-             * @param
-             * @return
-             */
-            getRowNumber: function (object) {
-                if (!this.rowsObjects) {
-                    this.rowsObjects = this._getObjectsFromTree(this.rows.rendering);
-                }
-                concole.log("LUFI", JSON.stringify(object));
-                for (var i = 0; i &lt; this.rowsObjects.length; i++) {
-                    if (JSON.stringify(this.rowsObjects[i]) ==
-                        JSON.stringify(object))
-                        return i;
-                }
-                return -1;
-            },
-
-            /**
-             * @function NOT USE 
-             * @description
-             * @param
-             * @return
-             */
-            getColumnNumber: function (object) {
-                if (!this.columnsObjects) {
-                    this.columnsObjects = this._getObjectsFromTree(this.columns.rendering);
-                }
-                for (var i = 0; i &lt; this.columnsObjects.length; i++) {
-                    if (JSON.stringify(this.columnsObjects[i]) ==
-                        JSON.stringify(object))
-                        return i;
-                }
-                return -1;
-            },
-
-            /**
              * @function
-             * @description get all the numbers of the column and set it in a new array
-             * @param {Array} columnObjects the column with the numbers to set
-             * @return {Array} numbers the arrya with the data numbers
+             * @description get all the numbers of columns
+             * @param {Array} columnObjects the node with the numbers we want (root)
+             * @return {Array} numbers array
              */
             getColumnsNumbersFromObjects: function (columnsObjects) {
                 var numbers = new Array(),
-                    lastNumber = 0;
+                    lastNumber = 0,
+                    map;
                 for (var i = 0; i &lt; columnsObjects.length; i++) {
                     numbers[i] = new Array();
-                    for (var j = lastNumber; j &lt; (columnsObjects[i].length + lastNumber); j++) {
-                        numbers[i].push(j);
-                    }
-                    lastNumber = numbers[i][numbers[i].length - 1] + 1;
+                    numbers[i].push(i);
                 }
                 return numbers;
             },
 
             /**
              * @function
-             * @description get an array with all the text content in the head
+             * @description Retrieve an array with grouped objects
              * @param {Array} renderedObjectstree an array of objects
              * @return {Array|*} objects return a void if objects doesn't exist
-             * or an array of string
+             * or an array objects
              */
             getObjectsGrouped: function (renderedObjectsTree) {
-                var objects = new Array();
+                var objects = [];
                 if (typeof renderedObjectsTree == undefined)
                     return [];
                 else {
                     for (var id in renderedObjectsTree) {
-                        if ((renderedObjectsTree[id].open == false || renderedObjectsTree[id].open == "false") &amp;&amp;
+                        if ((renderedObjectsTree[id].open == false ||
+                             renderedObjectsTree[id].open == "false") &amp;&amp;
                             renderedObjectsTree[id].children) {
-                            objects.push(
-                                this._getObjectsFromTree(renderedObjectsTree[id].children)
-                            );
+                            objects.push({"group" : this._getObjectsFromTree(renderedObjectsTree[id].children)});
                         } else if (renderedObjectsTree[id].children) {
                             var childrenObjects = this.getObjectsGrouped(renderedObjectsTree[id].children);
                             if (childrenObjects)
                                 objects = objects.concat(childrenObjects);
-                        } else if (renderedObjectsTree[id].object) {
-                            objects.push([renderedObjectsTree[id].object]);
+                        } else if (renderedObjectsTree[id].summary){
+                            objects.push({"summary" : renderedObjectsTree[id].object});
+                        } else if (renderedObjectsTree[id].object != undefined) {
+                            objects.push({"object" : [renderedObjectsTree[id].object]});
                         }
                     }
                 }
@@ -1045,15 +1124,26 @@ enioka.ij = (
                 return objects;
             },
 
-
-            _getObjectsFromTree: function (renderedObjectsTree) {
+            /**
+             * @function
+             * @description retrieve all objects in a flat array
+             * @param {Object} renderedObjectsTree node from which we want objects
+             * @param {Object} summary param specifying if it must include objects from summaries
+             * @return {Array} objects flat array containing objects
+             */
+            _getObjectsFromTree: function (renderedObjectsTree, summary) {
                 var objects = new Array();
                 for (var id in renderedObjectsTree) {
-                    if (renderedObjectsTree[id].object)
+                    if (summary == true &amp;&amp;
+                        renderedObjectsTree[id].summary &amp;&amp;
+                        renderedObjectsTree[id].object)
+                        objects = objects.concat(renderedObjectsTree[id].object);
+                    else if (renderedObjectsTree[id].object &amp;&amp;
+                             !renderedObjectsTree[id].summary)
                         objects.push(renderedObjectsTree[id].object);
                     if (renderedObjectsTree[id].children)
                         objects = objects.concat(this._getObjectsFromTree(
-                            renderedObjectsTree[id].children));
+                            renderedObjectsTree[id].children, summary));
                 }
                 return objects;
             },
@@ -1079,68 +1169,80 @@ enioka.ij = (
 
             /**
              * @function
-             * @description proceed at a event when a click are done in a cell
-             * @param {Array} rowsNumbers the numbers of the cell in the row
-             * @param {Array} columnsNumbers the numbers of the cell in the column
+             * @description event when a click is done on a cell
+             * @param {Array} rowsNumbers row number(s)
+             * @param {Array} columnsNumbers column number(s)
              * @param {HTMLEvent}
              */
             onCellClick: function (rowsNumbers, columnsNumbers, event) {
                 if (this.controller.onCellClick) {
                     this.controller.onCellClick(event,
-                        this.dataprovider.getData(
-                            this.getRowsObjects(rowsNumbers),
-                            this.getColumnsObjects(columnsNumbers)
-                        )
-                    );
+                                                this.dataprovider.getData(
+                                                    this.getRowsObjects(rowsNumbers, true),
+                                                    this.getColumnsObjects(columnsNumbers, true)
+                                                ),
+                                                this.getRowsObjects(rowsNumbers, true),
+                                                this.getColumnsObjects(columnsNumbers, true)
+                                               );
                 }
             },
 
             /**
-             /**
              * @function
-             * @description proceed at a event when the mouse set hover a position
-             * @param {Array} rowsNumbers the numbers of the cell in the row
-             * @param {Array} columnsNumbers the numbers of the cell in the column
+             * @description event when a hover done on a cell
+             * @param {Array} rowsNumbers row number(s)
+             * @param {Array} columnsNumbers column number(s)
              * @param {HTMLEvent}
              */
             onCellHover: function (rowsNumbers, columnsNumbers, event) {
                 if (this.controller.onCellHover)
-                    this.controller.onCellHover(event);
+                    this.controller.onCellHover(event,
+                                                this.dataprovider.getData(
+                                                    this.getRowsObjects(rowsNumbers, true),
+                                                    this.getColumnsObjects(columnsNumbers, true)
+                                                ),
+                                                this.getRowsObjects(rowsNumbers, true),
+                                                this.getColumnsObjects(columnsNumbers, true)
+                                               );
             },
 
             /**
              * @function
-             * @description proceed at a event when the mouse set out a position
-             * @param {Array} rowsNumbers the numbers of the cell in the row
-             * @param {Array} columnsNumbers the numbers of the cell in the column
+             * @description event when a hover is out on a cell
+             * @param {Array} rowsNumbers row number(s)
+             * @param {Array} columnsNumbers column number(s)
              * @param {HTMLEvent}
              */
             onCellOut: function (rowsNumbers, columnsNumbers, event) {
                 if (this.controller.onCellOut)
-                    this.controller.onCellOut(event);
+                    this.controller.onCellOut(event,
+                                              this.dataprovider.getData(
+                                                  this.getRowsObjects(rowsNumbers, true),
+                                                  this.getColumnsObjects(columnsNumbers, true)
+                                              ),
+                                              this.getRowsObjects(rowsNumbers, true),
+                                              this.getColumnsObjects(columnsNumbers, true)
+                                             );
             },
 
             /**
              * @function
-             * @description NOT UPDATE
-             * @return
+             * @description event right click on cell //NYI
              */
             onCellRightClick: function () {
             },
 
             /**
              * @function
-             * @description NOT UPDATE
-             * @return
+             * @description event double click on cell //NYI
              */
             onCellDoubleClick: function () {
             },
 
             /**
              * @function
-             * @description proceed at a event when a click is do
-             * @headerNode {HTMLElement} the first node of the header 
-             * (who contains the first letter of the header)
+             * @description trigger event when click is done
+             * @headerNode {Object} headerNode node object just clicked
              * @param {HTMLEvent} event
              */
             onHeaderClick: function (headerNode, event) {
@@ -1151,38 +1253,36 @@ enioka.ij = (
 
             /**
              * @function
-             * @description call the function onHeaderHover in the controller, with the event
-             * attribute
+             * @description event hover on header
+             * @headerNode {Object} headerNode node object
              * @param {HTMLEvent} event
              */
-            onHeaderHover: function (event) {
+            onHeaderHover: function (headerNode, event) {
                 if (this.controller.onHeaderHover)
-                    this.controller.onHeaderHover(event);
+                    this.controller.onHeaderHover(event, headerNode);
             },
 
             /**
              * @function
-             * @description call the function onHeaderOut in the controller, with the event
-             * attribute
+             * @description When hover on headerNode
+             * @headerNode {Object} headerNode node object
              * @param {HTMLEvent} event
              */
-            onHeaderOut: function (event) {
+            onHeaderOut: function (headerNode, event) {
                 if (this.controller.onHeaderOut)
-                    this.controller.onHeaderOut(event);
+                    this.controller.onHeaderOut(event, headerNode);
             },
 
             /**
              * @function
-             * @description NOT UPDATE
-             * @return
+             * @description event right click on header
              */
             onHeaderRightClick: function () {
             },
 
             /**
              * @function
-             * @description NOT UPDATE
-             * @return
+             * @description event double click on header
              */
             onHeaderDoubleClick: function () {
             },
@@ -1191,51 +1291,21 @@ enioka.ij = (
             /// FILTERS ///
             ///////////////
 
-            /**
-             * @function
-             * @description filter graphically on rows NOT UPDATE
-             * @param {string} filter query
-             */
             graphicalRowFilter: function (filter) {
             },
 
-            /**
-             * @function
-             * @description filter through the data provider NOT UPDATE
-             * @param {string} filter query
-             */
             dataRowFilter: function (filter) {
             },
 
-            /**
-             * @function
-             * @description filter graphically on columns NOT UPDATE
-             * @param {string} filter query
-             */
             graphicalColumnFilter: function (filter) {
             },
 
-            /**
-             * @function
-             * @description filter thourgh the data provider NOT UPDATE
-             * @param {string} filter query
-             */
             dataColumnFilter: function (filter) {
             },
 
-            /**
-             * @function
-             * @description filter graphically on data cells NOT UPDATE
-             * @param {string} filter query
-             */
             graphicalCellFilter: function (filter) {
             },
 
-            /**
-             * @function
-             * @description filter through the data provider NOT UPDATE
-             * @param {string} filter query
-             */
             dataCellFilter: function (filter) {
             },
 
@@ -1248,7 +1318,7 @@ enioka.ij = (
              * @description set a value at a property
              * @param {string} propertyName the name of the property
              * @param {string} propertyValue the value to add at the property
-             * @return {*}
+             * @return {Object}
              */
             set: function (propertyName, propertyValue) {
                 this[propertyName] = propertyValue;
@@ -1262,7 +1332,7 @@ enioka.ij = (
             /**
              * @function
              * @description inverse the state of the Header (open or close)
-             * @param {boolean} headerNode.open the inverse state if the Header
+             * @param {Object} headerNode header node to toggle
              */
             toggleHeader: function (headerNode) {
                 if (headerNode.open == false || headerNode.open == "false") {
@@ -1274,8 +1344,8 @@ enioka.ij = (
 
             /**
              * @function
-             * @description inverse the state of the Header (hidden or present)
-             * @param {boolean} headerNode.hidden the inverse state if the Header
+             * @description inverse the state of the Header (hidden or present) NYI
+             * @param {Object} headerNode header node to hide
              */
             toggleHeaderVisibility: function (headerNode) {
                 if (headerNode.hidden == false || headerNode.hidden == "false") {
@@ -1291,30 +1361,32 @@ enioka.ij = (
 
             /**
              * @function
-             * @description refresh the matric display at the screen on the web page
-             * @param {string} give the type of header (row or column)
+             * @description refresh the matrix
+             * @param {string} give the header type to refresh
              */
             refresh: function (type) {
+                var start = new Date();
                 this.renderer.clearOutput(this.workspace);
                 this.container = this.renderer.renderContainer();
                 if (type == "columnHeader") {
-                    var columns = this._preRenderColumns();
+                    var columns = this._preRenderColumns(null, {reset : true});
                     this.columns = columns;
                 } else if (type == "rowHeader") {
-                    var rows = this._preRenderRows();
+                    var rows = this._preRenderRows(null, {reset : true});
                     this.rows = rows;
                 }
                 if (this.columns)
                     this.displayColumns(this.columns, this.rows.depth);
-
+                console.log("appendColumns : " + (new Date() - start));
                 if (this.columns)
                     this.displayData(this.rows, this.getObjectsGrouped(this.columns.rendering));
                 else
                     this.displayData(this.rows);
                 console.log("get columns by group");
-
+                console.log("appendData &amp; pre-display : " + (new Date() - start));
                 this._appendChild(this.workspace, this.container);
-                
+                console.log("displayed : " + (new Date() - start));
+                this._appendChild(this.workspace, this.container);
 
                 console.log(this.rows, this.columns);
             }
@@ -1326,6 +1398,7 @@ enioka.ij = (
         // And the capability to extend these predefined classes
         eniokaij.extend = Class.extend;
 
+        // That's all folks
         return eniokaij;
     }(enioka.ij || {})
 );
@@ -1339,13 +1412,13 @@ enioka.ij = (
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NEEDTOACTUALISE">NEED TO ACTUALISE</a></li><li><a href="global.html#NOTUSE">NOT USE</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NEEDTOACTUALISE">NEED TO ACTUALISE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jan 29 2016 18:03:32 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Feb 02 2016 10:24:46 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

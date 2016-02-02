@@ -29,9 +29,14 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="enioka.html">enioka</a><a href="enioka.ij.html">.ij</a>.</span>IIJController</h2>
+            <span class="ancestors"><a href="enioka.html">enioka</a><a href="enioka.ij.html">.ij</a>.</span>
         
-            <div class="class-description">Handle any interactions with external component by a list of predefined APIlike create, update, etc.<br/></div>
+        IIJController
+        </h2>
+        
+            <div class="class-description">Handle any interactions with external component by a list of predefined API
+like create, update, etc.
+<br/></div>
         
     
 </header>
@@ -141,7 +146,7 @@
 
     
 
-    <h4 class="name" id=".initialize"><span class="type-signature">(static) </span>initialize<span class="signature">(modelet)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".initialize"><span class="type-signature">(static) </span>initialize<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -162,8 +167,6 @@
     <thead>
     <tr>
         
-        <th>Name</th>
-        
 
         <th>Type</th>
 
@@ -179,8 +182,6 @@
     
 
         <tr>
-            
-                <td class="name"><code>modelet</code></td>
             
 
             <td class="type">
@@ -232,7 +233,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line20">line 20</a>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -263,14 +264,14 @@
 
     
 
-    <h4 class="name" id=".onCellClick"><span class="type-signature">(static) </span>onCellClick<span class="signature">(event, cellData)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".onCellClick"><span class="type-signature">(static) </span>onCellClick<span class="signature">(event, cellData, rowsObjects, columnsObjects)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    onCellClick display an alert if a event are applicable
+    event on cell click
 </div>
 
 
@@ -335,6 +336,29 @@
             <td class="type">
             
                 
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contains data correponding to the cell</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowsObjects</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type">Array</span>
 
 
@@ -345,7 +369,30 @@
 
             
 
-            <td class="description last">data provide by the DataProvider (logic)</td>
+            <td class="description last">rows objects of this cell</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>columnsObjects</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">columns objects of this cell</td>
         </tr>
 
     
@@ -386,7 +433,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line29">line 29</a>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line30">line 30</a>
     </li></ul></dd>
     
 
@@ -417,14 +464,14 @@
 
     
 
-    <h4 class="name" id=".onCellHover"><span class="type-signature">(static) </span>onCellHover<span class="signature">(event)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".onCellHover"><span class="type-signature">(static) </span>onCellHover<span class="signature">(event, cellData, rowsObjects, columnsObjects)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    onCellHover applied new color at TD element and TH element when a event are applicable
+    event when cursor is in the cell
 </div>
 
 
@@ -480,6 +527,75 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>cellData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contains data correponding to the cell</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowsObjects</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">rows objects of this cell</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>columnsObjects</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">columns objects of this cell</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -517,7 +633,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line38">line 38</a>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -548,14 +664,14 @@
 
     
 
-    <h4 class="name" id=".onCellOut"><span class="type-signature">(static) </span>onCellOut<span class="signature">(event)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".onCellOut"><span class="type-signature">(static) </span>onCellOut<span class="signature">(event, cellData, rowsObjects, columnsObjects)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    on cellOut applied original color at TD element and TH element when a event stop
+    event when cursor is out of the cell
 </div>
 
 
@@ -611,6 +727,75 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>cellData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contains data correponding to the cell</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowsObjects</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">rows objects of this cell</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>columnsObjects</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">columns objects of this cell</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -648,7 +833,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line47">line 47</a>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line52">line 52</a>
     </li></ul></dd>
     
 
@@ -686,7 +871,8 @@
 
 
 <div class="description">
-    initialize the prerogative for change the header, when a event is coming
+    initialize the prerogative for change the header,
+when a event is coming
 </div>
 
 
@@ -751,7 +937,7 @@
             <td class="type">
             
                 
-<span class="param-type">Element</span>
+<span class="param-type">Object</span>
 
 
             
@@ -761,7 +947,7 @@
 
             
 
-            <td class="description last">provided by the core (properties can be accessed bycalling core functions)</td>
+            <td class="description last">provided by the core</td>
         </tr>
 
     
@@ -802,7 +988,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line73">line 73</a>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line81">line 81</a>
     </li></ul></dd>
     
 
@@ -833,14 +1019,14 @@
 
     
 
-    <h4 class="name" id=".onHeaderHover"><span class="type-signature">(static) </span>onHeaderHover<span class="signature">(event)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".onHeaderHover"><span class="type-signature">(static) </span>onHeaderHover<span class="signature">(event, cellData, rowsObjects, columnsObjects)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    give an debug information when a event is applicable
+    event when cursor fly hover a header
 </div>
 
 
@@ -896,124 +1082,16 @@
         </tr>
 
     
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line55">line 55</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".onHeaderOut"><span class="type-signature">(static) </span>onHeaderOut<span class="signature">(event)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    give an debug information when a event is stop
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
 
         <tr>
             
-                <td class="name"><code>event</code></td>
+                <td class="name"><code>cellData</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">HTMLEvent</span>
+<span class="param-type">*</span>
 
 
             
@@ -1023,7 +1101,53 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">contains data correponding to the cell</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowsObjects</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">rows objects of this cell</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>columnsObjects</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">columns objects of this cell</td>
         </tr>
 
     
@@ -1091,6 +1215,137 @@
 
 
         
+            
+
+    
+
+    <h4 class="name" id=".onHeaderOut"><span class="type-signature">(static) </span>onHeaderOut<span class="signature">(event)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    event when cursor fly out of a header
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLEvent</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ij.IIJController.js.html">ij.IIJController.js</a>, <a href="ij.IIJController.js.html#line71">line 71</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     
 
     
@@ -1106,13 +1361,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NEEDTOACTUALISE">NEED TO ACTUALISE</a></li><li><a href="global.html#NOTUSE">NOT USE</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NEEDTOACTUALISE">NEED TO ACTUALISE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jan 29 2016 18:03:33 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Feb 02 2016 10:24:46 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

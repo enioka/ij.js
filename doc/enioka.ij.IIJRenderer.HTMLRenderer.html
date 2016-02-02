@@ -29,7 +29,10 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="enioka.html">enioka</a><a href="enioka.ij.html">.ij</a><a href="enioka.ij.IIJRenderer.html">.IIJRenderer</a>.</span>HTMLRenderer</h2>
+            <span class="ancestors"><a href="enioka.html">enioka</a><a href="enioka.ij.html">.ij</a><a href="enioka.ij.IIJRenderer.html">.IIJRenderer</a>.</span>
+        
+        HTMLRenderer
+        </h2>
         
             <div class="class-description">Will generate html with predefined functions</div>
         
@@ -291,7 +294,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line39">line 39</a>
+        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
@@ -344,7 +347,7 @@
 
     
 
-    <h4 class="name" id=".addClasses"><span class="type-signature">(static) </span>addClasses<span class="signature">(element, classes)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
+    <h4 class="name" id=".addClasses"><span class="type-signature">(static) </span>addClasses<span class="signature">(element, classes, reset)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
 
     
 
@@ -430,6 +433,29 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>reset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">if reset is specified, all classes are going to be removed before applying new ones</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -467,7 +493,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line23">line 23</a>
+        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line24">line 24</a>
     </li></ul></dd>
     
 
@@ -520,7 +546,7 @@
 
     
 
-    <h4 class="name" id=".addCSS"><span class="type-signature">(static) </span>addCSS<span class="signature">(element, attributeName, dattributeValue)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
+    <h4 class="name" id=".addCSS"><span class="type-signature">(static) </span>addCSS<span class="signature">(element, attributeName, attributeValue)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
 
     
 
@@ -609,13 +635,13 @@
 
         <tr>
             
-                <td class="name"><code>dattributeValue</code></td>
+                <td class="name"><code>attributeValue</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">stinrg</span>
+<span class="param-type">string</span>
 
 
             
@@ -666,7 +692,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line52">line 52</a>
+        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line55">line 55</a>
     </li></ul></dd>
     
 
@@ -719,7 +745,7 @@
 
     
 
-    <h4 class="name" id=".appendChild"><span class="type-signature">(static) </span>appendChild<span class="signature">(element, child)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".appendChild"><span class="type-signature">(static) </span>appendChild<span class="signature">(element, child, prepend)</span><span class="type-signature"></span></h4>
 
     
 
@@ -808,6 +834,30 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>prepend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">specify if child has to be prepend or if child will be
+append</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -845,7 +895,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line92">line 92</a>
+        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line97">line 97</a>
     </li></ul></dd>
     
 
@@ -999,7 +1049,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line78">line 78</a>
+        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line81">line 81</a>
     </li></ul></dd>
     
 
@@ -1198,7 +1248,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line64">line 64</a>
+        <a href="ij.IIJRenderer.HTMLRenderer.js.html">ij.IIJRenderer.HTMLRenderer.js</a>, <a href="ij.IIJRenderer.HTMLRenderer.js.html#line67">line 67</a>
     </li></ul></dd>
     
 
@@ -1262,13 +1312,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NEEDTOACTUALISE">NEED TO ACTUALISE</a></li><li><a href="global.html#NOTUSE">NOT USE</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NEEDTOACTUALISE">NEED TO ACTUALISE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jan 29 2016 18:03:33 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Feb 02 2016 10:24:47 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

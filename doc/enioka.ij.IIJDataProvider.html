@@ -29,9 +29,15 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="enioka.html">enioka</a><a href="enioka.ij.html">.ij</a>.</span>IIJDataProvider</h2>
+            <span class="ancestors"><a href="enioka.html">enioka</a><a href="enioka.ij.html">.ij</a>.</span>
         
-            <div class="class-description">This is the interface to handle data retrieving and will workthrough only three methods calling callbacks.<br/><br/></div>
+        IIJDataProvider
+        </h2>
+        
+            <div class="class-description">This is the interface to handle data retrieving and will work
+through only three methods calling callbacks.
+<br/>
+<br/></div>
         
     
 </header>
@@ -155,7 +161,7 @@
 
 
 <div class="description">
-    getColumns will retrieve an array of objects that will beinstanciated as DataHeader by the function getColumns in the component
+    getColumns will return an array of objects (columns)
 </div>
 
 
@@ -199,7 +205,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJDataProvider.js.html">ij.IIJDataProvider.js</a>, <a href="ij.IIJDataProvider.js.html#line45">line 45</a>
+        <a href="ij.IIJDataProvider.js.html">ij.IIJDataProvider.js</a>, <a href="ij.IIJDataProvider.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
@@ -248,14 +254,15 @@
 
     
 
-    <h4 class="name" id=".getData"><span class="type-signature">(static) </span>getData<span class="signature">(rowsObjects, columnObjects)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id=".getData"><span class="type-signature">(static) </span>getData<span class="signature">(rowsObjects, columnObjects)</span><span class="type-signature"> &rarr; {*}</span></h4>
 
     
 
 
 
 <div class="description">
-    getData will recovered the strings of the row's header, and the column'sheader, calculate the nomber of commun character between the two headers, and set in the approppriate cell. This functions return the Array with the cell's data.
+    getData will provide data at each intersection (i,j) that's where
+the name of this library come from if you were wondering
 </div>
 
 
@@ -371,7 +378,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJDataProvider.js.html">ij.IIJDataProvider.js</a>, <a href="ij.IIJDataProvider.js.html#line27">line 27</a>
+        <a href="ij.IIJDataProvider.js.html">ij.IIJDataProvider.js</a>, <a href="ij.IIJDataProvider.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -409,7 +416,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Array</span>
+<span class="param-type">*</span>
 
 
     </dd>
@@ -431,7 +438,7 @@
 
 
 <div class="description">
-    getRows will retrieve an array of objects that will be instanciatedas DataHeader by the function getrows in the component
+    getRows will return an array of objects (rows)
 </div>
 
 
@@ -475,7 +482,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ij.IIJDataProvider.js.html">ij.IIJDataProvider.js</a>, <a href="ij.IIJDataProvider.js.html#line36">line 36</a>
+        <a href="ij.IIJDataProvider.js.html">ij.IIJDataProvider.js</a>, <a href="ij.IIJDataProvider.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -535,13 +542,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NEEDTOACTUALISE">NEED TO ACTUALISE</a></li><li><a href="global.html#NOTUSE">NOT USE</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="enioka.ij.Core.html">Core</a></li><li><a href="enioka.ij.Core.DataCell.html">DataCell</a></li><li><a href="enioka.ij.Core.DataHeader.html">DataHeader</a></li><li><a href="enioka.ij.IIJController.html">IIJController</a></li><li><a href="enioka.ij.IIJDataProvider.html">IIJDataProvider</a></li><li><a href="enioka.ij.IIJDataProvider.Aggregator.html">Aggregator</a></li><li><a href="enioka.ij.IIJRenderer.html">IIJRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLRenderer.html">HTMLRenderer</a></li><li><a href="enioka.ij.IIJRenderer.HTMLTemplate.html">HTMLTemplate</a></li><li><a href="enioka.ij.State.html">State</a></li></ul><h3>Namespaces</h3><ul><li><a href="enioka.html">enioka</a></li><li><a href="enioka.ij.html">ij</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NEEDTOACTUALISE">NEED TO ACTUALISE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jan 29 2016 18:03:33 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Feb 02 2016 10:24:46 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
