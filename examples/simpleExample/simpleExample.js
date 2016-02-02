@@ -4,7 +4,7 @@ var Component = {
 
     getObjects : function(){
         var objects = new Array(),
-            number = 200,
+            number = 100,
             possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         for (var i = 0; i < number; i++) {
             var text = "";
@@ -113,7 +113,7 @@ var Renderer = {
     },
 
     renderCell : function(rowsNumbers, columnsNumbers, cellData, eventsCallBacks){
-        if (cellData && cellData.length > 0) {
+        if (cellData && cellData.length > 0 && cellData[0]) {
             var cell =  this.renderer.createElementWithText("td", cellData[0]);
             this.renderer.addAttribute(cell, "data-toggle", "popover");
             this.renderer.addAttribute(cell, "data-original-title", "Summary (first relation)");

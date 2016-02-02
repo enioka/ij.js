@@ -127,6 +127,30 @@ var DefaultHTMLRenderer = {
         }
         return output;
     },
+
+    reRenderColumn : function(renderedColumn, events){
+        if (!renderedColumn.children) {
+            var vtext = this.renderer.createElement("div",
+                                                    ["vtext"]);
+            var vtextInner = this.renderer.createElementWithText("div",
+                                                                 renderedColumn.label,
+                                                                 ["vtext__inner"]);
+            renderedColumn.rendering.textContent = "";
+            this.appendChild(vtext,
+                             vtextInner);
+            this.appendChild(renderedColumn.rendering,
+                             vtext);
+        }
+        renderedColumn.rendering = this.addEventsToRendering(renderedColumn.rendering,
+                                                             events);
+        return renderedColumn;
+    },
+
+    reRenderRow : function(renderedRow, events){
+        renderedRow.rendering = this.addEventsToRendering(renderedRow.rendering,
+                                                          events);
+        return renderedRow;
+    }
 };
 
 DefaultHTMLRenderer = Class.extend(enioka.ij.IIJRenderer, DefaultHTMLRenderer);
