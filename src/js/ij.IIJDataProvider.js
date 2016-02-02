@@ -17,20 +17,18 @@ enioka.ij = (
 
             /**
              * @function
-             * @description getData will recovered the strings of the row's header, and the column's
-             * header, calculate the nomber of commun character between the two headers, and set 
-             * in the approppriate cell. This functions return the Array with the cell's data.
+             * @description getData will provide data at each intersection (i,j) that's where
+             * the name of this library come from if you were wondering
              * @param {Array} rowsObjects the object content in the row
              * @param {Array} columnObjects the object content in the column
-             * @return {Array} relations an Array with the data cell
+             * @return {*} relations an Array with the data cell
              */
             getData : function(rowsObjects, columnsObjects){
             },
 
             /**
              * @function
-             * @description getRows will retrieve an array of objects that will be instanciated
-             * as DataHeader by the function getrows in the component
+             * @description getRows will return an array of objects (rows)
              * @return {Array}
              */
             getRows : function(){
@@ -38,13 +36,12 @@ enioka.ij = (
 
             /**
              * @function
-             * @description getColumns will retrieve an array of objects that will be
-             * instanciated as DataHeader by the function getColumns in the component
+             * @description getColumns will return an array of objects (columns)
              * @return {Array}
              */
             getColumns : function(){
             },
-            
+
         };
         IIJDataProvider = Class.create(IIJDataProvider);
 

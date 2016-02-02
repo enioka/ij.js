@@ -14,61 +14,69 @@ enioka.ij = (
 
             /**
              * @function
-             * @description
-             * @param modelet
+             * @param
              */
             initialize : function(parent, core){
             },
 
             /**
              * @function
-             * @description onCellClick display an alert if a event are applicable
+             * @description event on cell click
              * @param {HTMLEvent} event
-             * @param {Array} cellData data provide by the DataProvider (logic)
+             * @param {*} cellData contains data correponding to the cell
+             * @param {Array} rowsObjects rows objects of this cell
+             * @param {Array} columnsObjects columns objects of this cell
              */
-            onCellClick : function(event, cellData){
+            onCellClick : function(event, cellData, rowsObjects, columnsObjects){
             },
 
             /**
              * @function
-             * @description onCellHover applied new color at TD element and TH element when 
-             * a event are applicable
-             * @param {HTMLEvent} event 
+             * @description event when cursor is in the cell
+             * @param {HTMLEvent} event
+             * @param {*} cellData contains data correponding to the cell
+             * @param {Array} rowsObjects rows objects of this cell
+             * @param {Array} columnsObjects columns objects of this cell
              */
-            onCellHover : function(event){
+            onCellHover : function(event, cellData, rowsObjects, columnsObjects){
             },
 
             /**
              * @function
-             * @description on cellOut applied original color at TD element and TH element when 
-             * a event stop
+             * @description event when cursor is out of the cell
+             * @param {HTMLEvent} event
+             * @param {*} cellData contains data correponding to the cell
+             * @param {Array} rowsObjects rows objects of this cell
+             * @param {Array} columnsObjects columns objects of this cell
+             */
+            onCellOut : function(event, cellData, rowsObjects, columnsObjects){
+            },
+
+            /**
+             * @function
+             * @description event when cursor fly hover a header
+             * @param {HTMLEvent} event
+             * @param {*} cellData contains data correponding to the cell
+             * @param {Array} rowsObjects rows objects of this cell
+             * @param {Array} columnsObjects columns objects of this cell
+             */
+            onHeaderHover : function(event, headerNode){
+            },
+
+            /**
+             * @function
+             * @description event when cursor fly out of a header
              * @param {HTMLEvent} event
              */
-            onCellOut : function(event){
+            onHeaderOut : function(event, headerNode){
             },
 
             /**
              * @function
-             * @description give an debug information when a event is applicable
-             * @param {HTMLEvent} event
-             */
-            onHeaderHover : function(event){
-            },
-
-            /**
-             * @function
-             * @description give an debug information when a event is stop
-             * @param {HTMLEvent} event
-             */
-            onHeaderOut : function(event){
-            },
-
-            /**
-             * @function
-             * @description initialize the prerogative for change the header, when a event is coming
+             * @description initialize the prerogative for change the header,
+             * when a event is coming
              * @param {HTMLElement} event
-             * @param {Element} headerNode provided by the core (properties can be accessed by
-             * calling core functions)
+             * @param {Object} headerNode provided by the core
              */
             onHeaderClick : function(event, headerNode){
             },
