@@ -67,54 +67,6 @@ var Renderer = {
         this.template = new enioka.ij.HTMLTemplate();
     },
 
-    /**
-     * @function
-     * @description
-     * @param rendering
-     * @returns {*}
-     */
-    getRenderingId : function(rendering){
-        return rendering.id;
-    },
-
-    /**
-     * @function
-     * @description
-     * @param rendering
-     * @returns {DOMTokenList}
-     */
-    getRenderingClasses : function(rendering){
-        return rendering.classList;
-    },
-
-    /**
-     * @function
-     * @description
-     * @returns {Element|*}
-     */
-    renderRowsContainer : function(){
-        return this.renderer.createElement("tbody");
-    },
-
-    /**
-     * @function
-     * @description
-     * @returns {Element|*}
-     */
-    renderRowContainer : function(){
-        var row = this.renderer.createElement("tr");
-        return row;
-    },
-
-    /**
-     * @function
-     * @description
-     * @param rowsNumbers
-     * @param columnsNumbers
-     * @param cellData
-     * @param eventsCallBacks
-     * @returns {*}
-     */
     renderCell : function(rowsNumbers, columnsNumbers, cellData, eventsCallBacks){
         console.log(cellData);
         if (cellData) {
@@ -142,157 +94,17 @@ var Renderer = {
                 [this.template.getAttribute("columnHeader", "classPrefix") +
                 columnsNumbers[column]]);
         }
-    },
-
-    /**
-     * @function
-     * @description
-     * @param element
-     * @param child
-     * @returns {*|Node|XML}
-     */
-    appendChild : function(element, child) {
-        return this.renderer.appendChild(element, child);
-    },
-
-    /**
-     * @function
-     * @description
-     * @returns {Element|*}
-     */
-    renderContainer : function(){
-        return this.renderer.createElement("table",["table","table-bordered"]);
-    },
-
-    /**
-     * @function
-     * @description
-     * @param property
-     * @param element
-     * @param propertyValue
-     * @returns {*|void}
-     */
-    setCSSProperty : function(property, element, propertyValue){
-        return element.style.setProperty(property, propertyValue);
-    },
-
-    /**
-     * @function
-     * @description
-     * @param property
-     * @param element
-     * @returns {*|void}
-     */
-    emptyCSSProperty : function(property, element){
-        return element.style.setProperty(property, "");
-    },
-
-    /**
-     * @function
-     * @description
-     * @param element
-     * @param elementType
-     * @param classes
-     * @returns {*}
-     */
-    addClasses : function(element, elementType, classes){
-        var classPrefix = this.template.getAttribute(elementType, "classPrefix");
-        for (var i = 0; i < classes.length; i++){
-            classes[i] = classPrefix + classes[i];
-        }
-        return this.renderer.addClasses(element, classes);
-    },
-
-    /**
-     * @function
-     * @description
-     * @param element
-     * @param id
-     * @returns {*}
-     */
-    setId : function(element, id){
-        element.id = id;
-        return element;
-    },
-
-    /**
-     * @function
-     * @description
-     * @param type
-     * @returns {*|string}
-     */
-    getClassPrefix : function(type){
-        return this.template.getAttribute(type, "classPrefix");
-    },
-
-    /**
-     * @function
-     * @description
-     * @param type
-     * @returns {*|string}
-     */
-    getIdPrefix : function(type){
-        return this.template.getAttribute(type, "idPrefix");
-    },
-
-    /**
-     * @function
-     * @description
-     * @param rendering
-     * @param events
-     * @returns {Node|*}
-     */
-    addEventsToRendering : function(rendering, events){
-        /// have to clone the header to clean up from previous events if needed
-        var newHeader = rendering.cloneNode(true);
-        for (var event in events){
-            newHeader.addEventListener(event, events[event]);
-        }
-        return newHeader;
-    },
-
-    hideRendering : function(rendering) {
-        return this.renderer.addCSS(rendering, "display", "none");
-    },
-
-    showRendering : function(rendering) {
-        return this.renderer.deleteCSSProperty(rendering, "display");
-    },
-
-    /**
-     * @function
-     * @description
-     * @param output
-     */
-    clearOutput : function(output) {
-        while (output.firstChild) {
-            output.removeChild(output.firstChild);
-        }
-    },
-
-    _getSummaryHoverCell : function(cellData) {
-        return this.renderer.createElementWithText("p","There is " + cellData + " characters shared").outerHTML;
     }
 };
 
-Renderer = Class.extend(enioka.ij.IIJRenderer, Renderer);
+Renderer = Class.extend(DefaultHTMLRenderer, Renderer);
 
 var Controller = {
-    /**
-     * @function
-     * @description
-     * @param modelet
-     */
     initialize : function(parent, core){
         this.component = parent;
         this.core = core;
     },
 
-    /**
-     * @function
-     * @description
-     * @param event
-     */
     onCellHover : function(event){
         info_debug("onCellHover");
         var classes = event.target.className.split(" ");
@@ -318,11 +130,6 @@ var Controller = {
             "#d77b18");
     },
 
-    /**
-     * @function
-     * @description
-     * @param event
-     */
     onCellOut : function(event){
         info_debug("onCellHover");
         var classes = event.target.className.split(" ");

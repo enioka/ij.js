@@ -205,13 +205,6 @@ var Renderer = {
         return columnArray;
     },
 
-    /**
-     * @function
-     * @description
-     * @param renderedColumn
-     * @param events
-     * @returns {Object}
-     */
     reRenderColumn : function(renderedColumn, events){
         if (!renderedColumn.children) {
             var vtext = this.renderer.createElement("div",
