@@ -86,7 +86,8 @@ enioka.ij = (
                     }
                     return element;
                 }
-                return element.appendChild(child);
+                element.appendChild(child);
+                return element;
             }
         };
         HTMLRenderer = Class.create(HTMLRenderer);

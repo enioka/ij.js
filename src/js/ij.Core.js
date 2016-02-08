@@ -782,6 +782,7 @@ enioka.ij = (
                                                             columnsNumbers[i])));
                 }
                 row = this._appendChildren(row, cells);
+                rows.push(row);
                 return rows;
             },
 
@@ -805,6 +806,7 @@ enioka.ij = (
                                                             rowsNumbers,
                                                             columnsNumbers[i])));
                 }
+                console.log(cells);
                 return cells;
             },
 
@@ -833,7 +835,6 @@ enioka.ij = (
                                                             rowsNumbers,
                                                             columnsNumbers[i])));
                 }
-                console.log(cells);
                 return cells;
             },
 
@@ -845,7 +846,8 @@ enioka.ij = (
              * @return {object} element - Child has been appended to the parent element
              */
             _appendChild: function (element, child) {
-                return this.renderer.appendChild(element, child);
+                element = this.renderer.appendChild(element, child);
+                return element;
             },
 
             /**
@@ -922,6 +924,7 @@ enioka.ij = (
 
                 console.log("appendData & pre-display : " + (new Date() - start));
                 console.log(this.container);
+                //window.open('data:text/csv,' + encodeURIComponent(this.container));
                 this.workspace = this._appendChild(this.workspace, this.container);
                 console.log("displayed : " + (new Date() - start));
                 console.log("rows & columns structures :");
