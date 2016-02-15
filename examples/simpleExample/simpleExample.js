@@ -77,7 +77,11 @@ var Renderer = {
                 rowObject,
                 rowObject,
                 (order || 0),
-                rowObject,
+                this.renderer.addAttribute(
+                    this.renderer.createElementWithText("th", rowObject),
+                    "id",
+                    this.template.getAttribute("columnHeader","idPrefix") + rowNumber
+                ),
                 (open || true),
                 (hidden || true)
             )
@@ -96,7 +100,11 @@ var Renderer = {
                 columnObject,
                 columnObject,
                 (order || 0),
-                columnObject,
+                this.renderer.addAttribute(
+                    this.renderer.createElementWithText("th", columnObject),
+                    "id",
+                    this.template.getAttribute("columnHeader","idPrefix") + columnNumber
+                ),
                 (open || true),
                 (hidden || true)
             )
@@ -105,19 +113,60 @@ var Renderer = {
     },
 
     renderCell : function(rowsNumbers, columnsNumbers, cellData, eventsCallBacks){
-        return cellData[0];
+        if (cellData && cellData.length > 0 && cellData[0]) {
+            var cell =  this.renderer.createElementWithText("td", cellData[0]);
+            this.renderer.addAttribute(cell, "data-toggle", "popover");
+            this.renderer.addAttribute(cell, "data-original-title", "Summary (first relation)");
+            this.renderer.addAttribute(cell, "data-content",
+                this._getSummaryHoverCell(cellData)
+            );
+            this.renderer.addAttribute(cell, "data-html", "true");
+            this.renderer.addAttribute(cell, "data-container", "body");
+        }
+        else {
+            var cell = this.renderer.createElement("td");
+        }
+        cell = this.addEventsToRendering(cell,
+            eventsCallBacks);
+        for (var row in rowsNumbers){
+            this.renderer.addClasses(cell,
+                [this.template.getAttribute("rowHeader", "classPrefix") +
+                rowsNumbers[row]]);
+        }
+        for (var column in columnsNumbers){
+            this.renderer.addClasses(cell,
+                [this.template.getAttribute("columnHeader", "classPrefix") +
+                columnsNumbers[column]]);
+        }
+        return cell;
     },
 
     reRenderColumn : function(renderedColumn, events) {
+        if (!renderedColumn.children) {
+            var vtext = this.renderer.createElement("div",
+                                                    ["vtext"]);
+            var vtextInner = this.renderer.createElementWithText("div",
+                                                                 renderedColumn.label,
+                                                                 ["vtext__inner"]);
+            renderedColumn.rendering.textContent = "";
+            this.appendChild(vtext,
+                             vtextInner);
+            this.appendChild(renderedColumn.rendering,
+                             vtext);
+        }
+        renderedColumn.rendering = this.addEventsToRendering(renderedColumn.rendering,
+                                                             events);
         return renderedColumn;
     },
 
     reRenderRow : function(renderedRow, events) {
+        renderedRow.rendering = this.addEventsToRendering(renderedRow.rendering,
+                                                          events);
         return renderedRow;
     }
 };
 
-Renderer = Class.extend(csvExportRenderer, Renderer);
+Renderer = Class.extend(DefaultHTMLRenderer, Renderer);
 
 
 //
@@ -233,15 +282,15 @@ ij.setDataProvider(component.dataprovider);
 ij.setRenderer(component.renderer);
 
 component.renderer.template.addClassPrefix("columnHeader",
-    "c");
+                                           "c");
 component.renderer.template.addClassPrefix("rowHeader",
-    "r");
+                                           "r");
 component.renderer.template.addIdPrefix("columnHeader",
-    "c");
+                                        "c");
 component.renderer.template.addIdPrefix("rowHeader",
-    "r");
+                                        "r");
 
-ij.setWorkspace("");
+ij.setWorkspace(document.getElementById("matrix"));
 var start = new Date();
 ij.display();
 console.log(new Date() - start);
