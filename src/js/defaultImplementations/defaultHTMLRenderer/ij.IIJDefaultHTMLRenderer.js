@@ -68,6 +68,10 @@ var DefaultHTMLRenderer = {
         return this.renderer.appendChild(element, child);
     },
 
+    renderIntoWorkspace : function(element, child) {
+        return this.renderer.appendChild(element, child);
+    },
+
     _createRenderedJSON : function(id, object, label, order, rendering, open, hidden, hasSummary, cannotReRoot){
         return {
             "id" : id,
