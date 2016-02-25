@@ -1383,6 +1383,10 @@ enioka.ij = (
                 var start = new Date();
                 this.renderer.clearOutput(this.workspace);
                 this.container = this.renderer.renderContainer();
+                if (!type){
+                    this.display();
+                    return;
+                }
                 if (type == "columnHeader") {
                     var columns = this._preRenderColumns(null, {reset : true});
                     this.columns = columns;

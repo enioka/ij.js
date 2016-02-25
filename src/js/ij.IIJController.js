@@ -11,7 +11,27 @@ enioka.ij = (
          * <br/>
          */
         var IIJController = {
+            //HTML / or ohter type interface that can provide values and use predefined
+            //functions to modify ij through the controller
+            ui : null,
+
+            core : null,
+
             initialize : function(core){
+                this.core = core;
+            },
+
+            setUI : function(ui) {
+                this.ui = ui;
+                this.ui.controller = this;
+            },
+
+            setRenderer : function(Renderer) {
+                this.core.setRenderer(new Renderer());
+            },
+
+            setDataProvider : function(DataProvider) {
+                this.core.setDataProvider(new DataProvider());
             },
 
             /**
@@ -73,6 +93,14 @@ enioka.ij = (
              * @param filter {String}
              */
             onGraphicalRowFilter : function(filter) {
+            },
+
+            refresh : function(type, params) {
+                this.core.refresh(type, params);
+            },
+
+            getWorkspace : function(){
+                return this.core.getWorkspace();
             }
         };
         IIJController = Class.create(IIJController);

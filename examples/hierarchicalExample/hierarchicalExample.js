@@ -78,6 +78,84 @@ var DataProvider = {
 
 DataProvider = Class.extend(enioka.ij.IIJDataProvider, DataProvider);
 
+var Random2 = {
+    initialize : function(parent){
+        this.component = parent;
+        this.aggregator = new Aggregator();
+    },
+
+    getRows : function(filter){
+        return this.component.getRows();
+    },
+
+    getColumns : function(filter){
+        return this.component.getColumns();
+    },
+
+    getData : function(rowsObjects, columnsObjects, filter, spec){
+        var relations = [],
+            occurences = 0;
+        console.log(rowsObjects, columnsObjects);
+        for (var i = 0; i < rowsObjects.length; i++){
+            for (var j = 0; j < columnsObjects.length; j++){
+                occurences += this._getOccurences(rowsObjects[i], columnsObjects[j]);
+            }
+        }
+        relations.push(occurences);
+        return relations;
+    },
+
+    _getOccurences : function(rowObject, columnObject){
+        var count = 0;
+        for (var i = 0; i < rowObject.length; i++){
+            if (columnObject.indexOf(rowObject[i]) != -1)
+                count++;
+        }
+        return count;
+    }
+};
+
+Random2 = Class.extend(enioka.ij.IIJDataProvider, Random2);
+
+var Random = {
+    initialize : function(parent){
+        this.component = parent;
+        this.aggregator = new Aggregator();
+    },
+
+    getRows : function(filter){
+        return [1,2,3,4,5,6,7,8,9];
+    },
+
+    getColumns : function(filter){
+        return ["toto", "tata", "tutu2"];
+    },
+
+    getData : function(rowsObjects, columnsObjects, filter, spec){
+        var relations = [],
+            occurences = 0;
+        console.log(rowsObjects, columnsObjects);
+        for (var i = 0; i < rowsObjects.length; i++){
+            for (var j = 0; j < columnsObjects.length; j++){
+                occurences += this._getOccurences(rowsObjects[i], columnsObjects[j]);
+            }
+        }
+        relations.push(occurences);
+        return relations;
+    },
+
+    _getOccurences : function(rowObject, columnObject){
+        var count = 0;
+        for (var i = 0; i < rowObject.length; i++){
+            if (columnObject.indexOf(rowObject[i]) != -1)
+                count++;
+        }
+        return count;
+    }
+};
+
+Random = Class.extend(enioka.ij.IIJDataProvider, Random);
+
 
 //
 // Renderer
@@ -267,6 +345,54 @@ var Controller = {
     initialize : function(parent, core){
         this.component = parent;
         this.core = core;
+        this.ui = new enioka.ij.IIJControllerUI(this,
+                                                document.getElementById("matrix_controls"),
+                                                { "refresh" :
+                                                  {
+                                                      "label" : "",
+                                                      "classes" : ["btn",
+                                                                   "btn-default",
+                                                                   "glyphicon",
+                                                                   "glyphicon-refresh"]
+                                                  },
+                                                  "zoomIn" : {
+                                                      "label" : "",
+                                                      "classes" : ["btn",
+                                                                   "btn-default",
+                                                                   "glyphicon",
+                                                                   "glyphicon-zoom-in"]
+                                                  },
+
+                                                  "zoomOut" : {
+                                                      "label" : "",
+                                                      "classes" : ["btn",
+                                                                   "btn-default",
+                                                                   "glyphicon",
+                                                                   "glyphicon-zoom-out"]
+                                                  },
+                                                  "resetZoom" : {
+                                                      "label" : "",
+                                                      "classes" : ["btn",
+                                                                   "btn-default",
+                                                                   "glyphicon",
+                                                                   "glyphicon-resize-small"]
+                                                  },
+                                                  "updateRenderer" : {
+                                                      "label" : "Renderer : ",
+                                                      "type" : "select",
+                                                      "options" : ["Renderer"],
+                                                      "values" : [Renderer],
+                                                      "classes" : ["form-control"]
+                                                  },
+                                                  "updateDataProvider" : {
+                                                      "label" : "Data Provider",
+                                                      "type" : "select",
+                                                      "options" : ["Random", "Random2"],
+                                                      "values" : [Random, Random2],
+                                                      "classes" : ["form-control"]
+                                                  }
+                                                });
+        console.log(this.ui);
     },
 
     onCellHover : function(event){
@@ -366,13 +492,14 @@ Aggregator = Class.extend(enioka.ij.IIJAggregator, Aggregator);
 
 var component = new Component();
 var ij = new enioka.ij.Core();
-component.controller = new Controller(component, ij);
 component.renderer = new Renderer(component, ij);
 component.dataprovider = new DataProvider(component, ij);
 
-ij.setController(component.controller);
 ij.setDataProvider(component.dataprovider);
 ij.setRenderer(component.renderer);
+
+component.controller = new Controller(component, ij);
+ij.setController(component.controller);
 
 component.renderer.template.addClassPrefix("columnHeader",
                                            "c");

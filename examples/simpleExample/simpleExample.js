@@ -178,6 +178,15 @@ var Controller = {
     initialize : function(parent, core){
         this.component = parent;
         this.core = core;
+        this.ui = new enioka.ij.IIJControllerUI(this,
+                                                document.getElementById("matrix_controls"),
+                                                { "refresh" :
+                                                  {
+                                                      "label" : "refresh",
+                                                      "classes" : ["btn", "btn-primary"]
+                                                  }
+                                                });
+        console.log(this.ui);
     },
 
     onCellHover : function(event){
@@ -272,13 +281,14 @@ Aggregator = Class.extend(enioka.ij.IIJAggregator, Aggregator);
 
 var component = new Component();
 var ij = new enioka.ij.Core();
-component.controller = new Controller(component);
 component.renderer = new Renderer(component);
 component.dataprovider = new DataProvider(component);
 
-ij.setController(component.controller);
 ij.setDataProvider(component.dataprovider);
 ij.setRenderer(component.renderer);
+
+component.controller = new Controller(component, ij);
+ij.setController(component.controller);
 
 component.renderer.template.addClassPrefix("columnHeader",
     "c");
