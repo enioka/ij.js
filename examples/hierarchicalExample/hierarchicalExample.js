@@ -1,8 +1,15 @@
-var Component = {
-    initialize : function(parent){
+var ij = new enioka.ij.Core();
+
+//
+// DataProvider
+//
+
+
+var DataProvider = {
+    initialize : function(){
     },
 
-    getRows : function(){
+    getRows : function(filter){
         var objects = new Array(),
             number =10,
             possible = "abcdefghijk";
@@ -16,7 +23,7 @@ var Component = {
         return objects;
     },
 
-    getColumns : function(){
+    getColumns : function(filter){
         var objects = new Array(),
             number = Math.random() * (50 - 10) + 10,
             possible = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -28,29 +35,6 @@ var Component = {
         }
         this.columns = objects;
         return objects;
-    }
-};
-
-Component = Class.create(Component);
-
-
-//
-// DataProvider
-//
-
-
-var DataProvider = {
-    initialize : function(parent){
-        this.component = parent;
-        this.aggregator = new Aggregator();
-    },
-
-    getRows : function(filter){
-        return this.component.getRows();
-    },
-
-    getColumns : function(filter){
-        return this.component.getColumns();
     },
 
     getData : function(rowsObjects, columnsObjects, filter, spec){
@@ -78,18 +62,26 @@ var DataProvider = {
 
 DataProvider = Class.extend(enioka.ij.IIJDataProvider, DataProvider);
 
-var Random2 = {
-    initialize : function(parent){
-        this.component = parent;
-        this.aggregator = new Aggregator();
+var RandomColumnsOnly = {
+    initialize : function(){
     },
 
     getRows : function(filter){
-        return this.component.getRows();
+        return ["k","z","5","l","9","3","z","n","f","y"];
     },
 
     getColumns : function(filter){
-        return this.component.getColumns();
+        var objects = new Array(),
+            number = Math.random() * (50 - 10) + 10,
+            possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+        for (var i = 0; i < number; i++) {
+            var text = "";
+            for( var j=0; j < (Math.random() * (10 - 3) + 3); j++ )
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            objects.push(text);
+        }
+        this.columns = objects;
+        return objects;
     },
 
     getData : function(rowsObjects, columnsObjects, filter, spec){
@@ -115,16 +107,24 @@ var Random2 = {
     }
 };
 
-Random2 = Class.extend(enioka.ij.IIJDataProvider, Random2);
+RandomColumnsOnly = Class.extend(enioka.ij.IIJDataProvider, RandomColumnsOnly);
 
-var Random = {
-    initialize : function(parent){
-        this.component = parent;
-        this.aggregator = new Aggregator();
+var RandomRowsOnly = {
+    initialize : function(){
     },
 
     getRows : function(filter){
-        return [1,2,3,4,5,6,7,8,9];
+        var objects = new Array(),
+            number = Math.random() * (50 - 10) + 10,
+            possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+        for (var i = 0; i < number; i++) {
+            var text = "";
+            for( var j=0; j < (Math.random() * (10 - 3) + 3); j++ )
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            objects.push(text);
+        }
+        this.columns = objects;
+        return objects;
     },
 
     getColumns : function(filter){
@@ -154,7 +154,7 @@ var Random = {
     }
 };
 
-Random = Class.extend(enioka.ij.IIJDataProvider, Random);
+RandomRowsOnly = Class.extend(enioka.ij.IIJDataProvider, RandomRowsOnly);
 
 
 //
@@ -163,8 +163,7 @@ Random = Class.extend(enioka.ij.IIJDataProvider, Random);
 
 
 var Renderer = {
-    initialize : function(parent){
-        this.component = parent;
+    initialize : function(){
         this.renderer = new enioka.ij.HTMLRenderer();
         this.template = new enioka.ij.HTMLTemplate();
     },
@@ -342,8 +341,7 @@ Renderer = Class.extend(DefaultHTMLRenderer, Renderer);
 
 var Controller = {
 
-    initialize : function(parent, core){
-        this.component = parent;
+    initialize : function(core){
         this.core = core;
         this.ui = new enioka.ij.IIJControllerUI(this,
                                                 document.getElementById("matrix_controls"),
@@ -387,8 +385,8 @@ var Controller = {
                                                   "updateDataProvider" : {
                                                       "label" : "Data Provider",
                                                       "type" : "select",
-                                                      "options" : ["Random", "Random2"],
-                                                      "values" : [Random, Random2],
+                                                      "options" : ["Default","Random Columns", "Random Rows"],
+                                                      "values" : [DataProvider,RandomColumnsOnly,RandomRowsOnly],
                                                       "classes" : ["form-control"]
                                                   }
                                                 });
@@ -405,16 +403,16 @@ var Controller = {
             );
             for (var j = 0; j < elements.length; j++){
                 if (elements[j].tagName == "TD")
-                    this.component.renderer.setCSSProperty("background-color",
+                    this.core.renderer.setCSSProperty("background-color",
                                                            elements[j],
                                                            "#e3e3e3");
                 else if (elements[j].tagName == "TH")
-                    this.component.renderer.setCSSProperty("background-color",
+                    this.core.renderer.setCSSProperty("background-color",
                                                            elements[j],
                                                            "#d77b18");
             }
         }
-        this.component.renderer.setCSSProperty("background-color",
+        this.core.renderer.setCSSProperty("background-color",
                                                event.target,
                                                "#d77b18");
     },
@@ -434,14 +432,14 @@ var Controller = {
             );
             for (var j = 0; j < elements.length; j++){
                 if (elements[j].tagName == "TD")
-                    this.component.renderer.emptyCSSProperty("background-color",
+                    this.core.renderer.emptyCSSProperty("background-color",
                                                              elements[j]);
                 else if (elements[j].tagName == "TH")
-                    this.component.renderer.emptyCSSProperty("background-color",
+                    this.core.renderer.emptyCSSProperty("background-color",
                                                              elements[j]);
             }
         }
-        this.component.renderer.emptyCSSProperty("background-color",
+        this.core.renderer.emptyCSSProperty("background-color",
                                                  event.target);
     },
 
@@ -463,51 +461,23 @@ var Controller = {
 Controller = Class.extend(enioka.ij.IIJController, Controller);
 
 
-//
-//Aggregator
-//
-
-
-var Aggregator = {
-
-    initialize : function(parent){
-        this.component = parent;
-    },
-
-    aggregateData : function(rowsObjects, columnsObjects, filter) {
-        var result = new Array();
-        for (var i = 0; i < rowsObjects.length; i++){
-            var rowId = this.component.view.getID(rowsObjects[i]);
-            for (var j = 0; j < columnsObjects.length; j++){
-                var columnId = this.component.view.getID(columnsObjects[j]);
-                if (this.component.matrix[rowId] && this.component.matrix[rowId][columnId])
-                    result = result.concat(this.component.matrix[rowId][columnId]);
-            }
-        }
-        return result;
-    }
-};
-Aggregator = Class.extend(enioka.ij.IIJAggregator, Aggregator);
-
-
-var component = new Component();
 var ij = new enioka.ij.Core();
-component.renderer = new Renderer(component, ij);
-component.dataprovider = new DataProvider(component, ij);
+var renderer = new Renderer(ij);
+var dataprovider = new DataProvider(ij);
 
-ij.setDataProvider(component.dataprovider);
-ij.setRenderer(component.renderer);
+ij.setDataProvider(dataprovider);
+ij.setRenderer(renderer);
 
-component.controller = new Controller(component, ij);
-ij.setController(component.controller);
+controller = new Controller(ij);
+ij.setController(controller);
 
-component.renderer.template.addClassPrefix("columnHeader",
+renderer.template.addClassPrefix("columnHeader",
                                            "c");
-component.renderer.template.addClassPrefix("rowHeader",
+renderer.template.addClassPrefix("rowHeader",
                                            "r");
-component.renderer.template.addIdPrefix("columnHeader",
+renderer.template.addIdPrefix("columnHeader",
                                         "c");
-component.renderer.template.addIdPrefix("rowHeader",
+renderer.template.addIdPrefix("rowHeader",
                                         "r");
 
 ij.setWorkspace(document.getElementById("matrix"));
