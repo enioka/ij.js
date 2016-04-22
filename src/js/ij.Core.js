@@ -240,7 +240,7 @@ enioka.ij = (
                                     delete renderedObjects[i][j].object;
                                 }
                                 //check if there is property to hide summaries
-                                if (renderedObjects[i][j].hasSummary) {
+                                if (renderedObjects[i][j].hasSummary && !this.hideSummaries) {
                                     var summary =
                                         this.renderer.renderSummary(renderedObjects[i][j],
                                                                     type);
@@ -332,17 +332,19 @@ enioka.ij = (
              * @description sort tree by order property
              * @return tree sorted by order property
              */
-            orderRenderedTree: function (renderedTree) {
+            orderRenderedTree: function (renderedTree, orderProperty) {
+                if (!orderProperty)
+                    orderProperty = "order";
                 var start = new Date();
                 var ordered = new Array(),
                     root = new Array();
                 for (var id in renderedTree) {
-                    if (!ordered[renderedTree[id].order])
-                        ordered[renderedTree[id].order] = new Array();
-                    ordered[renderedTree[id].order].push(renderedTree[id]);
+                    if (!ordered[renderedTree[id][orderProperty]])
+                        ordered[renderedTree[id][orderProperty]] = new Array();
+                    ordered[renderedTree[id][orderProperty]].push(renderedTree[id]);
                     if (renderedTree[id].children)
                         renderedTree[id].children =
-                        this.orderRenderedTree(renderedTree[id].children);
+                        this.orderRenderedTree(renderedTree[id].children, orderProperty);
                 }
                 if (ordered["-1"])
                     root = root.concat(this.alphabeticalSort(ordered["-1"]));
@@ -359,7 +361,7 @@ enioka.ij = (
              * @return {Array} sorter aphabetically on label object property
              */
             alphabeticalSort: function (array) {
-                if (this.sort)
+                if (this.sortAlphabetically)
                 return array.sort(
                     function compare(a, b) {
                         if (a.label < b.label)
@@ -437,7 +439,8 @@ enioka.ij = (
                             renderedColumns,
                             "columnHeader"
                         );
-                    renderedColumns = this.orderRenderedTree(renderedColumns);
+                    if (this.sortColumns)
+                        renderedColumns = this.orderRenderedTree(renderedColumns);
                 } else if (this.columns && this.columns.rendering) {
                     var renderedColumns = this.columns.rendering;
                 } else {
@@ -558,7 +561,8 @@ enioka.ij = (
                             ),
                             "rowHeader"
                         );
-                    renderedRows = this.orderRenderedTree(renderedRows);
+                    if (this.sortRows)
+                        renderedRows = this.orderRenderedTree(renderedRows);
                 } else if (this.rows && this.rows.rendering) {
                     var renderedRows = this.rows.rendering;
                 } else {
