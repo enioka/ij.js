@@ -567,8 +567,7 @@ enioka.ij = (
                             renderedColumns,
                             "columnHeader"
                         );
-                    if (this.sortColumns)
-                        renderedColumns = this.orderRenderedTree(renderedColumns);
+                    renderedColumns = this.orderRenderedTree(renderedColumns);
                 } else if (this.columns && this.columns.rendering) {
                     renderedColumns = this.columns.rendering;
                 } else {
@@ -689,8 +688,7 @@ enioka.ij = (
                             ),
                             "rowHeader"
                         );
-                    if (this.sortRows)
-                        renderedRows = this.orderRenderedTree(renderedRows);
+                    renderedRows = this.orderRenderedTree(renderedRows);
                 } else if (this.rows && this.rows.rendering) {
                     renderedRows = this.rows.rendering;
                 } else {
