@@ -73,7 +73,7 @@ enioka.ij = (
             },
 
             appendChild : function(element, child, prepend){
-                var children = new Array();
+                var children = [];
                 //prepend function
                 if (prepend) {
                     while (element.firstChild) {

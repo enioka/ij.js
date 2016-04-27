@@ -28,7 +28,7 @@ enioka.ij = (
                         dsvDataProvider.matrix = dsvDataProvider._chewData(fileLines);
                         console.log("data chewed");
                     }
-                }
+                };
 
                 xmlhttp.open("GET", url, false);
                 xmlhttp.send();
@@ -40,7 +40,7 @@ enioka.ij = (
              * @return path
              */
             getData : function(rowsObjects, columnsObjects, filter){
-                var returned = new Array();
+                var returned = [];
                 for (var row = 0; row < rowsObjects.length; row++){
                     for (var column = 0; column < columnsObjects.length; column++){
                         returned.push(this.matrix[rowsObjects[row]][columnsObjects[column]]);
@@ -85,27 +85,27 @@ enioka.ij = (
             },
 
             _chewData : function(lines) {
-                this.rows = new Array;
-                this.columns = new Array();
-                var matrix = new Array();
+                this.rows = [];
+                this.columns = [];
+                var matrix = [];
                 //for each line
                 for (var r = this.columnDepth; r < lines.length; r++) {
                     //line object name
-                    var row = new Array();
+                    var row = [];
                     for (var i = 0; i < this.rowDepth; i++) {
                         row.push(lines[r][i]);
                     }
                     row = row.join(",");
                     this.rows.push(row);
                     for (var c = this.rowDepth; c < lines[r].length; c++){
-                        var column = new Array();
-                        for (var i = 0; i < this.columnDepth; i++) {
+                        var column = [];
+                        for (i = 0; i < this.columnDepth; i++) {
                             column.push(lines[i][c]);
                         }
                         column = column.join(",");
                         this.columns[c - this.rowDepth] = column;
                         if (!matrix[row])
-                            matrix[row] = new Array();
+                            matrix[row] = [];
                         matrix[row][column] = lines[r][c] || null;
                     }
                 }

@@ -64,38 +64,33 @@ describe("Core", function(){
                 renderer:new TestHTMLRenderer()
             });
             renderedRows = ij.getRenderedRows(rows);
+            renderedTree = ij.buildRenderedTree(renderedRows, type);
             type = "rowHeaders";
         });
 
         it("Can build tree from renderedObjects", function() {
-            renderedTree = ij.buildRenderedTree(renderedRows, type);
             expect(renderedTree.length).toEqual(1);
             expect(renderedTree[0].children.length).toEqual(2);
             expect(renderedTree[0].children[1].children.length).toEqual(3);
         });
 
         it("Doesn't sort alphabetically without alphabeticalSort property", function() {
-            renderedTree = ij.buildRenderedTree(renderedRows, type);
             renderedTree = ij.orderRenderedTree(renderedTree);
             expect(renderedTree[0].children[1].children[1].label).toBe("row5");
         });
 
         it("Does sort with alphabeticalSort property", function() {
             ij.set("sortAlphabetically",true);
-            renderedTree = ij.buildRenderedTree(renderedRows, type);
             renderedTree = ij.orderRenderedTree(renderedTree);
             expect(renderedTree[0].children[1].children[1].label).toBe("row4");
         });
 
         it("Can order tree with a custom property", function() {
-            renderedTree = ij.buildRenderedTree(renderedRows, type);
             renderedTree = ij.orderRenderedTree(renderedTree, "orderByNumber");
-            console.log(renderedTree);
             expect(renderedTree[0].children[1].children[1].label).toBe("row4");
         });
 
         it("Get tree depth", function() {
-            renderedTree = ij.buildRenderedTree(renderedRows, type);
             var depth = ij.getTreeDepth(renderedTree);
             expect(depth).toBe(3);
         });
