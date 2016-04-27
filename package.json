@@ -1,0 +1,16 @@
+{
+    "name": "ij.js",
+    "version": "0.1.0",
+    "repository" : {
+        "type" : "git",
+        "url" : "https://github.com/enioka/ij.js"
+    },
+    "private": true,
+    "license" : "GNU",
+    "author" : "enioka contact@enioka.com (http://enioka.com)",
+    "contributors" : ["Marin Procureur <mpr@enioka.com>"],
+    "devDependencies": {
+        "grunt": "*",
+        "grunt-contrib-uglify": "*"
+    }
+}
