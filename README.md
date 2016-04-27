@@ -1,4 +1,5 @@
-# ij.js
+![Build Status](https://travis-ci.org/enioka/ij.js.svg?branch=master)](https://travis-ci.org/enioka/ij.js)
+# ij.js 
 An open source html viewer that lets you browse graph or pivot table matrix data in row/columns.
 
 ij.js handles for you the display and navigation in a matrix representation of your data. Your data can be graph based data to represent paths between two sets of nodes, or multidimensionnal data with dimensions as rows and columns.
