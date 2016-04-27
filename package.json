@@ -1,5 +1,5 @@
 {
-    "name": "ij.js",
+    "name": "ij",
     "version": "0.1.0",
     "repository" : {
         "type" : "git",
@@ -11,6 +11,9 @@
     "contributors" : ["Marin Procureur <mpr@enioka.com>"],
     "devDependencies": {
         "grunt": "*",
-        "grunt-contrib-uglify": "*"
+        "grunt-contrib-uglify": "*",
+        "grunt-contrib-jasmine": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-concat": "*"
     }
 }

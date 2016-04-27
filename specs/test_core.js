@@ -90,7 +90,6 @@ describe("Core", function(){
         it("Can order tree with a custom property", function() {
             renderedTree = ij.buildRenderedTree(renderedRows, type);
             renderedTree = ij.orderRenderedTree(renderedTree, "orderByNumber");
-            console.log(renderedTree);
             expect(renderedTree[0].children[1].children[1].label).toBe("row4");
         });
 

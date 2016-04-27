@@ -94,12 +94,6 @@ var DefaultHTMLRenderer = {
         return element.style.setProperty(property, "");
     },
 
-    clearOutput : function(output) {
-        while (output.firstChild) {
-            output.removeChild(output.firstChild);
-        }
-    },
-
     _getSummaryHoverCell : function(cellData) {
         return this.renderer.createElementWithText("p","There is " + cellData + " characters shared").outerHTML;
     },

@@ -1,3 +1,129 @@
+/*! ij - v0.1.0 - 2016-04-27 */
+var enioka = (enioka || {});
+
+enioka.ij = (
+    function (eniokaij) {
+
+        /**
+         * @class
+         * @memberof enioka.ij.Core
+         * @classdesc DataHeader will be used to store cells at intersections.
+         */
+        var DataCell = {
+            initialize : function() {
+            },
+
+            /**
+             * @member
+             * @memberof enioka.ij.Core.DataCell
+             */
+            row : null,
+            /**
+             * @member
+             * @memberof enioka.ij.Core.DataCell
+             */
+            column : null,
+            /**
+             * @member
+             * @memberof enioka.ij.Core.DataCell
+             */
+            object : null,
+            /**
+             * @member
+             * @memberof enioka.ij.Core.DataCell
+             */
+            state : null,
+
+            /**
+             * @function
+             */
+            setState : function(state){
+                this.state = state;
+            },
+
+            /**
+             * @function
+             */
+            getState : function(){
+                return this.state;
+            }
+        };
+        //Instanciate the DataCell Class into an object
+        DataCell = Class.create(DataCell);
+
+        //set the DataCell available to the user
+        eniokaij.DataCell = DataCell;
+
+        return eniokaij;
+    }(enioka.ij || {})
+);
+
+var enioka = (enioka || {});
+
+enioka.ij = (
+    function (eniokaij) {
+        /**
+         * @class
+         * @memberof enioka.ij
+         * @classdesc state object containing everything related to graphical
+         * interpretation
+         */
+        var State = {
+            initialize : function() {
+            }
+        };
+        //Instanciate the State Class into an object
+        State = Class.create(State);
+
+        //set the State available to the user
+        eniokaij.State = State;
+
+        return eniokaij;
+    }(enioka.ij || {})
+);
+
+var enioka = (enioka || {});
+
+enioka.ij = (
+    function (eniokaij) {
+        /**
+         * @class
+         * @memberof enioka.ij.Core
+         * @classdesc DataHeader will be used to store headers for rows and columns after
+         * being retrieved by the DataProvider module and instanciated by the Core.
+         */
+        var DataHeader = {
+            initialize : function() {
+            },
+
+            /**
+             * @function
+             * @description Set a new state for the object
+             * @param {State} state - State object
+             */
+            setState : function(state){
+                this.state = state;
+            },
+
+            /**
+             * @function
+             * @description get the current object state
+             * @return {State}
+             */
+            getState : function(){
+                return this.state;
+            }
+        };
+        //Instanciate the DataHeader Class into an object
+        DataHeader = Class.create(DataHeader);
+
+        //set the DataHeader available to the user
+        eniokaij.DataHeader = DataHeader;
+
+        return eniokaij;
+    }(enioka.ij || {})
+);
+
 var enioka = (enioka || {});
 
 /**
@@ -1417,6 +1543,557 @@ enioka.ij = (
 
         // And the capability to extend these predefined classes
         eniokaij.extend = Class.extend;
+
+        return eniokaij;
+    }(enioka.ij || {})
+);
+
+var enioka = (enioka || {});
+
+enioka.ij = (
+    function(eniokaij){
+
+        /**
+         * @class
+         * @memberof enioka.ij
+         * @classdesc Handle any interactions with external component by a list of predefined API
+         * like create, update, etc.
+         * <br/>
+         */
+        var IIJController = {
+            initialize : function(core){
+            },
+
+            /**
+             * @function
+             * @description on cellHover
+             * @param event HTMLEvent
+             * @param cellData cellData as provided by the DataProvider
+             */
+            onCellHover : function(event, cellData){
+            },
+
+            /**
+             * @function
+             * @description on cellClick
+             * @param event HTMLEvent
+             * @param cellData cellData as provided by the DataProvider
+             */
+            onCellClick : function(event, cellData){
+            },
+
+            /**
+             * @function
+             * @description on cellOut
+             * @param event HTMLEvent
+             * @param cellData cellData as provided by the DataProvider
+             */
+            onCellOut : function(event, cellData){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param event HTMLEvent
+             * @param headerNode {Object} provided by the core (properties can be accessed by calling core functions)
+             */
+            onHeaderHover : function(event, headerNode){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param event HTMLEvent
+             * @param headerNode {Object} provided by the core (properties can be accessed by calling core functions)
+             */
+            onHeaderOut : function(event, headerNode){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param event
+             * @param headerNode {Object} provided by the core (properties can be accessed by calling core functions)
+             */
+            onHeaderClick : function(event, headerNode){
+            },
+            /**
+             * @function
+             * @description
+             * @param filter {String}
+             */
+            onGraphicalRowFilter : function(filter) {
+            }
+        };
+        IIJController = Class.create(IIJController);
+
+
+        eniokaij.IIJController = IIJController;
+
+
+        // And the capability to extend these predefined classes
+        eniokaij.extend = Class.extend;
+
+        // That's all folks
+        return eniokaij;
+    }(enioka.ij || {})
+);
+
+var enioka = (enioka || {});
+
+enioka.ij = (
+    function (eniokaij) {
+        /**
+         * @class
+         * @memberof enioka.ij.IIJDataProvider
+         * @classdesc Will handle aggregation for rows, columns & cells. This is data part
+         */
+        var Aggregator = {
+
+            /**
+             * @function
+             */
+            initialize : function() {
+            },
+
+            /**
+             * @function
+             * @description
+             * @param {Array} rowsObjects
+             * @param {Array} columnsObjects
+             * @param {String} filter
+             * @returns {Array} data
+             */
+            aggregateData : function(rowsObjects, columnsObjects, filter) {
+            }
+        };
+        //Instanciate the IMatrixRenderer Class into an object
+        Aggregator = Class.create(Aggregator);
+
+        eniokaij.Aggregator = Aggregator;
+
+
+        return eniokaij;
+    }(enioka.ij || {})
+);
+
+var enioka = (enioka || {});
+
+enioka.ij = (
+    function (eniokaij) {
+
+        /**
+         * @class
+         * @memberof enioka.ij
+         * @classdesc  This is the interface to handle data retrieving and will work
+         * through only three methods calling callbacks.
+         * <br/>
+         * <br/>
+         */
+        var IIJDataProvider = {
+            initialize : function() {
+            },
+
+            /**
+             * @function
+             * @description getData will retrieve a sparse matrix given by dataCallBack function
+             * @return sparse matrix containing paths.
+             */
+            getData : function(){
+            },
+
+            /**
+             * @function
+             * @description getRows will retrieve an array of objects that will be instanciated
+             * as DataHeader
+             * @return rows.
+             */
+            getRows : function(){
+            },
+
+            /**
+             * @function
+             * @description getColumns will retrieve an array of objects that will be
+             * instanciated as DataHeader
+             * @return columns.
+             */
+            getColumns : function(){
+            },
+
+            /**
+             * @function
+             * @description Will retrieve an intersection objects. This method implementation is optional.
+             * @param row object
+             * @param column object
+             * @return objects in intersection.
+             */
+            getIntersection : function(row, column){
+            },
+
+            /**
+             * @function
+             * @description Will retrieve father id of an object.
+             * @param object from which we want to get sons from.
+             * @return object sons.
+             */
+            getParentId : function(object){
+            },
+
+            /**
+             * @function
+             * @description Will retrieve id of an object.
+             * @param object from which we want to get sons from.
+             * @return object sons.
+             */
+            getId : function(object){
+            }
+        };
+        IIJDataProvider = Class.create(IIJDataProvider);
+
+        eniokaij.IIJDataProvider = IIJDataProvider;
+
+        // That's all folks
+        return eniokaij;
+    }(enioka.ij || {})
+);
+
+var enioka = (enioka || {});
+
+enioka.ij = (
+    function (eniokaij) {
+        /**
+         * @class
+         * @memberof enioka.ij.IIJRenderer
+         * @classdesc Will generate html with predefined functions
+         */
+        var HTMLRenderer = {
+            initialize : function() {
+
+            },
+
+            /**
+             * @function
+             * @description Add classes to the element given in parameter
+             * @param element html element to add the class to
+             * @param classes as an array
+             * @return element with new classes
+             */
+            addClasses : function(element, classes, reset){
+                if (reset)
+                    element.className = "";
+                if (classes)
+                    for (var i = 0; i < classes.length;i++){
+                        element.classList.add(classes[i]);
+                    }
+                return element;
+            },
+
+            addAttribute : function(element, attributeName, attributeValue) {
+                element.setAttribute(attributeName, attributeValue);
+                return element;
+            },
+
+            /**
+             * @param element
+             * @param attributeName
+             * @param attributeValue
+             */
+            addCSS : function(element, attributeName, attributeValue) {
+                element.style[attributeName] = attributeValue;
+                return element;
+            },
+            /**
+             * @function
+             * @description Create HTML element with text inside
+             * @param element name of the HTML statement
+             * @param text to add in the HTML statement
+             * @param classes as an array
+             * @return element
+             */
+            createElementWithText : function(element, text, classes){
+                var htmlElement = this.createElement(element, classes),
+                    htmlText = document.createTextNode(text);
+                htmlElement.appendChild(htmlText);
+                return htmlElement;
+            },
+
+            /**
+             * @function
+             * @description Create HTML element
+             * @param element name of the HTML statement
+             * @param classes as an array
+             * @return element
+             */
+            createElement : function(element, classes){
+                var htmlElement = document.createElement(element);
+                if (classes)
+                    this.addClasses(htmlElement, classes);
+                return htmlElement;
+            },
+
+            appendChild : function(element, child, prepend){
+                var children = [];
+                //prepend function
+                if (prepend) {
+                    while (element.firstChild) {
+                        children.push(element.firstChild);
+                        element.removeChild(element.firstChild);
+                    }
+                    element.appendChild(child);
+                    for (var i = 0; i < children.length; i++){
+                        element.appendChild(children[i]);
+                    }
+                    return element;
+                }
+                return element.appendChild(child);
+            }
+        };
+        HTMLRenderer = Class.create(HTMLRenderer);
+
+        //Load subclasses for MatrixRenderer
+        eniokaij.HTMLRenderer = HTMLRenderer;
+
+        return eniokaij;
+    }(enioka.ij || {})
+);
+
+var enioka = (enioka || {});
+
+enioka.ij = (
+    function (eniokaij) {
+        /**
+         * @class
+         * @memberof enioka.ij.IIJRenderer
+         * @classdesc HTMLTemplate module is part of HTMLRenderer to allow customisation
+         * to the user, add classes to cells, table, headers, etc.
+         * <br/>
+         */
+        var HTMLTemplate = {
+            initialize : function() {
+                this.template = {};
+            },
+
+            /**
+             * @function
+             * @description add classes to a html element or to another predefined statements
+             * @param elementType either HTML statement or one of the predefined statements
+             * @param classes as an array
+             */
+            addClassPrefix : function(elementType, classPrefix){
+                if (!this.template[elementType])
+                    this.template[elementType] = {};
+                this.template[elementType].classPrefix = classPrefix;
+            },
+
+            /**
+             * @function
+             * @description add an id pattern for a html element or to another predefined
+             * statement
+             * @param elementType either HTML statement or one of the predefined statements
+             * @param pattern is an id pattern (has to be defined)
+             */
+            addIdPrefix : function(elementType, idPrefix){
+                if (!this.template[elementType])
+                    this.template[elementType] = {};
+                this.template[elementType].idPrefix = idPrefix;
+            },
+
+            getAttribute : function(elementType, propertyName){
+                if (this.template[elementType])
+                    return this.template[elementType][propertyName];
+                else
+                    return null;
+            }
+        };
+        //Instanciate the HTMLTemplate Class into an object
+        HTMLTemplate = Class.create(HTMLTemplate);
+
+        eniokaij.HTMLTemplate = HTMLTemplate;
+
+        return eniokaij;
+    }(enioka.ij || {})
+);
+
+var enioka = (enioka || {});
+
+enioka.ij = (
+    function (eniokaij) {
+        /**
+         * @class
+         * @memberof enioka.ij
+         * @classdesc will handle rendering with two modules, HTMLRenderer and
+         * HTMLEventHandler. It generates an HTML table with an HTMLTemplate to design
+         * classes, attributes, and style for each important parts of the table.
+         * @param {object} properties
+         */
+        var IIJRenderer = {
+
+            initialize : function(){
+                this.renderer = new enioka.ij.HTMLRenderer();
+                this.template = new enioka.ij.HTMLTemplate();
+            },
+
+            /**
+             * @function
+             * @description Render rows Container where all the rows will be appened to
+             * @return {HTMLElement}
+             */
+            renderRowsContainer : function(){
+            },
+
+            /**
+             * @function
+             * @description Render row and get back its fathers. By default no father is given
+             * @return {Array} Contains hierarchical structure for the row headers, with
+             * following attributes : <br/> - id<br/> - label<br/> - order<br/> - rendering <br/> and what you may need
+             */
+            renderRow : function(rowObject){
+            },
+
+            applyRowSpan : function(renderedObject, property){
+            },
+
+            applyColSpan : function(renderedObject, property){
+            },
+
+            /**
+             * @function
+             * @description Render row container where a row will be append to
+             * @return {HTMLElement}
+             */
+            renderRowContainer : function(){
+            },
+
+            renderSubTotalHeader : function(label){
+            },
+
+            /**
+             * @function
+             * @description Render row and get back its fathers. By default no father is given
+             * @return {Array} Contains hierarchical structure for the column headers, with following attributes :
+             *  - id
+             *  - label
+             *  - order
+             *  - rendering
+             */
+            renderColumn : function(columnObject) {
+            },
+
+            /**
+             * @function
+             * @description Render Left upper corner, essential for a well displayed HTML Table
+             * @return {HTMLElement}
+             */
+            renderLeftUpperCorner : function(){
+            },
+
+            /**
+             * @function
+             * @description Render Left upper corner, essential for a well displayed HTML Table
+             * @return {HTMLElement}
+             */
+            renderColumnsLevelContainer : function(){
+            },
+
+            /**
+             * @function
+             * @description Render a columns container in which all the columns will be appened to
+             * @return {HTMLElement}
+             */
+            renderColumnsContainer : function(){
+            },
+
+            /**
+             * @function
+             * @description Render cell
+             */
+            renderCell : function(row, column, cellData){
+            },
+
+            /**
+             * @function
+             * @description render container for all rendered objects. Core will put together
+             * all rendered object in a sigle one ; this one.
+             * @return {HTMLElement}
+             */
+            renderContainer : function(){
+            },
+
+            setCSSProperty : function(property, element, propertyValue){
+            },
+
+            emptyCSSProperty : function(property, element){
+            },
+
+            addClasses : function(element, elementType, classes){
+            },
+
+
+            /**
+             * @function
+             * @description
+             * @param rendering
+             * @returns {*}
+             */
+            getRenderingId : function(rendering){
+                return rendering.id;
+            },
+
+            /**
+             * @function
+             * @description
+             * @param rendering
+             * @returns {DOMTokenList}
+             */
+            getRenderingClasses : function(rendering){
+                return rendering.classList;
+            },
+
+            setId : function(element, id){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param type
+             * @returns {*|string}
+             */
+            getClassPrefix : function(type){
+            },
+
+            /**
+             * @function
+             * @description
+             * @param type
+             * @returns {*|string}
+             */
+            getIdPrefix : function(type){
+            },
+
+            /**
+             * @function
+             * @description add eventsListeners for the rendering
+             * @param rendering {object}
+             * @param events {object} containing events available for the rendering following this partern :
+             *  - eventName : event
+             * @returns {Node|*}
+             */
+            addEventsToRendering : function(rendering, events){
+            },
+
+            /**
+             * @function
+             * @description clear output (DOM element or buffer)
+             * @param output {Object}
+             */
+            clearOutput : function(output) {
+            }
+        };
+        //Instanciate the IMatrixRenderer Class into an object
+        IIJRenderer = Class.create(IIJRenderer);
+
+        eniokaij.IIJRenderer = IIJRenderer;
+
 
         return eniokaij;
     }(enioka.ij || {})
