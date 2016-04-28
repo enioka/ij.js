@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for specs/test_core.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">specs/</a> test_core.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>138/138</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>44/44</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>138/138</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">describe("Core", function(){
+    describe("Can be set up", function(){
+        var ij;
+&nbsp;
+        beforeEach(function(){
+            ij = new enioka.ij.Core();
+        });
+&nbsp;
+        it("can be initialized without params", function(){
+            expect(ij instanceof enioka.ij.Core).toEqual(true);
+        });
+&nbsp;
+        it("can be assigned custom parameters", function(){
+            ij.set("customProperty",true);
+            expect(ij.customProperty).toEqual(true);
+        });
+&nbsp;
+        it("can be assigned custom parameters at the initialize", function(){
+            var ij = new enioka.ij.Core({
+                customProperty:true
+            });
+            expect(ij.get("customProperty")).toEqual(true);
+        });
+&nbsp;
+        it("can be init with parameters", function(){
+            ij.init({
+                test : "value"
+            });
+            expect(ij.get("test")).toEqual("value");
+        });
+&nbsp;
+        it("can set a workspace by default", function(){
+            ij.setWorkspace();
+            expect(ij.getWorkspace()).toBe(document.body);
+        });
+&nbsp;
+        it("can set a workspace (should be in the renderer)", function(){
+            ij.setWorkspace("");
+            expect(ij.getWorkspace()).toBe("");
+        });
+&nbsp;
+        it("can set a dataprovider by default", function(){
+            ij.setDataProvider();
+            expect(ij.dataprovider instanceof enioka.ij.IIJDataProvider).toBe(true);
+        });
+&nbsp;
+        it("can set a dataprovider", function(){
+            ij.setDataProvider(new enioka.ij.IIJDataProvider());
+            expect(ij.dataprovider instanceof enioka.ij.IIJDataProvider).toBe(true);
+        });
+&nbsp;
+        it("can set a renderer by default", function(){
+            ij.setRenderer();
+            expect(ij.renderer instanceof enioka.ij.IIJRenderer).toBe(true);
+        });
+&nbsp;
+        it("can set a renderer", function(){
+            ij.setRenderer(new enioka.ij.IIJRenderer());
+            expect(ij.renderer instanceof enioka.ij.IIJRenderer).toBe(true);
+        });
+&nbsp;
+        it("can set a controller by default", function(){
+            ij.setController();
+            expect(ij.controller instanceof enioka.ij.IIJController).toBe(true);
+        });
+&nbsp;
+        it("can set a controller", function(){
+            ij.setController(new enioka.ij.IIJController());
+            expect(ij.controller instanceof enioka.ij.IIJController).toBe(true);
+        });
+&nbsp;
+        it("can check mandatory components", function(){
+            ij.setController();
+            ij.setRenderer();
+            ij.setDataProvider();
+            ij.setWorkspace(document.body);
+            expect(ij._checkDependencies()).toBe(true);
+        });
+&nbsp;
+        describe("can fin missing components", function(){
+            beforeEach(function(){
+                ij = new enioka.ij.Core();
+            });
+&nbsp;
+            it("dataprovider", function(){
+                ij.setController();
+                ij.setRenderer();
+                ij.setWorkspace(document.body);
+                expect(ij._checkDependencies()).toBe(false);
+            });
+            it("renderer", function(){
+                ij.setController();
+                ij.setDataProvider();
+                ij.setWorkspace(document.body);
+                expect(ij._checkDependencies()).toBe(false);
+            });
+            it("controller", function(){
+                ij.setDataProvider();
+                ij.setRenderer();
+                ij.setWorkspace(document.body);
+                expect(ij._checkDependencies()).toBe(false);
+            });
+            it("workspace", function(){
+                ij.setController();
+                ij.setRenderer();
+                ij.setDataProvider();
+                expect(ij._checkDependencies()).toBe(false);
+            });
+        });
+    });
+&nbsp;
+    describe("Can get rendered objects", function(){
+        var core,
+            renderedObjects,
+            type,
+            renderedTree,
+            rows = ["row1,row2","row1,row2,row4","row1","row2,row5"],
+            columns = ["col1","col2","col2,col4","col5","col1,col5,col7"];
+&nbsp;
+        beforeEach(function(){
+            ij = new enioka.ij.Core({
+                hideSummaries:true,
+                renderer:new TestHTMLRenderer()
+            });
+            type = "rowHeaders";
+        });
+&nbsp;
+        it("Can renderRows", function(){
+            var renderedRows = ij.getRenderedRows(rows);
+            expect(renderedRows.length).toEqual(4);
+        });
+&nbsp;
+        it("Can control whether it has row to render and log it to the user", function(){
+            var renderedRows = ij.getRenderedRows();
+            expect(renderedRows.length).toEqual(0);
+        });
+&nbsp;
+        it("Can renderColumns", function(){
+            var renderedColumns = ij.getRenderedColumns(columns);
+            expect(renderedColumns.length).toEqual(5);
+        });
+    });
+&nbsp;
+    describe("Can work with rendered objects", function(){
+        var core,
+            renderedObjects,
+            type,
+            renderedTree,
+            rows = ["row1,row2","row1,row2,row5","row1","row2,row4"],
+            columns = ["col1","col2","col2,col4","col5","col1,col5,col7"],
+            renderedRows,
+            renderedColumns;
+&nbsp;
+        beforeEach(function(){
+            ij = new enioka.ij.Core({
+                hideSummaries:true,
+                renderer:new TestHTMLRenderer()
+            });
+            renderedRows = ij.getRenderedRows(rows);
+            renderedTree = ij.buildRenderedTree(renderedRows, type);
+            type = "rowHeaders";
+        });
+&nbsp;
+        it("Can build tree from renderedObjects", function() {
+            expect(renderedTree.length).toEqual(1);
+            expect(renderedTree[0].children.length).toEqual(2);
+            expect(renderedTree[0].children[1].children.length).toEqual(3);
+        });
+&nbsp;
+        it("Doesn't sort alphabetically without alphabeticalSort property", function() {
+            renderedTree = ij.orderRenderedTree(renderedTree);
+            expect(renderedTree[0].children[1].children[1].label).toBe("row5");
+        });
+&nbsp;
+        it("Does sort with alphabeticalSort property", function() {
+            ij.set("sortAlphabetically",true);
+            renderedTree = ij.orderRenderedTree(renderedTree);
+            expect(renderedTree[0].children[1].children[1].label).toBe("row4");
+        });
+&nbsp;
+        it("Can order tree with a custom property", function() {
+            renderedTree = ij.orderRenderedTree(renderedTree, "orderByNumber");
+            expect(renderedTree[0].children[1].children[1].label).toBe("row4");
+        });
+&nbsp;
+        it("Get tree depth", function() {
+            var depth = ij.getTreeDepth(renderedTree);
+            expect(depth).toBe(3);
+        });
+&nbsp;
+        it("Apply tree depth", function(){
+            var depth = ij.getTreeDepth(renderedTree);
+            var renderedObjectTree = ij.applyTreeDepth(renderedTree, depth);
+&nbsp;
+            expect(renderedObjectTree[0].children[0].depth).toEqual(2);
+        });
+&nbsp;
+        it("Get all children objects", function() {
+            var childrenObjects = ij._getObjectsFromTree(renderedTree);
+            expect(childrenObjects.length).toBe(4);
+        });
+&nbsp;
+        it("Get children objects grouped", function() {
+            var children = ij.getObjectsGrouped(renderedTree);
+            expect(children.length).toBe(4);
+        });
+    });
+&nbsp;
+    describe("Can work with summaries", function(){
+        var core,
+            renderedObjects,
+            type,
+            renderedTree,
+            rows = ["row1,row2","row1,row2,row4","row1","row2,row5"],
+            columns = ["col1","col2","col2,col4","col5","col1,col5,col7"];
+&nbsp;
+        beforeEach(function(){
+            ij = new enioka.ij.Core({
+                hideSummaries:false,
+                renderer:new TestHTMLRenderer()
+            });
+            renderedRows = ij.getRenderedRows(rows);
+            renderedTree = ij.buildRenderedTree(renderedRows, type);
+            type = "rowHeaders";
+        });
+&nbsp;
+        it("Can build a tree with summaries", function(){
+            expect(renderedTree[0].children.length).toBe(3);
+        });
+&nbsp;
+        it("Can populate those summaries", function(){
+            ij.populateSummaries(renderedTree);
+            console.log(renderedTree);
+            expect(renderedTree[0].children[1].object.length).toEqual(4);
+        });
+    });
+&nbsp;
+    describe("Has its own utils", function(){
+        var ij;
+&nbsp;
+        beforeEach(function(){
+            ij = new enioka.ij.Core({
+                sortAlphabetically:true
+            });
+        });
+&nbsp;
+        it("Sorts array alphabeticaly", function(){
+            var array = [{label : "c"},
+                         {label : "b"},
+                         {label : "b"},
+                         {label : "e"},
+                         {label : "c"},
+                         {label : "a"},
+                         {label : "d"}];
+            array = ij.alphabeticalSort(array);
+            expect(array).toEqual([{label : "a"},
+                                   {label : "b"},
+                                   {label : "b"},
+                                   {label : "c"},
+                                   {label : "c"},
+                                   {label : "d"},
+                                   {label : "e"}]);
+        });
+    });
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Apr 28 2016 16:09:16 GMT+0200 (CEST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

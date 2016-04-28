@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/inheritance.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">lib/</a> inheritance.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">57.14% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>36/63</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">39.53% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>17/43</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>6/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">58.49% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>31/53</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">50×</span>
+<span class="cline-any cline-yes">47×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49×</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-yes">46×</span>
+<span class="cline-any cline-yes">46×</span>
+<span class="cline-any cline-yes">46×</span>
+<span class="cline-any cline-yes">46×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">198×</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">162×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+  Class, version 2.7
+  Copyright (c) 2006, 2007, 2008, Alex Arnell &lt;alex@twologic.com&gt;
+  Licensed under the new BSD License. See end of file for full license terms.
+*/
+&nbsp;
+var Class = (function() {
+    var __extending = {};
+&nbsp;
+    return {
+        extend: function(parent, def) {
+            if (arguments.length == 1) { def = parent; parent = null; }
+            var func = function() {
+                if (arguments[0] ==  __extending) { return; }
+                this.initialize.apply(this, arguments);
+            };
+            if (typeof(parent) == 'function') {
+                func.prototype = new parent( __extending);
+            }
+            var mixins = [];
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (def &amp;&amp; def.include) {
+<span class="cstat-no" title="statement not covered" >                if (def.include.reverse) {</span>
+                    // methods defined in later mixins should override prior
+<span class="cstat-no" title="statement not covered" >                    mixins = mixins.concat(def.include.reverse());</span>
+                } else {
+<span class="cstat-no" title="statement not covered" >                    mixins.push(def.include);</span>
+                }
+<span class="cstat-no" title="statement not covered" >                delete def.include; </span>// clean syntax sugar
+            }
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (def) Class.inherit(func.prototype, def);
+            for (var i = 0; (mixin = mixins[i]); i++) {
+<span class="cstat-no" title="statement not covered" >                Class.mixin(func.prototype, mixin);</span>
+            }
+            return func;
+        },
+        mixin: <span class="fstat-no" title="function not covered" >function (dest, src, clobber) {</span>
+<span class="cstat-no" title="statement not covered" >            clobber = clobber || false;</span>
+<span class="cstat-no" title="statement not covered" >            if (typeof(src) != 'undefined' &amp;&amp; src !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                for (var prop in src) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (clobber || (!dest[prop] &amp;&amp; typeof(src[prop]) == 'function')) {</span>
+<span class="cstat-no" title="statement not covered" >                        dest[prop] = src[prop];</span>
+                    }
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            return dest;</span>
+        },
+        inherit: function(dest, src, fname) {
+            if (arguments.length == 3) {
+                var ancestor = dest[fname], descendent = src[fname], method = descendent;
+                descendent = function() {
+                    var ref = this.parent; this.parent = ancestor;
+                    var result = method.apply(this, arguments);
+                    ref ? <span class="branch-0 cbranch-no" title="branch not covered" >this.parent = ref </span>: delete this.parent;
+                    return result;
+                };
+                // mask the underlying method
+                descendent.valueOf = <span class="fstat-no" title="function not covered" >function() {</span> <span class="cstat-no" title="statement not covered" >return method; </span>};
+                descendent.toString = <span class="fstat-no" title="function not covered" >function() {</span> <span class="cstat-no" title="statement not covered" >return method.toString(); </span>};
+                dest[fname] = descendent;
+            } else {
+                for (var prop in src) {
+                    if (dest[prop] &amp;&amp; typeof(src[prop]) == 'function') {
+                        Class.inherit(dest, src, prop);
+                    } else {
+                        dest[prop] = src[prop];
+                    }
+                }
+            }
+            return dest;
+        },
+        singleton: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >            var args = arguments;</span>
+<span class="cstat-no" title="statement not covered" >            if (args.length == 2 &amp;&amp; args[0].getInstance) {</span>
+<span class="cstat-no" title="statement not covered" >                var klass = args[0].getInstance(__extending);</span>
+                // we're extending a singleton swap it out for it's class
+<span class="cstat-no" title="statement not covered" >                if (klass) { <span class="cstat-no" title="statement not covered" >args[0] = klass; </span>}</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return (<span class="fstat-no" title="function not covered" >function(args){</span></span>
+                // store instance and class in private variables
+<span class="cstat-no" title="statement not covered" >                var instance = false;</span>
+<span class="cstat-no" title="statement not covered" >                var klass = Class.extend.apply(args.callee, args);</span>
+<span class="cstat-no" title="statement not covered" >                return {</span>
+                    getInstance: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                        if (arguments[0] == __extending) <span class="cstat-no" title="statement not covered" >return klass;</span></span>
+<span class="cstat-no" title="statement not covered" >                        if (instance) <span class="cstat-no" title="statement not covered" >return instance;</span></span>
+<span class="cstat-no" title="statement not covered" >                        return (instance = new klass());</span>
+                    }
+                };
+            })(args);
+        }
+    };
+})();
+&nbsp;
+// finally remap Class.create for backward compatability with prototype
+Class.create = function() {
+    return Class.extend.apply(this, arguments);
+};
+&nbsp;
+/*
+  Redistribution and use in source and binary forms, with or without modification, are
+  permitted provided that the following conditions are met:
+  * Redistributions of source code must retain the above copyright notice, this list
+  of conditions and the following disclaimer.
+  * Redistributions in binary form must reproduce the above copyright notice, this
+  list of conditions and the following disclaimer in the documentation and/or other
+  materials provided with the distribution.
+  * Neither the name of typicalnoise.com nor the names of its contributors may be
+  used to endorse or promote products derived from this software without specific prior
+  written permission.
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+  THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+  OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+  TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Apr 28 2016 11:33:44 GMT+0200 (CEST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
