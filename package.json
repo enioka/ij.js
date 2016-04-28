@@ -13,6 +13,7 @@
         "grunt": "*",
         "grunt-contrib-uglify": "*",
         "grunt-contrib-jasmine": "*",
+        "grunt-template-jasmine-istanbul": "*",
         "grunt-contrib-jshint": "*",
         "grunt-contrib-concat": "*"
     }

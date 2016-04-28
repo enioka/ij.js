@@ -42,11 +42,32 @@ module.exports = function(grunt) {
 
         //test specs
         jasmine : {
-            src : ['lib/*.js','src/js/*.js','specs/**/*.js','src/js/defaultImplementations/**/*.js'],
-            options : {
-                specs : 'specs'
+            coverage : {
+                src : ['lib/*.js','src/js/*.js','specs/**/*.js','src/js/defaultImplementations/**/*.js'],
+                options : {
+                    specs : 'specs',
+                    template: require('grunt-template-jasmine-istanbul'),
+                    templateOptions: {
+                        coverage: 'coverage/coverage.json',
+                        report: [
+                            {
+                                type: 'html',
+                                options: {
+                                    dir: 'coverage/html'
+                                }
+                            }, {
+                                type: 'cobertura',
+                                options: {
+                                    dir: 'coverage/cobertura'
+                                }
+                            }, {
+                                type: 'text-summary'
+                            }
+                        ]
+                    }
+                }
             }
-        },
+        }
     });
 
     // Load the plugin that provides the "uglify" task.
