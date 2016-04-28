@@ -141,7 +141,7 @@ describe("Core", function(){
         });
     });
 
-    describe("Can work with rendered objects", function(){
+    describe("Can work with rendered objects (after creating a tree based on the hierarchy given by the user)", function(){
         var core,
             renderedObjects,
             type,
@@ -203,6 +203,21 @@ describe("Core", function(){
         it("Get children objects grouped", function() {
             var children = ij.getObjectsGrouped(renderedTree);
             expect(children.length).toBe(4);
+        });
+
+        it("Can find an object node from its id", function(){
+            ij.rows = {};
+            ij.rows.rendering = renderedTree;
+            var node = ij.getTreeNodeFromId("idrow2", "rowHeader");
+            expect(node).not.toBe(null);
+        });
+
+        it("Can delete a tree node", function(){
+            ij._deleteNode("idrow2", renderedTree);
+            ij.rows = {};
+            ij.rows.rendering = renderedTree;
+            var node = ij.getTreeNodeFromId("idrow2", "rowHeader");
+            expect(node).toBe(null);
         });
     });
 
