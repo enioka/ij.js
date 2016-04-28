@@ -43,9 +43,10 @@ module.exports = function(grunt) {
         //test specs
         jasmine : {
             coverage : {
-                src : ['lib/*.js','src/js/*.js','specs/**/*.js','src/js/defaultImplementations/**/*.js'],
+                src : ['src/js/*.js','specs/**/*.js','src/js/defaultImplementations/**/*.js'],
                 options : {
                     specs : 'specs',
+                    vendor : ['lib/*.js',],
                     template: require('grunt-template-jasmine-istanbul'),
                     templateOptions: {
                         coverage: 'coverage/coverage.json',
@@ -67,6 +68,15 @@ module.exports = function(grunt) {
                     }
                 }
             }
+        },
+
+        jsdoc : {
+            dist : {
+                src: ['src/js/*.js'],
+                options: {
+                    destination: 'doc'
+                }
+            }
         }
     });
 
@@ -75,9 +85,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-jsdoc');
 
     // Default task(s).
+    grunt.registerTask('doc', ['jsdoc']);
     grunt.registerTask('test', ['jshint','jasmine']);
     grunt.registerTask('default', ['concat','uglify']);
-
 };

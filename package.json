@@ -15,6 +15,7 @@
         "grunt-contrib-jasmine": "*",
         "grunt-template-jasmine-istanbul": "*",
         "grunt-contrib-jshint": "*",
-        "grunt-contrib-concat": "*"
+        "grunt-contrib-concat": "*",
+        "grunt-jsdoc": "*"
     }
 }

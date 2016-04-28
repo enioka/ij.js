@@ -1,4 +1,4 @@
-/*! ij - v0.1.0 - 2016-04-27 */
+/*! ij - v0.1.0 - 2016-04-28 */
 var enioka = (enioka || {});
 
 enioka.ij = (
@@ -201,7 +201,7 @@ enioka.ij = (
              */
             init: function (params) {
                 for (var attr in params) {
-                    this.params[attr] = params[attr];
+                    this[attr] = params[attr];
                 }
             },
             /**
@@ -211,11 +211,11 @@ enioka.ij = (
              * @return this object itself to allow chaining methods.
              */
             setWorkspace: function (workspace) {
-                console.log(workspace);
                 if (typeof workspace !== "undefined")
                     this.workspace = workspace;
                 else
                     this.workspace = document.body;
+                console.log("Set workspace : " + this.workspace);
                 return this;
             },
 
@@ -238,7 +238,7 @@ enioka.ij = (
                 if (typeof dataprovider !== "undefined")
                     this.dataprovider = dataprovider;
                 else
-                    this.dataprovider = new eniokaij.IIJDataProvider(this);
+                    this.dataprovider = new enioka.ij.IIJDataProvider(this);
                 return this.dataprovider;
             },
 
@@ -252,7 +252,7 @@ enioka.ij = (
                 if (controller)
                     this.controller = controller;
                 else
-                    this.controller = new eniokaij.IIJController(this);
+                    this.controller = new enioka.ij.IIJController(this);
                 return this.controller;
             },
 
@@ -266,7 +266,7 @@ enioka.ij = (
                 if (renderer)
                     this.renderer = renderer;
                 else
-                    this.renderer = new eniokaij.IIJRenderer(this);
+                    this.renderer = new enioka.ij.IIJRenderer(this);
                 return this;
             },
 
@@ -277,15 +277,24 @@ enioka.ij = (
              * @return {boolean} true or false if dependencies are wheter or not set
              */
             _checkDependencies: function () {
-                console.log("Something is missing : ");
-                console.log("Checking DataProvider : ", this.dataProvider);
-                console.log("Checking controller : ", this.controller);
-                console.log("Checking DataProvider : ", this.renderer);
-                console.log("Checking Workspace : ", this.workspace);
-                console.log("Checking DataHandler : ", this.dataHandler);
-                if (!this.renderer || !this.dataProvider || !this.dataHandler || !this.controller || !this.workspace) {
+                if (this.renderer === null) {
+                    console.log("No Renderer found, check your init");
+                    return false;
+                } else if(this.dataprovider === null) {
+                    console.log("No DataProvider found, check your init");
+                    return false;
+                } else if(this.controller === null) {
+                    console.log("No Controller found, check your init");
+                    return false;
+                } else if (this.workspace === null) {
+                    console.log("No workspace found, check your init");
                     return false;
                 } else {
+                    console.log("Here are your objects for the setup");
+                    console.log("Renderer : ", this.renderer);
+                    console.log("DataProvider : ", this.dataprovider);
+                    console.log("Controller : ", this.controller);
+                    console.log("Workspace : ", this.workspace);
                     return true;
                 }
             },
@@ -295,11 +304,14 @@ enioka.ij = (
              * @description
              */
             getRenderedRows: function (rows) {
+                if (!rows) {
+                    console.log("No rows provided");
+                    return [];
+                }
                 var rowsArray = [];
-                if (rows)
-                    for (var i = 0; i < rows.length; i++)
-                        rowsArray.push(this.renderer.renderRow(rows[i],
-                                                               i));
+                for (var i = 0; i < rows.length; i++)
+                    rowsArray.push(this.renderer.renderRow(rows[i],
+                                                           i));
                 return rowsArray;
             },
 
@@ -487,6 +499,7 @@ enioka.ij = (
              * @return {Array} sorter aphabetically on label object property
              */
             alphabeticalSort: function (array) {
+                console.log(array, this.sortAlphabetically);
                 if (this.sortAlphabetically)
                 return array.sort(
                     function compare(a, b) {
@@ -520,10 +533,15 @@ enioka.ij = (
                 return depth + 1;
             },
 
+            /**
+             * @function
+             * @description tree depth means the "depth" that your object would take in
+             * a table
+             */
             applyTreeDepth: function (renderedObjectTree, depth) {
-                var start = new Date();
                 for (var id in renderedObjectTree) {
-                    if (renderedObjectTree[id].children && renderedObjectTree[id].open === true) {
+                    if (renderedObjectTree[id].children &&
+                        renderedObjectTree[id].open === true) {
                         renderedObjectTree[id].depth = 1;
                         renderedObjectTree[id].children =
                             this.applyTreeDepth(renderedObjectTree[id].children, depth - 1);
@@ -540,10 +558,17 @@ enioka.ij = (
              */
             populateSummaries : function(treeNode){
                 for (var id in treeNode) {
-                    if (treeNode[id].hasSummary && treeNode[id].open === true){
-                        treeNode[id].children[treeNode[id].children.length - 1].object = [];
-                        var objects = this._getObjectsFromTree(treeNode[id].children, false);
-                        treeNode[id].children[treeNode[id].children.length - 1].object = objects;
+                    if (treeNode[id].hasSummary &&
+                        treeNode[id].children !== undefined &&
+                        treeNode[id].open === true){
+                        for (var i = 0; i < treeNode[id].children.length; i++){
+                            if (treeNode[id].children[i].summary === true) {
+                                treeNode[id].children[i].object = [];
+                                var objects =
+                                    this._getObjectsFromTree(treeNode[id].children, false);
+                                treeNode[id].children[i].object = objects;
+                            }
+                        }
                     }
                     if (treeNode[id].children && treeNode[id].open === true)
                         this.populateSummaries(treeNode[id].children);
@@ -1481,6 +1506,13 @@ enioka.ij = (
             set: function (propertyName, propertyValue) {
                 this[propertyName] = propertyValue;
                 return this;
+            },
+
+            get: function (propertyName) {
+                if (this[propertyName])
+                    return this[propertyName];
+                else
+                    return null;
             },
 
             //////////////////////////////////////
