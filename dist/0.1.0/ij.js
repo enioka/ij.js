@@ -1125,6 +1125,29 @@ enioka.ij = (
             /// GETTERS ///
             ///////////////
 
+            /**
+             * @function
+             * @description
+             */
+            getTreeNodeFromId: function(objectId, headerType, headerNode){
+                if (!headerNode) {
+                    if (headerType === "rowHeader")
+                        headerNode = this.rows.rendering;
+                    else
+                        headerNode = this.columns.rendering;
+                }
+                for (var id in headerNode) {
+                    if (headerNode[id].id === objectId)
+                        return headerNode[id];
+                    else if (headerNode[id].children !== undefined)
+                        return this.getTreeNodeFromId(objectId,
+                                                      headerType,
+                                                      headerNode[id].children);
+                }
+                console.log("Didn't the object with id : " + objectId);
+                return null;
+            },
+
             getHeaderType: function (headerNode) {
                 return headerNode.type;
             },
