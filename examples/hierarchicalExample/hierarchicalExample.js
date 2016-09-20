@@ -287,6 +287,178 @@ var Renderer = {
             var vtext = this.renderer.createElement("div",
                                                     ["vtext"]);
             var vtextInner = this.renderer.createElementWithText("div",
+                                                                 renderedColumn.label);
+            renderedColumn.rendering.textContent = "";
+            this.appendChild(vtext,
+                             vtextInner);
+            this.appendChild(renderedColumn.rendering,
+                             vtext);
+        }
+        renderedColumn.rendering = this.addEventsToRendering(renderedColumn.rendering,
+                                                             events);
+        return renderedColumn;
+    },
+
+    reRenderRow : function(renderedRow, events){
+        renderedRow.rendering = this.addEventsToRendering(renderedRow.rendering,
+                                                          events);
+        return renderedRow;
+    },
+
+    renderCell : function(rowsNumbers, columnsNumbers, cellData, eventsCallBacks){
+        var reset = false;
+        if (cellData && cellData.length > 0) {
+            var cell =  this.renderer.createElementWithText("td", cellData[0]);
+            cell.style.textAlign = "center";
+        }
+        else {
+            var cell = this.renderer.createElement("td");
+        }
+        cell = this.addEventsToRendering(cell,
+                                         eventsCallBacks);
+        for (var row in rowsNumbers){
+            this.renderer.addClasses(cell,
+                                     [this.template.getAttribute("rowHeader", "classPrefix") +
+                                      rowsNumbers[row]]);
+        }
+        for (var column in columnsNumbers){
+            this.renderer.addClasses(cell,
+                                     [this.template.getAttribute("columnHeader", "classPrefix") +
+                                      columnsNumbers[column]]);
+        }
+        return cell;
+    }
+};
+
+Renderer = Class.extend(DefaultHTMLRenderer, Renderer);
+
+//renderer 2
+
+var Renderer2 = {
+    initialize : function(){
+        this.renderer = new enioka.ij.HTMLRenderer();
+        this.template = new enioka.ij.HTMLTemplate();
+    },
+
+    renderRow : function(rowObject, rowNumber){
+        var rowArray = new Array(),
+            order,
+            open,
+            hidden;
+        rowArray.push(
+            this._createRenderedJSON(
+                "group",
+                null,
+                "group",
+                (order || 0),
+                this.renderer.addAttribute(
+                    this.renderer.createElementWithText("th",
+                                                        "group",
+                                                        "id",
+                                                        this.template.getAttribute("rowHeader","idPrefix") + "group")
+                ),
+                (open || true),
+                (hidden || true),
+                true
+            )
+        );
+        rowArray.push(
+            this._createRenderedJSON(
+                rowObject.substring(0,1),
+                null,
+                rowObject.substring(0,1),
+                (order || 0),
+                this.renderer.addAttribute(
+                    this.renderer.createElementWithText("th",
+                                                        rowObject.substring(0,1)),
+                    "id",
+                    this.template.getAttribute("rowHeader","idPrefix") + rowObject.substring(0,1)
+                ),
+                (open || true),
+                (hidden || true),
+                true
+            )
+        );
+        rowArray.push(
+            this._createRenderedJSON(
+                rowObject,
+                rowObject,
+                rowObject,
+                (order || 0),
+                this.renderer.addAttribute(
+                    this.renderer.createElementWithText("th", rowObject),
+                    "id",
+                    this.template.getAttribute("rowHeader","idPrefix") + rowNumber
+                ),
+                (open || true),
+                (hidden || true)
+            )
+        );
+        return rowArray;
+    },
+
+    renderColumn : function(columnObject, columnNumber) {
+        var columnArray = new Array(),
+            order,
+            open,
+            hidden;
+        columnArray.push(
+            this._createRenderedJSON(
+                "id" + "group",
+                undefined,
+                "group",
+                (order || 0),
+                this.renderer.addAttribute(
+                    this.renderer.createElementWithText("th",
+                                                        "group"),
+                    "id",
+                    this.template.getAttribute("columnHeader","idPrefix") + "group"
+                ),
+                (open || true),
+                (hidden || true),
+                true
+            )
+        );
+        columnArray.push(
+            this._createRenderedJSON(
+                columnObject.substring(0,1),
+                undefined,
+                columnObject.substring(0,1),
+                (order || 0),
+                this.renderer.addAttribute(
+                    this.renderer.createElementWithText("th",
+                                                        columnObject.substring(0,1)),
+                    "id",
+                    this.template.getAttribute("columnHeader","idPrefix") + columnObject.substring(0,1)
+                ),
+                (open || true),
+                (hidden || true),
+                true
+            )
+        );
+        columnArray.push(
+            this._createRenderedJSON(
+                columnObject,
+                columnObject,
+                columnObject,
+                (order || 0),
+                this.renderer.addAttribute(
+                    this.renderer.createElementWithText("th", columnObject),
+                    "id",
+                    this.template.getAttribute("columnHeader","idPrefix") + columnNumber
+                ),
+                (open || true),
+                (hidden || true)
+            )
+        );
+        return columnArray;
+    },
+
+    reRenderColumn : function(renderedColumn, events){
+        if (!renderedColumn.children) {
+            var vtext = this.renderer.createElement("div",
+                                                    ["vtext"]);
+            var vtextInner = this.renderer.createElementWithText("div",
                                                                  renderedColumn.label,
                                                                  ["vtext__inner"]);
             renderedColumn.rendering.textContent = "";
@@ -331,7 +503,7 @@ var Renderer = {
     }
 };
 
-Renderer = Class.extend(DefaultHTMLRenderer, Renderer);
+Renderer2 = Class.extend(DefaultHTMLRenderer, Renderer2);
 
 
 //
@@ -378,8 +550,8 @@ var Controller = {
                                                   "updateRenderer" : {
                                                       "label" : "Renderer : ",
                                                       "type" : "select",
-                                                      "options" : ["Renderer"],
-                                                      "values" : [Renderer],
+                                                      "options" : ["Renderer","Renderer2"],
+                                                      "values" : [Renderer,Renderer2],
                                                       "classes" : ["form-control"]
                                                   },
                                                   "updateDataProvider" : {
